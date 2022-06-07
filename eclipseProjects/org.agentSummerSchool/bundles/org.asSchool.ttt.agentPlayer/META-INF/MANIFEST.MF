@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tic Tac Toe - Agent Player Bundle
+Bundle-SymbolicName: org.asSchool.ttt.agentPlayer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: EnFlex.IT
+Automatic-Module-Name: org.asSchool.ttt.agentPlayer
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Service-Component: OSGI-INF/awbClassLoadService.xml
+Require-Bundle: org.agentgui.core,
+ de.enflexit.common,
+ org.agentgui.lib.jade,
+ org.asSchool.ttt.dataModel;bundle-version="1.0.0"
+Export-Package: org.asSchool.ttt.agentPlayer,
+ org.asSchool.ttt.agentPlayer.behaviour,
+ org.asSchool.ttt.agentPlayer.classLoadService
+Bundle-ActivationPolicy: lazy

@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tic Tac Toe Game Master
+Bundle-SymbolicName: org.asSchool.ttt.dataModel
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: EnFlex.IT
+Automatic-Module-Name: org.asSchool.ttt.dataModel
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Service-Component: OSGI-INF/awbClassLoadService.xml
+Require-Bundle: org.agentgui.core,
+ de.enflexit.common,
+ org.agentgui.lib.jade
+Export-Package: org.asSchool.ttt.dataModel,
+ org.asSchool.ttt.dataModel.classLoadService,
+ org.asSchool.ttt.dataModel.ontology
+Bundle-ActivationPolicy: lazy

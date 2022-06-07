@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tic Tac Toe User Interface Bundle
+Bundle-SymbolicName: org.asSchool.ttt.ui
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: EnFlex.IT
+Automatic-Module-Name: org.asSchool.ttt.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Service-Component: OSGI-INF/awbClassLoadService.xml
+Require-Bundle: org.agentgui.core,
+ de.enflexit.common,
+ org.agentgui.lib.jade,
+ org.asSchool.ttt.dataModel
+Export-Package: org.asSchool.ttt.ui,
+ org.asSchool.ttt.ui.classLoadService
+Bundle-ActivationPolicy: lazy

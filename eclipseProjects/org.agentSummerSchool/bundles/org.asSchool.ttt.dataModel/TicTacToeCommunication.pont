@@ -1,0 +1,169 @@
+; Wed Jun 08 16:20:54 CEST 2022
+; 
+;+ (version "3.3.1")
+;+ (build "Build 430")
+
+
+(defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
+	(is-a USER)
+	(role abstract)
+	(single-slot TicTacToeCommunication_Slot_3
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot loser
+		(type INSTANCE)
+;+		(allowed-classes AgentPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot agentPlayer
+		(type INSTANCE)
+;+		(allowed-classes AgentPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot winner
+		(type INSTANCE)
+;+		(allowed-classes AgentPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot name_
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot score
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot markType
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRound
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot gameMatrix
+		(type INTEGER)
+		(create-accessor read-write))
+	(single-slot gameField
+		(type INSTANCE)
+;+		(allowed-classes GameFieldClass)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameID
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameResult
+		(type INSTANCE)
+;+		(allowed-classes GameResult)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass Concept
+	(is-a USER)
+	(role abstract))
+
+(defclass AgentAction
+	(is-a Concept)
+	(role abstract))
+
+(defclass GameFieldInteraction
+	(is-a AgentAction)
+	(role abstract)
+	(single-slot gameField
+		(type INSTANCE)
+;+		(allowed-classes GameFieldClass)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass GetGameField
+	(is-a GameFieldInteraction)
+	(role concrete))
+
+(defclass PutGameField
+	(is-a GameFieldInteraction)
+	(role concrete))
+
+(defclass RegisterInteraction
+	(is-a AgentAction)
+	(role abstract)
+	(single-slot agentPlayer
+		(type INSTANCE)
+;+		(allowed-classes AgentPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass Register
+	(is-a RegisterInteraction)
+	(role concrete))
+
+(defclass RegisterAnswer
+	(is-a RegisterInteraction)
+	(role concrete))
+
+(defclass GameResultInteraction
+	(is-a AgentAction)
+	(role concrete)
+	(single-slot gameResult
+		(type INSTANCE)
+;+		(allowed-classes GameResult)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass Game
+	(is-a Concept)
+	(role abstract)
+	(single-slot gameID
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRound
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass GameFieldClass
+	(is-a Game)
+	(role concrete)
+	(multislot gameMatrix
+		(type INTEGER)
+		(create-accessor read-write)))
+
+(defclass GameResult
+	(is-a Game)
+	(role concrete)
+	(single-slot loser
+		(type INSTANCE)
+;+		(allowed-classes AgentPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot winner
+		(type INSTANCE)
+;+		(allowed-classes AgentPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass Player
+	(is-a Concept)
+	(role abstract)
+	(single-slot score
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot name_
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot markType
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass AgentPlayer "Either Cross, Circle or None"
+	(is-a Player)
+	(role concrete))
+
+(defclass HumanPlayer
+	(is-a Player)
+	(role concrete))

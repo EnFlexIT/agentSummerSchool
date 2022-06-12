@@ -284,11 +284,11 @@
         <setEntry value="de.enflexit.oidc@default:default"/>
         <setEntry value="org.agentgui.core@default:default"/>
         <setEntry value="org.agentgui.lib.jade@default:default"/>
-        <setEntry value="org.asSchool.ttt.agentPlayer"/>
-        <setEntry value="org.asSchool.ttt.dataModel"/>
-        <setEntry value="org.asSchool.ttt.gameMaster"/>
-        <setEntry value="org.asSchool.ttt.humanPlayer"/>
-        <setEntry value="org.asSchool.ttt.ui"/>
+        <setEntry value="org.asSchool.ttt.agentPlayer@default:default"/>
+        <setEntry value="org.asSchool.ttt.dataModel@default:default"/>
+        <setEntry value="org.asSchool.ttt.gameMaster@default:default"/>
+        <setEntry value="org.asSchool.ttt.humanPlayer@default:default"/>
+        <setEntry value="org.asSchool.ttt.ui@default:default"/>
     </setAttribute>
     <booleanAttribute key="show_selected_only" value="false"/>
     <booleanAttribute key="tracing" value="false"/>

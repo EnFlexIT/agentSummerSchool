@@ -14,7 +14,7 @@
         <agentVector/>
     </agentStartConfiguration>
     <jadeConfiguration>
-        <skipUserRequestForJadeStart>false</skipUserRequestForJadeStart>
+        <skipUserRequestForJadeStart>true</skipUserRequestForJadeStart>
         <useLocalPort>1099</useLocalPort>
         <useLocalMtpPort>7778</useLocalMtpPort>
         <mtpCreation>ConfiguredByJADE</mtpCreation>
@@ -30,7 +30,7 @@
     <distributionSetup>
         <autoSaveRealMetricsOnSimStop>false</autoSaveRealMetricsOnSimStop>
         <doDynamicLoadBalancing>false</doDynamicLoadBalancing>
-        <doStaticLoadBalancing>true</doStaticLoadBalancing>
+        <doStaticLoadBalancing>false</doStaticLoadBalancing>
         <dynamicLoadBalancingClass>agentgui.simulationService.balancing.DynamicLoadBalancing</dynamicLoadBalancingClass>
         <evenDistribution>false</evenDistribution>
         <immediatelyStartLoadRecording>false</immediatelyStartLoadRecording>
@@ -38,8 +38,8 @@
         <numberOfAgents>0</numberOfAgents>
         <numberOfContainer>0</numberOfContainer>
         <remoteOnly>true</remoteOnly>
-        <showLoadMonitorAtPlatformStart>true</showLoadMonitorAtPlatformStart>
-        <showThreadMonitorAtPlatformStart>true</showThreadMonitorAtPlatformStart>
+        <showLoadMonitorAtPlatformStart>false</showLoadMonitorAtPlatformStart>
+        <showThreadMonitorAtPlatformStart>false</showThreadMonitorAtPlatformStart>
         <staticLoadBalancingClass>agentgui.simulationService.balancing.PredictiveStaticLoadBalancing</staticLoadBalancingClass>
         <useUserThresholds>true</useUserThresholds>
         <userThresholds>
@@ -52,6 +52,72 @@
         </userThresholds>
     </distributionSetup>
     <agentClassLoadMetricsTable>
+        <agentClassMetricDescriptionVector>
+            <agentClass>
+                <className>system.class.-Regular-Thread-</className>
+                <realMetric>1.0</realMetric>
+                <realMetricAverage>NaN</realMetricAverage>
+                <realMetricMax>NaN</realMetricMax>
+                <realMetricMin>NaN</realMetricMin>
+                <userPredictedMetric>1.0</userPredictedMetric>
+            </agentClass>
+            <agentClass>
+                <className>agentgui.simulationService.agents.ServerClientAgent</className>
+                <realMetric>1.0</realMetric>
+                <realMetricAverage>NaN</realMetricAverage>
+                <realMetricMax>NaN</realMetricMax>
+                <realMetricMin>NaN</realMetricMin>
+                <userPredictedMetric>1.0</userPredictedMetric>
+            </agentClass>
+            <agentClass>
+                <className>jade.domain.df</className>
+                <realMetric>1.0</realMetric>
+                <realMetricAverage>NaN</realMetricAverage>
+                <realMetricMax>NaN</realMetricMax>
+                <realMetricMin>NaN</realMetricMin>
+                <userPredictedMetric>1.0</userPredictedMetric>
+            </agentClass>
+            <agentClass>
+                <className>agentgui.simulationService.agents.LoadMeasureAgent</className>
+                <realMetric>1.0</realMetric>
+                <realMetricAverage>NaN</realMetricAverage>
+                <realMetricMax>NaN</realMetricMax>
+                <realMetricMin>NaN</realMetricMin>
+                <userPredictedMetric>1.0</userPredictedMetric>
+            </agentClass>
+            <agentClass>
+                <className>org.asSchool.ttt.humanPlayer.HumanPlayerAgent</className>
+                <realMetric>1.0</realMetric>
+                <realMetricAverage>NaN</realMetricAverage>
+                <realMetricMax>NaN</realMetricMax>
+                <realMetricMin>NaN</realMetricMin>
+                <userPredictedMetric>1.0</userPredictedMetric>
+            </agentClass>
+            <agentClass>
+                <className>agentgui.core.jade.ProjectFileManagerAgent</className>
+                <realMetric>1.0</realMetric>
+                <realMetricAverage>NaN</realMetricAverage>
+                <realMetricMax>NaN</realMetricMax>
+                <realMetricMin>NaN</realMetricMin>
+                <userPredictedMetric>1.0</userPredictedMetric>
+            </agentClass>
+            <agentClass>
+                <className>jade.domain.ams</className>
+                <realMetric>1.0</realMetric>
+                <realMetricAverage>NaN</realMetricAverage>
+                <realMetricMax>NaN</realMetricMax>
+                <realMetricMin>NaN</realMetricMin>
+                <userPredictedMetric>1.0</userPredictedMetric>
+            </agentClass>
+            <agentClass>
+                <className>jade.core.ContainerMonitorAgent</className>
+                <realMetric>1.0</realMetric>
+                <realMetricAverage>NaN</realMetricAverage>
+                <realMetricMax>NaN</realMetricMax>
+                <realMetricMin>NaN</realMetricMin>
+                <userPredictedMetric>1.0</userPredictedMetric>
+            </agentClass>
+        </agentClassMetricDescriptionVector>
         <useRealLoadMetric>false</useRealLoadMetric>
     </agentClassLoadMetricsTable>
     <remoteContainerConfiguration>
@@ -60,11 +126,15 @@
         <preventUsageOfAlreadyUsedComputers>true</preventUsageOfAlreadyUsedComputers>
         <showJADErmaGUI>false</showJADErmaGUI>
     </remoteContainerConfiguration>
-    <simulationSetupCurrent>default</simulationSetupCurrent>
+    <simulationSetupCurrent>UI-Development</simulationSetupCurrent>
     <simulationSetups>
         <entry>
-            <key>default</key>
-            <value>default.xml</value>
+            <key>RegularGameMode</key>
+            <value>RegularGameMode.xml</value>
+        </entry>
+        <entry>
+            <key>UI-Development</key>
+            <value>UI-Development.xml</value>
         </entry>
     </simulationSetups>
 </project>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<simulationSetup>
+    <agentSetup>
+        <agent>
+            <postionNo>1</postionNo>
+            <listMembership>01 AgentStartManual</listMembership>
+            <agentClassReference>org.asSchool.ttt.gameMaster.GameMasterAgent</agentClassReference>
+            <startAsName>GaMaAg</startAsName>
+        </agent>
+        <agent>
+            <postionNo>2</postionNo>
+            <listMembership>01 AgentStartManual</listMembership>
+            <agentClassReference>org.asSchool.ttt.humanPlayer.HumanPlayerAgent</agentClassReference>
+            <startAsName>HuPlAg</startAsName>
+        </agent>
+    </agentSetup>
+</simulationSetup>

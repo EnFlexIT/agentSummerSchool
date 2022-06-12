@@ -6,9 +6,15 @@ import java.awt.Toolkit;
 
 import javax.swing.JDialog;
 
-import agentgui.core.config.GlobalInfo;
-import jade.core.AID;
+import org.asSchool.ttt.dataModel.ontology.Game;
 
+import agentgui.core.config.GlobalInfo;
+
+/**
+ * The Class JDialogGameBoard.
+ *
+ * @author Christian Derksen - SOFTEC - ICB - University of Duisburg-Essen
+ */
 public class JDialogGameBoard extends JDialog {
 
 	private static final long serialVersionUID = -1370825022427391067L;
@@ -52,13 +58,18 @@ public class JDialogGameBoard extends JDialog {
 	// ------------------------------------------------------------------------
 	
 	/**
-	 * Sets the specified player.
-	 *
-	 * @param playerAID the player AID
-	 * @param playerNo the player no
+	 * Sets the game.
+	 * @param game the new game
 	 */
-	public void setPlayer(AID playerAID, int playerNo) {
-		this.getJPanelGameBoard().setPlayer(playerAID, playerNo);
+	public void setGame(Game game) {
+		this.getJPanelGameBoard().setGame(game);;
+	}
+	/**
+	 * Returns the current game.
+	 * @return the game
+	 */
+	public Game getGame() {
+		return this.getJPanelGameBoard().getGame();
 	}
 	
 }

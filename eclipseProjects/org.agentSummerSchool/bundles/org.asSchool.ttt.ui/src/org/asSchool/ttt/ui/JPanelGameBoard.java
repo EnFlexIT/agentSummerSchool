@@ -1,20 +1,25 @@
 package org.asSchool.ttt.ui;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import javax.swing.JPanel;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import javax.swing.JSeparator;
-
-import jade.core.AID;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+
+import org.asSchool.ttt.dataModel.ontology.AbstractMarkType;
+import org.asSchool.ttt.dataModel.ontology.Circle;
+import org.asSchool.ttt.dataModel.ontology.Cross;
+import org.asSchool.ttt.dataModel.ontology.Game;
+import org.asSchool.ttt.dataModel.ontology.GameBoard;
+
+import jade.core.AID;
 
 /**
  * The Class JPanelGameBoard.
@@ -28,6 +33,8 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	private static final Color COLOR_BACKGROUND = Color.WHITE;
 	private static final Color COLOR_PLAYER_ONE = new Color(0, 0, 205);
 	private static final Color COLOR_PLAYER_TWO = new Color(210, 105, 30);
+	
+	private Game game;
 	
 	private JPanelPlayer jPanelPlayer1;
 	private JPanelPlayer jPanelPlayer2;
@@ -45,7 +52,6 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		private JButton jButton32;
 		private JButton jButton33;
 	
-		
 		
 	/**
 	 * Instantiates a new JPanelGameBoard.
@@ -270,7 +276,6 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	 * Adds the local action listener to all JButtons.
 	 */
 	private void addActionListener() {
-		
 		for (int i = 0; i < this.getJPanelPlayGround().getComponentCount(); i++) {
 			Component comp =  this.getJPanelPlayGround().getComponent(i);
 			if (comp instanceof JButton) {
@@ -278,19 +283,36 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 			}
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(ActionEvent ae) {
 
-		if (ae.getSource() instanceof JButton) {
-			JButton jButtonPressed = (JButton) ae.getSource();
-			System.out.println("Pressed button " + jButtonPressed.getActionCommand());
-		}
+	
+	// ----------------------------------------------------------------------------------	
+	// --- From here, methods to apply the Game instance to the visualization -----------
+	// ----------------------------------------------------------------------------------
+	/**
+	 * Sets the game.
+	 * @param game the new game
+	 */
+	public void setGame(Game game) {
+		this.game = game;
+		this.updateView();
+	}
+	/**
+	 * Returns the current game.
+	 * @return the game
+	 */
+	public Game getGame() {
+		return game;
 	}
 	
+	/**
+	 * Update view.
+	 */
+	private void updateView() {
+		
+		this.setPlayer(this.getGame().getXMarkPlayer().getAid(), 1);
+		this.setPlayer(this.getGame().getOMarkPlayer().getAid(), 2);
+		this.setGameBoard(this.getGame().getGameBoard());
+	}
 	/**
 	 * Sets the player.
 	 *
@@ -304,6 +326,84 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 			this.getJPanelPlayer2().setPlayer(playerAID);
 		}
 	}
+	/**
+	 * Sets the game board.
+	 * @param gameBoard the new game board
+	 */
+	private void setGameBoard(GameBoard gameBoard) {
+		
+		this.setGameBoard("11", gameBoard.getGameRow1().getColumn1());
+		this.setGameBoard("12", gameBoard.getGameRow1().getColumn2());
+		this.setGameBoard("13", gameBoard.getGameRow1().getColumn3());
+		
+		this.setGameBoard("21", gameBoard.getGameRow2().getColumn1());
+		this.setGameBoard("22", gameBoard.getGameRow2().getColumn2());
+		this.setGameBoard("23", gameBoard.getGameRow2().getColumn3());
+		
+		this.setGameBoard("31", gameBoard.getGameRow3().getColumn1());
+		this.setGameBoard("32", gameBoard.getGameRow3().getColumn2());
+		this.setGameBoard("33", gameBoard.getGameRow3().getColumn3());
+	}
+
+	/**
+	 * Sets the game field.
+	 *
+	 * @param actionCommand the action command
+	 * @param markType the mark type
+	 */
+	private void setGameBoard(String actionCommand, AbstractMarkType markType) {
+		
+		JButton jButton = this.getJButtonByActionCommand(actionCommand);
+		if (jButton!=null) {
+			// --- Set the specified mark to the gameField button -------------
+			if (markType instanceof Circle) {
+				// --- Set a circle -------------------------------------------
+				jButton.setIcon(BundleHelper.getImageIcon("Circle.png"));
+				
+			} else if (markType instanceof Cross) {
+				// --- Set a cross --------------------------------------------
+				jButton.setIcon(BundleHelper.getImageIcon("Cross.png"));
+				
+			} else {
+				// --- Set an empty image -------------------------------------
+				jButton.setIcon(null);
+				
+			}
+		}
+	}
 	
+	/**
+	 * Return the JButton that uses the specified action command.
+	 *
+	 * @param actionCommand the action command
+	 * @return the j button by action command
+	 */
+	private JButton getJButtonByActionCommand(String actionCommand) {
+		
+		for (int i = 0; i < this.getJPanelPlayGround().getComponentCount(); i++) {
+			Component comp =  this.getJPanelPlayGround().getComponent(i);
+			if (comp instanceof JButton) {
+				JButton jButtonCheck = ((JButton) comp);
+				if (jButtonCheck.getActionCommand().equals(actionCommand)==true) {
+					return jButtonCheck;
+				}
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+
+		if (ae.getSource() instanceof JButton) {
+			JButton jButtonPressed = (JButton) ae.getSource();
+			System.out.println("Pressed button " + jButtonPressed.getActionCommand());
+		}
+	}
 	
 }

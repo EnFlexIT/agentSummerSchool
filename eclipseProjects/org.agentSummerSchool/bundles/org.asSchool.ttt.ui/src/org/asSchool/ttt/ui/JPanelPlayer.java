@@ -84,7 +84,8 @@ public class JPanelPlayer extends JPanel {
 
 	private JLabel getJLabelPlayer() {
 		if (jLabelPlayer == null) {
-			jLabelPlayer = new JLabel("Player " + this.playerNumber + ":");
+			jLabelPlayer = new JLabel("P" + this.playerNumber + ":");
+			jLabelPlayer.setToolTipText("Player " + this.playerNumber + ":");
 			jLabelPlayer.setFont(new Font("Dialog", Font.BOLD, 12));
 			jLabelPlayer.setForeground(this.foregroundColor);
 		}
@@ -118,7 +119,9 @@ public class JPanelPlayer extends JPanel {
 	public void setPlayer(AID aidPlayer) {
 		if (aidPlayer!=null) {
 			this.getJLabelPlayerText().setText(aidPlayer.getLocalName());
+			this.getJLabelPlayerText().setToolTipText(aidPlayer.getLocalName());
 			this.getJLabelPlayerAIDText().setText(aidPlayer.getName());
+			this.getJLabelPlayerAIDText().setToolTipText(aidPlayer.getName());
 		}
 	}
 	

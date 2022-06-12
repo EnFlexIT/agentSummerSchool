@@ -1,4 +1,4 @@
-; Wed Jun 08 16:20:54 CEST 2022
+; Mon Jun 13 01:04:47 CEST 2022
 ; 
 ;+ (version "3.3.1")
 ;+ (build "Build 430")
@@ -7,13 +7,78 @@
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
-	(single-slot TicTacToeCommunication_Slot_3
+	(single-slot xMarkPlayer
+		(type INSTANCE)
+;+		(allowed-classes AbstracttPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot column2
+		(type INSTANCE)
+;+		(allowed-classes AbstractMarkType)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot gameMoveHistory
+		(type INSTANCE)
+;+		(allowed-classes GameMove)
+		(create-accessor read-write))
+	(single-slot gameColumn
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameField
+		(type INSTANCE)
+;+		(allowed-classes Game)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot column3
+		(type INSTANCE)
+;+		(allowed-classes AbstractMarkType)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRow
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot markType
+		(type INSTANCE)
+;+		(allowed-classes AbstractMarkType)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRound
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRow3
+		(type INSTANCE)
+;+		(allowed-classes GameRow)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameID
 		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot loser
 		(type INSTANCE)
-;+		(allowed-classes AgentPlayer)
+;+		(allowed-classes AbstracttPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameBoard
+		(type INSTANCE)
+;+		(allowed-classes GameBoard)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRow1
+		(type INSTANCE)
+;+		(allowed-classes GameRow)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot score
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot oMarkPlayer
+		(type INSTANCE)
+;+		(allowed-classes AbstracttPlayer)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot agentPlayer
@@ -21,59 +86,38 @@
 ;+		(allowed-classes AgentPlayer)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot winner
+	(single-slot gameRow2
 		(type INSTANCE)
-;+		(allowed-classes AgentPlayer)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot name_
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot score
-		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot markType
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot gameRound
-		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(multislot gameMatrix
-		(type INTEGER)
-		(create-accessor read-write))
-	(single-slot gameField
-		(type INSTANCE)
-;+		(allowed-classes GameFieldClass)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot gameID
-		(type INTEGER)
+;+		(allowed-classes GameRow)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot gameResult
 		(type INSTANCE)
 ;+		(allowed-classes GameResult)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot winner
+		(type INSTANCE)
+;+		(allowed-classes AbstracttPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot aid
+		(type INSTANCE)
+;+		(allowed-classes AID)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot column1
+		(type INSTANCE)
+;+		(allowed-classes AbstractMarkType)
+;+		(cardinality 0 1)
 		(create-accessor read-write)))
-
-(defclass Concept
-	(is-a USER)
-	(role abstract))
-
-(defclass AgentAction
-	(is-a Concept)
-	(role abstract))
 
 (defclass GameFieldInteraction
 	(is-a AgentAction)
 	(role abstract)
 	(single-slot gameField
 		(type INSTANCE)
-;+		(allowed-classes GameFieldClass)
+;+		(allowed-classes Game)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
@@ -111,59 +155,135 @@
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
-(defclass Game
+(defclass AbstractGameConcepts
 	(is-a Concept)
 	(role abstract)
 	(single-slot gameID
 		(type INTEGER)
 ;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot gameRound
-		(type INTEGER)
-;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
-(defclass GameFieldClass
-	(is-a Game)
+(defclass Game
+	(is-a AbstractGameConcepts)
 	(role concrete)
-	(multislot gameMatrix
-		(type INTEGER)
+	(single-slot gameBoard
+		(type INSTANCE)
+;+		(allowed-classes GameBoard)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot xMarkPlayer
+		(type INSTANCE)
+;+		(allowed-classes AbstracttPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot gameMoveHistory
+		(type INSTANCE)
+;+		(allowed-classes GameMove)
+		(create-accessor read-write))
+	(single-slot oMarkPlayer
+		(type INSTANCE)
+;+		(allowed-classes AbstracttPlayer)
+;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
 (defclass GameResult
-	(is-a Game)
+	(is-a AbstractGameConcepts)
 	(role concrete)
-	(single-slot loser
-		(type INSTANCE)
-;+		(allowed-classes AgentPlayer)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(single-slot winner
 		(type INSTANCE)
-;+		(allowed-classes AgentPlayer)
+;+		(allowed-classes AbstracttPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot loser
+		(type INSTANCE)
+;+		(allowed-classes AbstracttPlayer)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
-(defclass Player
+(defclass AbstractMarkType
 	(is-a Concept)
-	(role abstract)
-	(single-slot score
+	(role abstract))
+
+(defclass Cross
+	(is-a AbstractMarkType)
+	(role concrete))
+
+(defclass Circle
+	(is-a AbstractMarkType)
+	(role concrete))
+
+(defclass GameBoard
+	(is-a Concept)
+	(role concrete)
+	(single-slot gameRow2
+		(type INSTANCE)
+;+		(allowed-classes GameRow)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRow1
+		(type INSTANCE)
+;+		(allowed-classes GameRow)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRow3
+		(type INSTANCE)
+;+		(allowed-classes GameRow)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass GameRow
+	(is-a Concept)
+	(role concrete)
+	(single-slot column2
+		(type INSTANCE)
+;+		(allowed-classes AbstractMarkType)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot column3
+		(type INSTANCE)
+;+		(allowed-classes AbstractMarkType)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot column1
+		(type INSTANCE)
+;+		(allowed-classes AbstractMarkType)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass GameMove
+	(is-a Concept)
+	(role concrete)
+	(single-slot gameRow
 		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot name_
-		(type STRING)
+	(single-slot markType
+		(type INSTANCE)
+;+		(allowed-classes AbstractMarkType)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot markType
-		(type STRING)
+	(single-slot gameColumn
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
+(defclass AbstracttPlayer
+	(is-a Concept)
+	(role abstract)
+	(single-slot aid
+		(type INSTANCE)
+;+		(allowed-classes AID)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot score
+		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
 (defclass AgentPlayer "Either Cross, Circle or None"
-	(is-a Player)
+	(is-a AbstracttPlayer)
 	(role concrete))
 
 (defclass HumanPlayer
-	(is-a Player)
+	(is-a AbstracttPlayer)
 	(role concrete))

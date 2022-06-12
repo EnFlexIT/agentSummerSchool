@@ -275,6 +275,7 @@
     </setAttribute>
     <setAttribute key="selected_workspace_bundles">
         <setEntry value="de.enflexit.api@default:default"/>
+        <setEntry value="de.enflexit.awb.ws.swagger1x@default:default"/>
         <setEntry value="de.enflexit.common@default:default"/>
         <setEntry value="de.enflexit.db.hibernate@default:default"/>
         <setEntry value="de.enflexit.db.mariaDB@default:default"/>

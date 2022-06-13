@@ -5,10 +5,14 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -52,6 +56,10 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		private JButton jButton32;
 		private JButton jButton33;
 	
+
+	private ImageIcon imageIconCircle;
+	private ImageIcon imageIconCross;
+	
 		
 	/**
 	 * Instantiates a new JPanelGameBoard.
@@ -59,6 +67,7 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	public JPanelGameBoard() {
 		this.initialize();
 		this.addActionListener();
+		this.addResizeListener();
 	}
 	private void initialize() {
 		
@@ -283,7 +292,18 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 			}
 		}
 	}
-
+	/**
+	 * Adds the resize listener.
+	 */
+	private void addResizeListener() {
+		
+		this.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent ce) {
+				JPanelGameBoard.this.updateView();
+			}
+		});
+	}
 	
 	// ----------------------------------------------------------------------------------	
 	// --- From here, methods to apply the Game instance to the visualization -----------
@@ -345,6 +365,29 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		this.setGameBoard("33", gameBoard.getGameRow3().getColumn3());
 	}
 
+	private ImageIcon getImageIconCircle() {
+		if (imageIconCircle==null) {
+			imageIconCircle = BundleHelper.getImageIcon("Circle.png");
+		}
+		return imageIconCircle;
+	}
+	private ImageIcon getImageIconCircle(int imageSize) {
+		if (imageSize<=0) return this.getImageIconCircle();
+		Image newimg = this.getImageIconCircle().getImage().getScaledInstance(imageSize, imageSize, java.awt.Image.SCALE_SMOOTH);
+		return new ImageIcon(newimg);
+	}
+	private ImageIcon getImageIconCross() {
+		if (imageIconCross==null) {
+			imageIconCross = BundleHelper.getImageIcon("Cross.png");
+		}
+		return imageIconCross;
+	}
+	private ImageIcon getImageIconCross(int imageSize) {
+		if (imageSize<=0) return this.getImageIconCross();
+		Image newimg = this.getImageIconCross().getImage().getScaledInstance(imageSize, imageSize, java.awt.Image.SCALE_SMOOTH);
+		return new ImageIcon(newimg);
+	}
+	
 	/**
 	 * Sets the game field.
 	 *
@@ -355,14 +398,16 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		
 		JButton jButton = this.getJButtonByActionCommand(actionCommand);
 		if (jButton!=null) {
+			// --- Get the required image size --------------------------------
+			int imageSize = Math.min(jButton.getWidth(), jButton.getHeight()) - 10;
 			// --- Set the specified mark to the gameField button -------------
 			if (markType instanceof Circle) {
 				// --- Set a circle -------------------------------------------
-				jButton.setIcon(BundleHelper.getImageIcon("Circle.png"));
+				jButton.setIcon(this.getImageIconCircle(imageSize));
 				
 			} else if (markType instanceof Cross) {
 				// --- Set a cross --------------------------------------------
-				jButton.setIcon(BundleHelper.getImageIcon("Cross.png"));
+				jButton.setIcon(this.getImageIconCross(imageSize));
 				
 			} else {
 				// --- Set an empty image -------------------------------------

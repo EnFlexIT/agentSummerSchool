@@ -3,6 +3,7 @@ package org.asSchool.ttt.ui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -11,13 +12,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
+import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.ontology.AbstractMarkType;
+import org.asSchool.ttt.dataModel.ontology.AbstracttPlayer;
 import org.asSchool.ttt.dataModel.ontology.Circle;
 import org.asSchool.ttt.dataModel.ontology.Cross;
 import org.asSchool.ttt.dataModel.ontology.Game;
@@ -35,13 +39,16 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 7014257835525864282L;
 
 	private static final Color COLOR_BACKGROUND = Color.WHITE;
-	private static final Color COLOR_PLAYER_ONE = new Color(0, 0, 205);
-	private static final Color COLOR_PLAYER_TWO = new Color(210, 105, 30);
+	private static final Color COLOR_PLAYER_ONE_X = new Color(210, 105, 30);
+	private static final Color COLOR_PLAYER_TWO_O = new Color(0, 0, 205);
 	
-	private Game game;
+	private AID parentAgent;
+	private GameBoardListener gameBoardListener;
+	private GameWrapper gameWrapper;
+
 	
-	private JPanelPlayer jPanelPlayer1;
-	private JPanelPlayer jPanelPlayer2;
+	private JPanelPlayer jPanelPlayer1X;
+	private JPanelPlayer jPanelPlayer2O;
 	
 	private JSeparator separator;
 	
@@ -58,16 +65,23 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	
 
 	private ImageIcon imageIconCircle;
+	private int imageSizeCircle;
+	private ImageIcon imageIconCircleScaled;
+
 	private ImageIcon imageIconCross;
+	private int imageSizeCross;
+	private ImageIcon imageIconCrossScaled;
 	
-		
+	
 	/**
 	 * Instantiates a new JPanelGameBoard.
+	 * @param parentAgent the AID of the parent agent
 	 */
-	public JPanelGameBoard() {
+	public JPanelGameBoard(AID parentAgent) {
+		this.parentAgent = parentAgent;
 		this.initialize();
-		this.addActionListener();
 		this.addResizeListener();
+		this.addActionListener();
 	}
 	private void initialize() {
 		
@@ -86,14 +100,14 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		gbc_jPanelPlayer1.insets = new Insets(10, 10, 0, 5);
 		gbc_jPanelPlayer1.gridx = 0;
 		gbc_jPanelPlayer1.gridy = 0;
-		add(getJPanelPlayer1(), gbc_jPanelPlayer1);
+		add(getJPanelPlayer1X(), gbc_jPanelPlayer1);
 		GridBagConstraints gbc_jPanelPlayer2 = new GridBagConstraints();
 		gbc_jPanelPlayer2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jPanelPlayer2.anchor = GridBagConstraints.NORTH;
 		gbc_jPanelPlayer2.insets = new Insets(10, 5, 0, 10);
 		gbc_jPanelPlayer2.gridx = 1;
 		gbc_jPanelPlayer2.gridy = 0;
-		add(getJPanelPlayer2(), gbc_jPanelPlayer2);
+		add(getJPanelPlayer2O(), gbc_jPanelPlayer2);
 		GridBagConstraints gbc_separator = new GridBagConstraints();
 		gbc_separator.fill = GridBagConstraints.HORIZONTAL;
 		gbc_separator.gridwidth = 2;
@@ -110,21 +124,21 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		add(getJPanelPlayGround(), gbc_jPanelPlayGround);
 	}
 	 
-	private JPanelPlayer getJPanelPlayer1() {
-		if (jPanelPlayer1 == null) {
-			jPanelPlayer1 = new JPanelPlayer(1, COLOR_PLAYER_ONE);
-			jPanelPlayer1.setBackground(COLOR_BACKGROUND);
-			jPanelPlayer1.setPreferredSize(new Dimension(200, 45));
+	private JPanelPlayer getJPanelPlayer1X() {
+		if (jPanelPlayer1X == null) {
+			jPanelPlayer1X = new JPanelPlayer(1, COLOR_PLAYER_ONE_X);
+			jPanelPlayer1X.setBackground(COLOR_BACKGROUND);
+			jPanelPlayer1X.setPreferredSize(new Dimension(200, 45));
 		}
-		return jPanelPlayer1;
+		return jPanelPlayer1X;
 	}
-	private JPanelPlayer getJPanelPlayer2() {
-		if (jPanelPlayer2 == null) {
-			jPanelPlayer2 = new JPanelPlayer(2, COLOR_PLAYER_TWO);
-			jPanelPlayer2.setBackground(COLOR_BACKGROUND);
-			jPanelPlayer2.setPreferredSize(new Dimension(200, 45));
+	private JPanelPlayer getJPanelPlayer2O() {
+		if (jPanelPlayer2O == null) {
+			jPanelPlayer2O = new JPanelPlayer(2, COLOR_PLAYER_TWO_O);
+			jPanelPlayer2O.setBackground(COLOR_BACKGROUND);
+			jPanelPlayer2O.setPreferredSize(new Dimension(200, 45));
 		}
-		return jPanelPlayer2;
+		return jPanelPlayer2O;
 	}
 	private JSeparator getSeparator() {
 		if (separator == null) {
@@ -293,27 +307,119 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		}
 	}
 	/**
-	 * Adds the resize listener.
+	 * Adds the local resize listener.
 	 */
 	private void addResizeListener() {
-		
 		this.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent ce) {
-				JPanelGameBoard.this.updateView();
+				JPanelGameBoard.this.updateGameBoard();
 			}
 		});
+	}
+	
+	/**
+	 * Sets the game board listener that has to react on changes in the game board (normally an agent).
+	 * @param gameBoardListener the new game board listener
+	 */
+	public void setGameBoardListener(GameBoardListener gameBoardListener) {
+		this.gameBoardListener = gameBoardListener;
+	}
+	
+	// ----------------------------------------------------------------------------------	
+	// --- From here, methods for image handling ----------------------------------------
+	// ----------------------------------------------------------------------------------
+	private ImageIcon getImageIconCross() {
+		if (imageIconCross==null) {
+			imageIconCross = BundleHelper.getImageIcon("Cross.png");
+			BufferedImage bi = this.convertToBufferedImage(imageIconCross.getImage());
+			this.exchangeColor(bi, Color.WHITE, COLOR_PLAYER_ONE_X);
+			imageIconCross = new ImageIcon(bi);
+		}
+		return imageIconCross;
+	}
+	private ImageIcon getImageIconCross(int imageSize) {
+		if (imageSize<=0) return this.getImageIconCross();
+		if (imageSize!=this.imageSizeCross || this.imageIconCrossScaled==null) {
+			Image newimg = this.getImageIconCross().getImage().getScaledInstance(imageSize, imageSize, java.awt.Image.SCALE_SMOOTH);
+			this.imageIconCrossScaled = new ImageIcon(newimg);
+			this.imageSizeCross = imageSize;
+		}
+		return this.imageIconCrossScaled;
+	}
+	private ImageIcon getImageIconCircle() {
+		if (imageIconCircle==null) {
+			imageIconCircle = BundleHelper.getImageIcon("Circle.png");
+			BufferedImage bi = this.convertToBufferedImage(imageIconCircle.getImage());
+			this.exchangeColor(bi, Color.WHITE, COLOR_PLAYER_TWO_O);
+			imageIconCircle = new ImageIcon(bi);
+		}
+		return imageIconCircle;
+	}
+	private ImageIcon getImageIconCircle(int imageSize) {
+		if (imageSize<=0) return this.getImageIconCircle();
+		if (imageSize!=this.imageSizeCircle || this.imageIconCircleScaled==null) {
+			Image newimg = this.getImageIconCircle().getImage().getScaledInstance(imageSize, imageSize, java.awt.Image.SCALE_SMOOTH);
+			this.imageIconCircleScaled = new ImageIcon(newimg);
+			this.imageSizeCircle = imageSize;
+		}
+		return this.imageIconCircleScaled;
+	}
+	
+	/**
+	 * Converts an {@link Image} into a {@link BufferedImage}.
+	 * @param image the image to convert
+	 * @return the converted buffered image
+	 */
+	private BufferedImage convertToBufferedImage(Image image) {
+		
+		// --- Is a buffered image already? -----------------------------------
+		if (image instanceof BufferedImage) return (BufferedImage) image;
+		
+		// --- Create a BufferedImage -----------------------------------------
+		BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = bufferedImage.createGraphics();
+		g2d.drawImage(image, 0, 0, null);
+		g2d.dispose();
+		return bufferedImage;
+	}
+	/**
+	 * Replaces a specified color with another one in the specified image instance.
+	 * @param image    The image
+	 * @param oldColor The color that will be replaced
+	 * @param newColor The new color
+	 * @return The image
+	 */
+	private void exchangeColor(BufferedImage image, Color oldColor, Color newColor) {
+		for (int x = 0; x < image.getWidth(); x++) {
+			for (int y = 0; y < image.getHeight(); y++) {
+				Color currentColor = new Color(image.getRGB(x, y));
+				if (currentColor.equals(oldColor)) {
+					image.setRGB(x, y, newColor.getRGB());
+				}
+			}
+		}
 	}
 	
 	// ----------------------------------------------------------------------------------	
 	// --- From here, methods to apply the Game instance to the visualization -----------
 	// ----------------------------------------------------------------------------------
 	/**
+	 * Returns the local game wrapper.
+	 * @return the game wrapper
+	 */
+	private GameWrapper getGameWrapper() {
+		if (gameWrapper==null) {
+			gameWrapper = new GameWrapper(null);
+		}
+		return gameWrapper;
+	}
+	/**
 	 * Sets the game.
 	 * @param game the new game
 	 */
 	public void setGame(Game game) {
-		this.game = game;
+		this.getGameWrapper().setGame(game);
 		this.updateView();
 	}
 	/**
@@ -321,17 +427,17 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	 * @return the game
 	 */
 	public Game getGame() {
-		return game;
+		return this.getGameWrapper().getGame();
 	}
+	
 	
 	/**
 	 * Update view.
 	 */
 	private void updateView() {
-		
 		this.setPlayer(this.getGame().getXMarkPlayer().getAid(), 1);
 		this.setPlayer(this.getGame().getOMarkPlayer().getAid(), 2);
-		this.setGameBoard(this.getGame().getGameBoard());
+		this.updateGameBoard();
 	}
 	/**
 	 * Sets the player.
@@ -341,10 +447,17 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	 */
 	public void setPlayer(AID playerAID, int playerNo) {
 		if (playerNo<=1) {
-			this.getJPanelPlayer1().setPlayer(playerAID);
+			this.getJPanelPlayer1X().setPlayer(playerAID);
 		} else {
-			this.getJPanelPlayer2().setPlayer(playerAID);
+			this.getJPanelPlayer2O().setPlayer(playerAID);
 		}
+	}
+	
+	/**
+	 * Updates the local game board.
+	 */
+	private void updateGameBoard() {
+		this.setGameBoard(this.getGame().getGameBoard());
 	}
 	/**
 	 * Sets the game board.
@@ -364,32 +477,8 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		this.setGameBoard("32", gameBoard.getGameRow3().getColumn2());
 		this.setGameBoard("33", gameBoard.getGameRow3().getColumn3());
 	}
-
-	private ImageIcon getImageIconCircle() {
-		if (imageIconCircle==null) {
-			imageIconCircle = BundleHelper.getImageIcon("Circle.png");
-		}
-		return imageIconCircle;
-	}
-	private ImageIcon getImageIconCircle(int imageSize) {
-		if (imageSize<=0) return this.getImageIconCircle();
-		Image newimg = this.getImageIconCircle().getImage().getScaledInstance(imageSize, imageSize, java.awt.Image.SCALE_SMOOTH);
-		return new ImageIcon(newimg);
-	}
-	private ImageIcon getImageIconCross() {
-		if (imageIconCross==null) {
-			imageIconCross = BundleHelper.getImageIcon("Cross.png");
-		}
-		return imageIconCross;
-	}
-	private ImageIcon getImageIconCross(int imageSize) {
-		if (imageSize<=0) return this.getImageIconCross();
-		Image newimg = this.getImageIconCross().getImage().getScaledInstance(imageSize, imageSize, java.awt.Image.SCALE_SMOOTH);
-		return new ImageIcon(newimg);
-	}
-	
 	/**
-	 * Sets the game field.
+	 * Sets the specified game field.
 	 *
 	 * @param actionCommand the action command
 	 * @param markType the mark type
@@ -412,11 +501,9 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 			} else {
 				// --- Set an empty image -------------------------------------
 				jButton.setIcon(null);
-				
 			}
 		}
 	}
-	
 	/**
 	 * Return the JButton that uses the specified action command.
 	 *
@@ -446,9 +533,72 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 
 		if (ae.getSource() instanceof JButton) {
+			// --- Which button was pressed? ----------------------------------
 			JButton jButtonPressed = (JButton) ae.getSource();
-			System.out.println("Pressed button " + jButtonPressed.getActionCommand());
+			int[] sel = this.getGameBoardSelection(jButtonPressed.getActionCommand());
+			
+			// --- Who I am? ---------------------------------------------------
+			AID nextMover = this.parentAgent;
+			if (this.getGameWrapper().isNextMover(nextMover)==false) {
+				// -------------------------------------------------------------
+				// --- Only for UI development purposes !!! --------------------
+				// -------------------------------------------------------------
+				nextMover = this.getGameWrapper().getNextMover();
+			}
+
+			
+			// --- Is it allowed to make the next move ? ----------------------
+			if (this.getGameWrapper().isNextMover(nextMover)) {
+				// --- Get my mark and check if the cell is free --------------
+				AbstractMarkType myMark = this.getGameWrapper().getMark(nextMover);
+				boolean isFreeCell = this.getGameWrapper().isFreeCell(sel[0],sel[1]);
+				if (isFreeCell==true) {
+					boolean success = this.getGameWrapper().setMark(sel[0], sel[1], myMark);
+					if (success==true) {
+						// --- Update visualization ---------------------------
+						this.updateGameBoard();
+						if (this.gameBoardListener!=null) {
+							this.gameBoardListener.onGameUpdate(this.getGame());
+						}
+					}
+				}
+			}
+
+			// --- Print the resulting GameState ------------------------------
+			System.out.println("GameState: " + this.getGameWrapper().getGameState());
+			GameWrapper.print(this.getGame().getGameBoard());
+			AbstracttPlayer winner = this.getGameWrapper().getWinner();
+			System.out.println("Winner: " + (winner==null ? "-" : winner.getAid().getLocalName()));
+			
 		}
+	}
+	
+	/**
+	 * Based on the specified action command, this method return the row and column number.
+	 *
+	 * @param actionCommand the action command
+	 * @return the selection as array, where the first element represents the row and the second the column
+	 */
+	private int[] getGameBoardSelection(String actionCommand) {
+
+		int[] intArray = new int[2];
+		String[] selArray = actionCommand.split("");
+		for (int i = 0; i < selArray.length; i++) {
+			intArray[i] = this.toInteger(selArray[i]);
+		}
+		return intArray;
+	}
+	/**
+	 * Converts a sting into an int value.
+	 *
+	 * @param intString the int string
+	 * @return the int
+	 */
+	private int toInteger(String intString) {
+		if (intString!=null && intString.isBlank()==false) {
+			return Integer.parseInt(intString);
+		}
+		return -1;
 	}
 	
 }

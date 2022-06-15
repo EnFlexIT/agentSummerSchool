@@ -1,13 +1,16 @@
 package org.asSchool.ttt.humanPlayer;
 
 import org.asSchool.ttt.agentPlayer.AbstractAgentPlayer;
+import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.ontology.Game;
 import org.asSchool.ttt.dataModel.ontology.GameBoard;
 import org.asSchool.ttt.dataModel.ontology.GameRow;
 import org.asSchool.ttt.dataModel.ontology.HumanPlayer;
+import org.asSchool.ttt.ui.GameBoardListener;
 import org.asSchool.ttt.ui.JDialogGameBoard;
 
 import agentgui.core.application.Application;
+import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 import jade.util.leap.ArrayList;
 
@@ -16,7 +19,7 @@ import jade.util.leap.ArrayList;
  *
  * @author Christian Derksen - SOFTEC - ICB - University of Duisburg-Essen
  */
-public class HumanPlayerAgent extends AbstractAgentPlayer { 
+public class HumanPlayerAgent extends AbstractAgentPlayer implements GameBoardListener { 
 
 	private static final long serialVersionUID = -3300871772757135436L;
 
@@ -37,13 +40,28 @@ public class HumanPlayerAgent extends AbstractAgentPlayer {
 		// --- Show user game board ---------------------------------
 		this.getJDialogGameBoard().setVisible(true);
 	}
-	
 	/**
 	 * Checks if is development.
 	 * @return true, if is development
 	 */
 	private boolean isDevelopment() {
 		return Application.getProjectFocused().getSimulationSetupCurrent().equals("UI-Development");
+	}
+	/**
+	 * Returns a game instance for development purposes.
+	 * @return the game for development
+	 */
+	private Game getGameForDevelopment() {
+		
+		HumanPlayer hp1 = new HumanPlayer();
+		hp1.setAid(this.getAID());
+		hp1.setScore(1);
+		
+		HumanPlayer hp2 = new HumanPlayer();
+		hp2.setAid(new AID("otherPlayer", true));
+		hp1.setScore(1);
+
+		return GameWrapper.createGame(hp1, hp2, false);
 	}
 
 	/* (non-Javadoc)
@@ -61,35 +79,18 @@ public class HumanPlayerAgent extends AbstractAgentPlayer {
 	@Override
 	public void onMessageReceived(ACLMessage aclMessage) {
 		// --- TODO Act on the received Message ----------- 
-	
 		
 	}
 	
-	private Game getGameForDevelopment() {
-		if (gameForDevelopment==null) {
-			gameForDevelopment = new Game();
-			
-			HumanPlayer hp1 = new HumanPlayer();
-			hp1.setAid(this.getAID());
-			hp1.setScore(1);
-			
-			HumanPlayer hp2 = new HumanPlayer();
-			hp2.setAid(this.getAID());
-			hp1.setScore(1);
-			
-			GameBoard gameBoard = new GameBoard();
-			gameBoard.setGameRow1(new GameRow());
-			gameBoard.setGameRow2(new GameRow());
-			gameBoard.setGameRow3(new GameRow());
-			
-			gameForDevelopment.setGameID(-1);
-			gameForDevelopment.setXMarkPlayer(hp1);
-			gameForDevelopment.setOMarkPlayer(hp2);
-			gameForDevelopment.setGameMoveHistory(new ArrayList());
-			gameForDevelopment.setGameBoard(gameBoard);
-		}
-		return gameForDevelopment;
+	/* (non-Javadoc)
+	 * @see org.asSchool.ttt.ui.GameBoardListener#onGameUpdate(org.asSchool.ttt.dataModel.ontology.Game)
+	 */
+	@Override
+	public void onGameUpdate(Game game) {
+		// --- TODO forward new Game instance to other player 
+		System.out.println("Got Game instance update");
 	}
+	
 	
 	
 	/**
@@ -98,8 +99,9 @@ public class HumanPlayerAgent extends AbstractAgentPlayer {
 	 */
 	private JDialogGameBoard getJDialogGameBoard() {
 		if (jDialogGameBoard==null) {
-			jDialogGameBoard = new JDialogGameBoard();
+			jDialogGameBoard = new JDialogGameBoard(this.getAID());
 			jDialogGameBoard.setTitle("Human Player board using agent " + this.getLocalName());
+			jDialogGameBoard.setGameBoardListener(this);
 		}
 		return jDialogGameBoard;
 	}
@@ -113,5 +115,6 @@ public class HumanPlayerAgent extends AbstractAgentPlayer {
 			jDialogGameBoard = null;
 		}
 	}
+	
 
 }

@@ -9,6 +9,7 @@ import javax.swing.JDialog;
 import org.asSchool.ttt.dataModel.ontology.Game;
 
 import agentgui.core.config.GlobalInfo;
+import jade.core.AID;
 
 /**
  * The Class JDialogGameBoard.
@@ -21,11 +22,15 @@ public class JDialogGameBoard extends JDialog {
 	
 	private JPanelGameBoard jPanelGameBoard;
 
-
+	private AID parentAgent;
+	
 	/**
 	 * Instantiates a new j dialog game board.
+	 * 
+	 * @param parentAgent the AID of the parent agent
 	 */
-	public JDialogGameBoard() {
+	public JDialogGameBoard(AID parentAgent) {
+		this.parentAgent = parentAgent;
 		this.initialize();
 	}
 	private void initialize() {
@@ -37,7 +42,7 @@ public class JDialogGameBoard extends JDialog {
 		this.setResizable(true);
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		
-		this.getContentPane().add(getJPanelGameBoard(), BorderLayout.CENTER);
+		this.getContentPane().add(this.getJPanelGameBoard(), BorderLayout.CENTER);
 		
 		// --- Set Dialog position ----------------------------------
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
@@ -48,7 +53,7 @@ public class JDialogGameBoard extends JDialog {
 	}
 	private JPanelGameBoard getJPanelGameBoard() {
 		if (jPanelGameBoard == null) {
-			jPanelGameBoard = new JPanelGameBoard();
+			jPanelGameBoard = new JPanelGameBoard(this.parentAgent);
 		}
 		return jPanelGameBoard;
 	}
@@ -70,6 +75,14 @@ public class JDialogGameBoard extends JDialog {
 	 */
 	public Game getGame() {
 		return this.getJPanelGameBoard().getGame();
+	}
+	
+	/**
+	 * Sets the game board listener that has to react on changes in the game board (normally an agent).
+	 * @param gameBoardListener the new game board listener
+	 */
+	public void setGameBoardListener(GameBoardListener gameBoardListener) {
+		this.getJPanelGameBoard().setGameBoardListener(gameBoardListener);
 	}
 	
 }

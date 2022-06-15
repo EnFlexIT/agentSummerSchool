@@ -335,7 +335,7 @@ public class GameWrapper {
 	 */
 	public AbstractMarkType getWinnerMark() {
 		
-		AbstractMarkType[][] markArr = transferToMarkArray(this.getGame().getGameBoard());
+		AbstractMarkType[][] markArr = transformToMarkArray(this.getGame().getGameBoard());
 		
 		AbstractMarkType[] gameLine1 = getGameLine(markArr, GameLineType.Row, 0);
 		AbstractMarkType winnerMark = getWinnerOfGameLine(gameLine1);
@@ -379,10 +379,10 @@ public class GameWrapper {
 	 * Transfers the specified GameBoard into a 2D array of marks, where the first element 
 	 * describes row and the second the column.
 	 *
-	 * @param gb the gb
+	 * @param gb the GameBoard instance to transform
 	 * @return the abstract mark type[][]
 	 */
-	public static AbstractMarkType[][] transferToMarkArray(GameBoard gb) {
+	public static AbstractMarkType[][] transformToMarkArray(GameBoard gb) {
 		
 		AbstractMarkType[][] markArray = new AbstractMarkType[3][3];
 		
@@ -470,7 +470,7 @@ public class GameWrapper {
 	 * @param gameBoard the game board
 	 */
 	public static void print(GameBoard gameBoard) {
-		print(transferToMarkArray(gameBoard));
+		print(transformToMarkArray(gameBoard));
 	}
 	/**
 	 * Prints the specified array of marks.

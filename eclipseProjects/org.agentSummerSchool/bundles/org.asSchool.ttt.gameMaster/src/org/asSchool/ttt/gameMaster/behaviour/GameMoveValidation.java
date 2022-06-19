@@ -111,39 +111,46 @@ public class GameMoveValidation extends OneShotBehaviour {
 						 oldGame.setGameBoard(receivedGameBoard);
 						 GameWrapper gameWrapperResult = new GameWrapper (oldGame);
 						 GameState gameState;
-						 switch(gameWrapperResult.getGameState()){
-						 case InProgress:  //Send the new GameBoard to the NextPlayer (dependend of the previous MarkType)
-							 GameMove gameMove = new GameMove();
-							 if (isCross) {
-									SendGameMoveToPlayer sendGameMoveToPlayer = new SendGameMoveToPlayer(oldGame.getGameBoard(), oldGame.getGameID(), oldGame.getOMarkPlayer() );
-									this.myAgent.addBehaviour(sendGameMoveToPlayer);
-									gameMove.setMarkType(cross);
-								} else if (isCircle) {
-									SendGameMoveToPlayer sendGameMoveToPlayer = new SendGameMoveToPlayer(oldGame.getGameBoard(), oldGame.getGameID(), oldGame.getXMarkPlayer() );
-									this.myAgent.addBehaviour(sendGameMoveToPlayer);
-									gameMove.setMarkType(circle);
-								}
-							 
-							 gameMove.setGameID(oldGame.getGameID());
-							 gameMove.setGameRow(changedGameRow);
-							 gameMove.setGameColumn(changedGameCol);
-							 oldGame.addGameMoveHistory(gameMove);
-							 break;
-							 
-						 case FinalizedRemis: //Send information about result to players +++ end game, delete game in gameList +++ store game in gamehistory
-							 sendGameResult(null,oldGame);
-							 break;
-						 case FinalizedWon: //Send information about result to players +++ end game, delete game in gameList +++ store game in gamehistory
-							 sendGameResult(gameWrapper.getWinnerMark(),oldGame);
-							 break;
-						 case InitialState: 
-							 break;
-						 }
-
+						 GameMove gameMove = new GameMove();
+						 if (isCross) gameMove.setMarkType(cross);
+						 if (isCircle) gameMove.setMarkType(circle);
 						 
+						 gameMove.setGameID(oldGame.getGameID());
+						 gameMove.setGameRow(changedGameRow);
+						 gameMove.setGameColumn(changedGameCol);
+						 oldGame.addGameMoveHistory(gameMove);
 						 //Add new GameBoard to GameList
 						 gameList.getGameList().add(cnt, gameListArray);
 						 gameList.getGameList().remove(cnt+1);
+							 
+						 switch(gameWrapperResult.getGameState()){
+						 
+							 case InProgress:  //Send the new GameBoard to the NextPlayer (dependend of the previous MarkType)
+								 
+								 if (isCross) {
+										SendGameMoveToPlayer sendGameMoveToPlayer = new SendGameMoveToPlayer(oldGame.getGameBoard(), oldGame.getGameID(), oldGame.getOMarkPlayer() );
+										this.myAgent.addBehaviour(sendGameMoveToPlayer);
+										
+									} else if (isCircle) {
+										SendGameMoveToPlayer sendGameMoveToPlayer = new SendGameMoveToPlayer(oldGame.getGameBoard(), oldGame.getGameID(), oldGame.getXMarkPlayer() );
+										this.myAgent.addBehaviour(sendGameMoveToPlayer);
+									}
+	
+								 break;
+								 
+							 case FinalizedRemis: //Send information about result to players +++ end game, delete game in gameList +++ store game in gamehistory
+								 sendGameResult(null,oldGame);
+								 gameList.getGameList().remove(cnt);
+								 break;
+							 case FinalizedWon: //Send information about result to players +++ end game, delete game in gameList +++ store game in gamehistory
+								 sendGameResult(gameWrapper.getWinnerMark(),oldGame);
+								 gameList.getGameList().remove(cnt);
+								 break;
+							 case InitialState: 
+								 break;
+						 }
+
+					
 					 }
 				 }
 				
@@ -243,6 +250,8 @@ public class GameMoveValidation extends OneShotBehaviour {
 			this.myAgent.send(remisMessage2);
 			
 		}
+		
+		
 		
 	}
 

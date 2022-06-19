@@ -8,19 +8,19 @@ import jade.core.*;
 /**
 * Protege name: GameBoard
 * @author ontology bean generator
-* @version 2022/06/13, 01:04:42
+* @version 2022/06/19, 20:03:19
 */
 public class GameBoard implements Concept {
 
    /**
-* Protege name: gameRow2
+* Protege name: gameRow3
    */
-   private GameRow gameRow2;
-   public void setGameRow2(GameRow value) { 
-    this.gameRow2=value;
+   private GameRow gameRow3;
+   public void setGameRow3(GameRow value) { 
+    this.gameRow3=value;
    }
-   public GameRow getGameRow2() {
-     return this.gameRow2;
+   public GameRow getGameRow3() {
+     return this.gameRow3;
    }
 
    /**
@@ -35,14 +35,14 @@ public class GameBoard implements Concept {
    }
 
    /**
-* Protege name: gameRow3
+* Protege name: gameRow2
    */
-   private GameRow gameRow3;
-   public void setGameRow3(GameRow value) { 
-    this.gameRow3=value;
+   private GameRow gameRow2;
+   public void setGameRow2(GameRow value) { 
+    this.gameRow2=value;
    }
-   public GameRow getGameRow3() {
-     return this.gameRow3;
+   public GameRow getGameRow2() {
+     return this.gameRow2;
    }
 
 }

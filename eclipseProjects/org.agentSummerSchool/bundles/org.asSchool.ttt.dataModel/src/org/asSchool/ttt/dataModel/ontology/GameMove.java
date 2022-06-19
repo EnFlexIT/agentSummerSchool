@@ -8,20 +8,9 @@ import jade.core.*;
 /**
 * Protege name: GameMove
 * @author ontology bean generator
-* @version 2022/06/13, 01:04:42
+* @version 2022/06/19, 20:03:19
 */
 public class GameMove implements Concept {
-
-   /**
-* Protege name: gameRow
-   */
-   private int gameRow;
-   public void setGameRow(int value) { 
-    this.gameRow=value;
-   }
-   public int getGameRow() {
-     return this.gameRow;
-   }
 
    /**
 * Protege name: markType
@@ -43,6 +32,28 @@ public class GameMove implements Concept {
    }
    public int getGameColumn() {
      return this.gameColumn;
+   }
+
+   /**
+* Protege name: gameID
+   */
+   private int gameID;
+   public void setGameID(int value) { 
+    this.gameID=value;
+   }
+   public int getGameID() {
+     return this.gameID;
+   }
+
+   /**
+* Protege name: gameRow
+   */
+   private int gameRow;
+   public void setGameRow(int value) { 
+    this.gameRow=value;
+   }
+   public int getGameRow() {
+     return this.gameRow;
    }
 
 }

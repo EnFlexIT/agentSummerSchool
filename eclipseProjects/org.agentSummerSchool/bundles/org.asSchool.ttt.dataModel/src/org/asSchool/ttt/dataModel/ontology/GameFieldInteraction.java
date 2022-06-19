@@ -8,19 +8,30 @@ import jade.core.*;
 /**
 * Protege name: GameFieldInteraction
 * @author ontology bean generator
-* @version 2022/06/13, 01:04:42
+* @version 2022/06/19, 20:03:19
 */
 public class GameFieldInteraction implements AgentAction {
 
    /**
-* Protege name: gameField
+* Protege name: gameID
    */
-   private Game gameField;
-   public void setGameField(Game value) { 
-    this.gameField=value;
+   private int gameID;
+   public void setGameID(int value) { 
+    this.gameID=value;
    }
-   public Game getGameField() {
-     return this.gameField;
+   public int getGameID() {
+     return this.gameID;
+   }
+
+   /**
+* Protege name: gameBoard
+   */
+   private GameBoard gameBoard;
+   public void setGameBoard(GameBoard value) { 
+    this.gameBoard=value;
+   }
+   public GameBoard getGameBoard() {
+     return this.gameBoard;
    }
 
 }

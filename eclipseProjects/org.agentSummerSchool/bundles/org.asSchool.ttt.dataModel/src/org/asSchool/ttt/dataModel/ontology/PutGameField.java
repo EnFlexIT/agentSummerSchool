@@ -7,7 +7,7 @@ import jade.core.*;
 /**
 * Protege name: PutGameField
 * @author ontology bean generator
-* @version 2022/06/13, 01:04:42
+* @version 2022/06/19, 20:03:19
 */
 public class PutGameField extends GameFieldInteraction{ 
 

@@ -1,6 +1,7 @@
 package org.asSchool.ttt.gameMaster;
 
 import org.asSchool.ttt.dataModel.BlackboardModel;
+import org.asSchool.ttt.dataModel.ontology.*;
 import org.asSchool.ttt.gameMaster.behaviour.MessageReceiveBehaviour;
 
 import jade.core.Agent;
@@ -15,6 +16,8 @@ public class GameMasterAgent extends Agent {
 	private static final long serialVersionUID = -3300871772757135436L;
 
 	private BlackboardModel blackboardModel;
+	private GameList gameList = new GameList();
+	
 	
 	/* (non-Javadoc)
 	 * @see jade.core.Agent#setup()
@@ -36,5 +39,11 @@ public class GameMasterAgent extends Agent {
 		}
 		return blackboardModel;
 	}
+	
+	public GameList getGameList() {
+		
+		return gameList;
+	}
+	
 	
 }

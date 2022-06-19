@@ -6,11 +6,11 @@ import jade.util.leap.*;
 import jade.core.*;
 
 /**
-* Protege name: AbstracttPlayer
+* Protege name: AbstractPlayer
 * @author ontology bean generator
-* @version 2022/06/17, 16:49:53
+* @version 2022/06/19, 20:03:19
 */
-public class AbstracttPlayer implements Concept {
+public class AbstractPlayer implements Concept {
 
    /**
 * Protege name: aid

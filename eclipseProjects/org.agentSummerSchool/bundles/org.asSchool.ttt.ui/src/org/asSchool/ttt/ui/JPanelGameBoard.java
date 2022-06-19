@@ -21,6 +21,7 @@ import javax.swing.JSeparator;
 
 import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.ontology.AbstractMarkType;
+import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
 import org.asSchool.ttt.dataModel.ontology.AbstracttPlayer;
 import org.asSchool.ttt.dataModel.ontology.Circle;
 import org.asSchool.ttt.dataModel.ontology.Cross;
@@ -567,7 +568,7 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 			// --- Print the resulting GameState ------------------------------
 			System.out.println("GameState: " + this.getGameWrapper().getGameState());
 			GameWrapper.print(this.getGame().getGameBoard());
-			AbstracttPlayer winner = this.getGameWrapper().getWinner();
+			AbstractPlayer winner = this.getGameWrapper().getWinner();
 			System.out.println("Winner: " + (winner==null ? "-" : winner.getAid().getLocalName()));
 			
 		}

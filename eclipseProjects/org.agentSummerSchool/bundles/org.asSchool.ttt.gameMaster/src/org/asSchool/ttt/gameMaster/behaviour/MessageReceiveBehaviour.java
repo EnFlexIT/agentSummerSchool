@@ -1,9 +1,12 @@
 package org.asSchool.ttt.gameMaster.behaviour;
 
+import org.asSchool.ttt.dataModel.ontology.*;
+
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.UnreadableException;
 
 /**
  * The Class MessageReceiveBehaviour.
@@ -35,6 +38,27 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 			this.block();
 			
 		} else {
+			
+			try {
+				if (aclMessage.getContentObject() instanceof Register) {
+					RegisterationReceiveBehaviour registerationReceiveBehaviour = new RegisterationReceiveBehaviour(myAgent, aclMessage);
+					myAgent.addBehaviour(registerationReceiveBehaviour);
+				}
+			} catch (UnreadableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			try {
+				if (aclMessage.getContentObject() instanceof GetGameField) {
+					GameMoveValidation gameMoveValidation = new GameMoveValidation(myAgent, aclMessage);
+					myAgent.addBehaviour(gameMoveValidation);
+				}
+			} catch (UnreadableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			// --- Work on the current message ----------------------
 			AID senderAgent = aclMessage.getSender();
 			

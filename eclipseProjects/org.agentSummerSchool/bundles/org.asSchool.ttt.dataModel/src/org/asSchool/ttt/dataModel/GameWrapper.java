@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.asSchool.ttt.dataModel.ontology.AbstractMarkType;
+import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
 import org.asSchool.ttt.dataModel.ontology.AbstracttPlayer;
 import org.asSchool.ttt.dataModel.ontology.Circle;
 import org.asSchool.ttt.dataModel.ontology.Cross;
@@ -35,6 +36,12 @@ public class GameWrapper {
 		Diagonal
 	}
 	
+	public enum PlayerResult {
+		Winner, 
+		Looser, 
+		Remis
+	}
+	
 	private Game game;
 	
 	/**
@@ -43,6 +50,10 @@ public class GameWrapper {
 	 */
 	public GameWrapper(Game game) {
 		this.game = game;
+	}
+	
+	public GameWrapper() {
+		
 	}
 
 	/**
@@ -72,9 +83,9 @@ public class GameWrapper {
 	 * @param randomPosition the indicator to randomize the player position
 	 * @return the game
 	 */
-	public static Game createGame(AbstracttPlayer player1, AbstracttPlayer player2, boolean randomPosition) {
+	public static Game createGame(AbstractPlayer player1, AbstractPlayer player2, boolean randomPosition) {
 		
-		java.util.ArrayList<AbstracttPlayer> playerList = new java.util.ArrayList<>();
+		java.util.ArrayList<AbstractPlayer> playerList = new java.util.ArrayList<>();
 		playerList.add(player1);
 		playerList.add(player2);
 		// --- Randomize position? --------------
@@ -319,7 +330,7 @@ public class GameWrapper {
 	 * Returns the player that won the current game.
 	 * @return the winner player
 	 */
-	public AbstracttPlayer getWinner() {
+	public AbstractPlayer getWinner() {
 		
 		AbstractMarkType winnerMark = this.getWinnerMark();
 		if (winnerMark instanceof Cross) {

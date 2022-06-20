@@ -1,5 +1,6 @@
 package org.asSchool.ttt.gameMaster.behaviour;
 
+import org.asSchool.ttt.dataModel.GameHashMap;
 import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.GameWrapper.GameState;
 import org.asSchool.ttt.dataModel.ontology.*;
@@ -18,32 +19,23 @@ import org.asSchool.ttt.gameMaster.*;
 
 public class GameMoveValidation extends OneShotBehaviour {
 
-	ACLMessage gameMessage = new ACLMessage();
+
+	private PutGameField putGameField = new PutGameField();
+	private GameMasterAgent gameMasterAgent;
+	private GameHashMap gameHashMap;
 	
 	
-	public GameMoveValidation(Agent myA, ACLMessage aclMessage) {
+	public GameMoveValidation(GameMasterAgent myA, PutGameField putGameField) {
 		// TODO Auto-generated constructor stub
-		this.gameMessage = aclMessage;
+		this.putGameField = putGameField;
+		this.gameMasterAgent = myA;
 	}
 
 	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void action() {
 		
-		
-		PutGameField getGameField = new PutGameField();
-		
-		
-		try {
-			Action contentAction = (Action) this.myAgent.getContentManager().extractContent(this.gameMessage);
-			getGameField = (PutGameField) contentAction.getAction();
-		} catch (CodecException | OntologyException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		GameList gameList = new GameList();
-		gameList = ((GameMasterAgent) this.myAgent).getGameList();
+		this.gameHashMap = this.gameMasterAgent.getGameMasterBoardModel().getGameHashMap();
 		
 		//GetGameField getGameField = new GetGameField();
 		Game oldGame = new Game();
@@ -51,119 +43,112 @@ public class GameMoveValidation extends OneShotBehaviour {
 		
 		
 		GameBoard receivedGameBoard = new GameBoard();
-		receivedGameBoard = getGameField.getGameBoard();
+		receivedGameBoard = putGameField.getGameBoard();
 		
 		AbstractMarkType[][] oldGameBoardArray = new AbstractMarkType[3][3];
 		AbstractMarkType[][] newGameBoardArray = new AbstractMarkType[3][3];
-		
-		AbstractMarkType markType = new AbstractMarkType();
+
 		Cross cross = new Cross();
 		Circle circle = new Circle();
 
-		Game[] gameListArray = new Game[gameList.getGameList().size()];
-		int cnt = 0;
 		boolean isCross = false;
 		boolean isCircle = false;
-
-		while (gameList.getAllGameList().hasNext()) {
-			
-			gameList.getAllGameList().next();
-			oldGame = (Game) gameList.getGameList().get(cnt);
-			gameListArray[cnt] = (Game) gameList.getAllGameList().next();
-			int newMarkCnt = 0; // counts the amount of new marks. It should be one, otherwise the GameMove wasn´t valid.
-			boolean CorrectGameMove = true;
-			int changedGameRow = 0;
-			int changedGameCol = 0;
-			if (oldGame.getGameID() == getGameField.getGameID()) {
-				
-				
-				oldGameBoardArray = GameWrapper.transformToMarkArray(oldGame.getGameBoard());
-				newGameBoardArray = GameWrapper.transformToMarkArray(receivedGameBoard);
-				 for(int col = 0; col <= 3; col++) {
-					 for(int row = 0; row <= 3; row++) {
-						 if (oldGameBoardArray[row][col] instanceof Cross)
-						 {
-							 if (! (newGameBoardArray[row][col] instanceof Cross)) {
-								 CorrectGameMove = false;
-								 break;
-							 }
-						 }
-						 else if (oldGameBoardArray[row][col] instanceof Circle)
-						 {
-							 if (! (newGameBoardArray[row][col] instanceof Circle)) {
-								 CorrectGameMove = false;
-								 break;
-							 }
-						 }
-						 else if (oldGameBoardArray[row][col]==null) {
-							 if (newGameBoardArray[row][col] != null) {
-								 newMarkCnt++;
-								 changedGameRow = row;
-								 changedGameCol = col;
-								 if (newGameBoardArray[row][col] instanceof Cross) isCross = true;
-								 if (newGameBoardArray[row][col] instanceof Circle) isCircle = true;
-							 }
-						 }
-					 }
-					 if (CorrectGameMove == true && newMarkCnt == 1)
-					 {
-						 
-						 oldGame.setGameBoard(receivedGameBoard);
-						 GameWrapper gameWrapperResult = new GameWrapper (oldGame);
-						 GameState gameState;
-						 GameMove gameMove = new GameMove();
-						 if (isCross) gameMove.setMarkType(cross);
-						 if (isCircle) gameMove.setMarkType(circle);
-						 
-						 gameMove.setGameID(oldGame.getGameID());
-						 gameMove.setGameRow(changedGameRow);
-						 gameMove.setGameColumn(changedGameCol);
-						 oldGame.addGameMoveHistory(gameMove);
-						 //Add new GameBoard to GameList
-						 gameList.getGameList().add(cnt, gameListArray);
-						 gameList.getGameList().remove(cnt+1);
-							 
-						 switch(gameWrapperResult.getGameState()){
-						 
-							 case InProgress:  //Send the new GameBoard to the NextPlayer (dependend of the previous MarkType)
-								 
-								 if (isCross) {
-										SendGameMoveToPlayer sendGameMoveToPlayer = new SendGameMoveToPlayer(oldGame.getGameBoard(), oldGame.getGameID(), oldGame.getOMarkPlayer() );
-										this.myAgent.addBehaviour(sendGameMoveToPlayer);
-										
-									} else if (isCircle) {
-										SendGameMoveToPlayer sendGameMoveToPlayer = new SendGameMoveToPlayer(oldGame.getGameBoard(), oldGame.getGameID(), oldGame.getXMarkPlayer() );
-										this.myAgent.addBehaviour(sendGameMoveToPlayer);
-									}
-	
-								 break;
-								 
-							 case FinalizedRemis: //Send information about result to players +++ end game, delete game in gameList +++ store game in gamehistory
-								 sendGameResult(null,oldGame);
-								 gameList.getGameList().remove(cnt);
-								 break;
-							 case FinalizedWon: //Send information about result to players +++ end game, delete game in gameList +++ store game in gamehistory
-								 sendGameResult(gameWrapper.getWinnerMark(),oldGame);
-								 gameList.getGameList().remove(cnt);
-								 break;
-							 case InitialState: 
-								 break;
-						 }
-
-					
+		
+		int newMarkCnt = 0; // counts the amount of new marks. It should be one, otherwise the GameMove wasn´t valid.
+		boolean CorrectGameMove = true;
+		int changedGameRow = 0;
+		int changedGameCol = 0;
+		
+		oldGame = gameHashMap.get(putGameField.getGameID());
+		
+		oldGameBoardArray = GameWrapper.transformToMarkArray(oldGame.getGameBoard());
+		newGameBoardArray = GameWrapper.transformToMarkArray(receivedGameBoard);
+		
+		// Check if the new Move is valid (X remains X, O remains O and one previously empty field has to be filled by a mark)
+		
+		for(int col = 0; col <= 3; col++) {
+			 for(int row = 0; row <= 3; row++) {
+				 if (oldGameBoardArray[row][col] instanceof Cross)
+				 {
+					 if (! (newGameBoardArray[row][col] instanceof Cross)) {
+						 CorrectGameMove = false;
+						 break;
 					 }
 				 }
-				
-			}
-			cnt++;
-			
+				 else if (oldGameBoardArray[row][col] instanceof Circle)
+				 {
+					 if (! (newGameBoardArray[row][col] instanceof Circle)) {
+						 CorrectGameMove = false;
+						 break;
+					 }
+				 }
+				 else if (oldGameBoardArray[row][col]==null) {
+					 if (newGameBoardArray[row][col] != null) {
+						 newMarkCnt++;
+						 changedGameRow = row;
+						 changedGameCol = col;
+						 if (newGameBoardArray[row][col] instanceof Cross) isCross = true;
+						 if (newGameBoardArray[row][col] instanceof Circle) isCircle = true;
+					 }
+				 }
+			 }
 		}
+		
+		 if (CorrectGameMove == true && newMarkCnt == 1) {
+			//Add new GameBoard to GameList
+			 
+			 gameHashMap.put(putGameField.getGameID(), oldGame);
+			 
+			 //set Game Move:
+			 
+			 GameMove gameMove = new GameMove();
+			 if (isCross) gameMove.setMarkType(cross);
+			 if (isCircle) gameMove.setMarkType(circle);
+			 
+			 gameMove.setGameID(oldGame.getGameID());
+			 gameMove.setGameRow(changedGameRow);
+			 gameMove.setGameColumn(changedGameCol);
+			 oldGame.addGameMoveHistory(gameMove);
+
+			 //Check whether game is still in progress or is already finished:
+			 
+			 GameWrapper gameWrapperResult = new GameWrapper (oldGame);
+			 
+			 switch(gameWrapperResult.getGameState()){
+			 
+				 case InProgress:  //Send the new GameBoard to the NextPlayer (dependend of the previous MarkType)
+					 
+					 if (isCross) {
+							SendGameMoveToPlayer sendGameMoveToPlayer = new SendGameMoveToPlayer(oldGame.getGameID(), oldGame.getOMarkPlayer());
+							this.myAgent.addBehaviour(sendGameMoveToPlayer);
+							
+						} else if (isCircle) {
+							SendGameMoveToPlayer sendGameMoveToPlayer = new SendGameMoveToPlayer(oldGame.getGameID(), oldGame.getXMarkPlayer() );
+							this.myAgent.addBehaviour(sendGameMoveToPlayer);
+						}
+
+					 break;
+					 
+				 case FinalizedRemis: //Send information about result to players +++ end game, delete game in gameList +++ store game in gamehistory
+					 sendGameResult(null,oldGame);
+					 gameHashMap.remove(oldGame.getGameID());
+					 break;
+				 case FinalizedWon: //Send information about result to players +++ end game, delete game in gameList +++ store game in gamehistory
+					 sendGameResult(gameWrapper.getWinnerMark(),oldGame);
+					 gameHashMap.remove(oldGame.getGameID());
+					 break;
+				 case InitialState: 
+					 break;
+			 }
+
+		 }
+		
+	}
 		
 		
 		
 		// TODO Auto-generated method stub
 
-	}
 	private void sendGameResult(AbstractMarkType winnerMark, Game finishedGame)
 	{
 		ACLMessage winnerMessage = new ACLMessage(); 
@@ -248,11 +233,6 @@ public class GameMoveValidation extends OneShotBehaviour {
 			}
 			
 			this.myAgent.send(remisMessage2);
-			
 		}
-		
-		
-		
 	}
-
 }

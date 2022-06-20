@@ -8,7 +8,7 @@ import jade.core.*;
    * Either Cross, Circle or None
 * Protege name: AgentPlayer
 * @author ontology bean generator
-* @version 2022/06/19, 20:03:19
+* @version 2022/06/20, 20:33:52
 */
 public class AgentPlayer extends AbstractPlayer{ 
 

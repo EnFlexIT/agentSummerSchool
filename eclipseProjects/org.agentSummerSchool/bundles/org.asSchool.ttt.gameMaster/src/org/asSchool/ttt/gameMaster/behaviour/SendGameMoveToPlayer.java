@@ -1,5 +1,6 @@
 package org.asSchool.ttt.gameMaster.behaviour;
 
+import org.asSchool.ttt.dataModel.GameHashMap;
 import org.asSchool.ttt.dataModel.ontology.*;
 
 import jade.content.lang.Codec.CodecException;
@@ -12,12 +13,11 @@ import jade.lang.acl.ACLMessage;
 
 public class SendGameMoveToPlayer extends OneShotBehaviour {
 	
-	GameBoard GameBoard = new GameBoard();
-	AbstractPlayer nextPlayer = new AbstractPlayer();
-	int gameID;
+	private AbstractPlayer nextPlayer = new AbstractPlayer();
+	private int gameID;
+	private GameHashMap gameHashMap;
 	
-	public SendGameMoveToPlayer(GameBoard gameBoard,int gameID, AbstractPlayer nextPlayer) {
-		this.GameBoard = gameBoard;
+	public SendGameMoveToPlayer(int gameID, AbstractPlayer nextPlayer) {
 		this.nextPlayer = nextPlayer;
 		this.gameID = gameID;
 	}
@@ -30,12 +30,12 @@ public class SendGameMoveToPlayer extends OneShotBehaviour {
 		gameMessage.setLanguage(new SLCodec().getName());
 		gameMessage.setOntology(TicTacToeOntologyOntology.getInstance().getName());
 		
-		PutGameField putGameField = new PutGameField ();
-		putGameField.setGameBoard(this.GameBoard);
+		GetGameField getGameField = new GetGameField ();
+		getGameField.setGameBoard(this.gameHashMap.get(this.gameID).getGameBoard());
 
 		Action agentAction = new Action();
 		agentAction.setActor(this.myAgent.getAID());
-		agentAction.setAction(putGameField);
+		agentAction.setAction(getGameField);
 		
 		// --- Put the offer into the message -------------
 		try {

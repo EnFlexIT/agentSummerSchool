@@ -1,7 +1,11 @@
 package org.asSchool.ttt.gameMaster.behaviour;
 
 import org.asSchool.ttt.dataModel.ontology.*;
+import org.asSchool.ttt.gameMaster.GameMasterAgent;
 
+import jade.content.lang.Codec.CodecException;
+import jade.content.onto.OntologyException;
+import jade.content.onto.basic.Action;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -31,7 +35,7 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 	 */
 	@Override
 	public void action() {
-		
+		Action contentAction = new Action();
 		ACLMessage aclMessage = this.getAgent().receive();
 		if (aclMessage==null) {
 			// --- Block till next message arrives ------------------
@@ -40,29 +44,20 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 		} else {
 			
 			try {
-				if (aclMessage.getContentObject() instanceof Register) {
-					RegisterationReceiveBehaviour registerationReceiveBehaviour = new RegisterationReceiveBehaviour(myAgent, aclMessage);
-					myAgent.addBehaviour(registerationReceiveBehaviour);
-				}
-			} catch (UnreadableException e) {
+				contentAction = (Action) this.myAgent.getContentManager().extractContent(aclMessage);
+			} catch (CodecException | OntologyException e1) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				e1.printStackTrace();
 			}
 			
-			try {
-				if (aclMessage.getContentObject() instanceof GetGameField) {
-					GameMoveValidation gameMoveValidation = new GameMoveValidation(myAgent, aclMessage);
-					myAgent.addBehaviour(gameMoveValidation);
-				}
-			} catch (UnreadableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (contentAction.getAction() instanceof Register) {
+				RegisterationReceiveBehaviour registerationReceiveBehaviour = new RegisterationReceiveBehaviour((GameMasterAgent) myAgent, (Register) contentAction.getAction(), aclMessage.getSender());
+				myAgent.addBehaviour(registerationReceiveBehaviour);
+				
+			} else if (contentAction.getAction() instanceof PutGameField) {
+				GameMoveValidation gameMoveValidation = new GameMoveValidation((GameMasterAgent) myAgent, (PutGameField) contentAction.getAction());
+				myAgent.addBehaviour(gameMoveValidation);
 			}
-			
-			// --- Work on the current message ----------------------
-			AID senderAgent = aclMessage.getSender();
-			
-			// --- TODO to be continued ----
 			
 		}
 	}

@@ -8,7 +8,7 @@ import jade.core.*;
 /**
 * Protege name: RegisterInteraction
 * @author ontology bean generator
-* @version 2022/06/19, 20:03:19
+* @version 2022/06/20, 20:33:52
 */
 public class RegisterInteraction implements AgentAction {
 

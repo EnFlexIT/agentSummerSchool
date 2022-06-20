@@ -8,7 +8,7 @@ import jade.core.*;
 /**
 * Protege name: GameBoard
 * @author ontology bean generator
-* @version 2022/06/19, 20:03:19
+* @version 2022/06/20, 20:33:52
 */
 public class GameBoard implements Concept {
 
@@ -24,17 +24,6 @@ public class GameBoard implements Concept {
    }
 
    /**
-* Protege name: gameRow1
-   */
-   private GameRow gameRow1;
-   public void setGameRow1(GameRow value) { 
-    this.gameRow1=value;
-   }
-   public GameRow getGameRow1() {
-     return this.gameRow1;
-   }
-
-   /**
 * Protege name: gameRow2
    */
    private GameRow gameRow2;
@@ -43,6 +32,17 @@ public class GameBoard implements Concept {
    }
    public GameRow getGameRow2() {
      return this.gameRow2;
+   }
+
+   /**
+* Protege name: gameRow1
+   */
+   private GameRow gameRow1;
+   public void setGameRow1(GameRow value) { 
+    this.gameRow1=value;
+   }
+   public GameRow getGameRow1() {
+     return this.gameRow1;
    }
 
 }

@@ -8,19 +8,19 @@ import jade.core.*;
 /**
 * Protege name: AbstractPlayer
 * @author ontology bean generator
-* @version 2022/06/19, 20:03:19
+* @version 2022/06/20, 20:33:52
 */
 public class AbstractPlayer implements Concept {
 
    /**
-* Protege name: aid
+* Protege name: markType
    */
-   private AID aid;
-   public void setAid(AID value) { 
-    this.aid=value;
+   private AbstractMarkType markType;
+   public void setMarkType(AbstractMarkType value) { 
+    this.markType=value;
    }
-   public AID getAid() {
-     return this.aid;
+   public AbstractMarkType getMarkType() {
+     return this.markType;
    }
 
    /**
@@ -32,6 +32,17 @@ public class AbstractPlayer implements Concept {
    }
    public int getScore() {
      return this.score;
+   }
+
+   /**
+* Protege name: aid
+   */
+   private AID aid;
+   public void setAid(AID value) { 
+    this.aid=value;
+   }
+   public AID getAid() {
+     return this.aid;
    }
 
 }

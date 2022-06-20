@@ -7,7 +7,7 @@ import jade.core.*;
 /**
 * Protege name: HumanPlayer
 * @author ontology bean generator
-* @version 2022/06/19, 20:03:19
+* @version 2022/06/20, 20:33:52
 */
 public class HumanPlayer extends AbstractPlayer{ 
 

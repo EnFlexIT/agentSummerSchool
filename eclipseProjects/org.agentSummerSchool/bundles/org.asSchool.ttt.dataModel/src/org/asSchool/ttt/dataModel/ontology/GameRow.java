@@ -8,20 +8,9 @@ import jade.core.*;
 /**
 * Protege name: GameRow
 * @author ontology bean generator
-* @version 2022/06/19, 20:03:19
+* @version 2022/06/20, 20:33:52
 */
 public class GameRow implements Concept {
-
-   /**
-* Protege name: column3
-   */
-   private AbstractMarkType column3;
-   public void setColumn3(AbstractMarkType value) { 
-    this.column3=value;
-   }
-   public AbstractMarkType getColumn3() {
-     return this.column3;
-   }
 
    /**
 * Protege name: column1
@@ -43,6 +32,17 @@ public class GameRow implements Concept {
    }
    public AbstractMarkType getColumn2() {
      return this.column2;
+   }
+
+   /**
+* Protege name: column3
+   */
+   private AbstractMarkType column3;
+   public void setColumn3(AbstractMarkType value) { 
+    this.column3=value;
+   }
+   public AbstractMarkType getColumn3() {
+     return this.column3;
    }
 
 }

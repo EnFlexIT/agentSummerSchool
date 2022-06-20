@@ -1,10 +1,11 @@
 package org.asSchool.ttt.humanPlayer;
 
+import javax.swing.SwingUtilities;
+
 import org.asSchool.ttt.agentPlayer.AbstractAgentPlayer;
 import org.asSchool.ttt.dataModel.GameWrapper;
+import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
 import org.asSchool.ttt.dataModel.ontology.Game;
-import org.asSchool.ttt.dataModel.ontology.GameBoard;
-import org.asSchool.ttt.dataModel.ontology.GameRow;
 import org.asSchool.ttt.dataModel.ontology.HumanPlayer;
 import org.asSchool.ttt.ui.GameBoardListener;
 import org.asSchool.ttt.ui.JDialogGameBoard;
@@ -12,7 +13,6 @@ import org.asSchool.ttt.ui.JDialogGameBoard;
 import agentgui.core.application.Application;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
-import jade.util.leap.ArrayList;
 
 /**
  * The Class HumanPlayerAgent.
@@ -23,8 +23,6 @@ public class HumanPlayerAgent extends AbstractAgentPlayer implements GameBoardLi
 
 	private static final long serialVersionUID = -3300871772757135436L;
 
-	private Game gameForDevelopment;
-	
 	private JDialogGameBoard jDialogGameBoard;
 	
 	/* (non-Javadoc)
@@ -32,13 +30,21 @@ public class HumanPlayerAgent extends AbstractAgentPlayer implements GameBoardLi
 	 */
 	@Override
 	protected void setup() {
+
+		// --- Register codec, ontology and start MessageReceiveBehaviour -----
+		super.setup();
 		
-		// --- Check if we're in the development setup --------------
+		// --- Check if we're in the development setup ------------------------
 		if (this.isDevelopment()==true) {
 			this.getJDialogGameBoard().setGame(this.getGameForDevelopment());
 		}
-		// --- Show user game board ---------------------------------
-		this.getJDialogGameBoard().setVisible(true);
+		// --- Show user game board -------------------------------------------
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				HumanPlayerAgent.this.getJDialogGameBoard().setVisible(true);
+			}
+		});
 	}
 	/**
 	 * Checks if is development.
@@ -65,13 +71,24 @@ public class HumanPlayerAgent extends AbstractAgentPlayer implements GameBoardLi
 	}
 
 	/* (non-Javadoc)
+	 * @see org.asSchool.ttt.agentPlayer.AbstractAgentPlayer#getPlayer()
+	 */
+	@Override
+	public AbstractPlayer getPlayer() {
+		HumanPlayer hpa = new HumanPlayer();
+		hpa.setAid(this.getAID());
+		return hpa;
+	}
+	
+	
+	/* (non-Javadoc)
 	 * @see jade.core.Agent#takeDown()
 	 */
 	@Override
 	protected void takeDown() {
 		this.closeGameBoardDialog();
 	}
-	
+
 	
 	/* (non-Javadoc)
 	 * @see org.asSchool.ttt.agentPlayer.AbstractAgentPlayer#onMessageReceived(jade.lang.acl.ACLMessage)
@@ -90,8 +107,6 @@ public class HumanPlayerAgent extends AbstractAgentPlayer implements GameBoardLi
 		// --- TODO forward new Game instance to other player 
 		System.out.println("Got Game instance update");
 	}
-	
-	
 	
 	/**
 	 * Return the JDialogGameBoard.
@@ -115,6 +130,5 @@ public class HumanPlayerAgent extends AbstractAgentPlayer implements GameBoardLi
 			jDialogGameBoard = null;
 		}
 	}
-	
 
 }

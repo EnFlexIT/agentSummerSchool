@@ -1,4 +1,4 @@
-; Mon Jun 20 20:33:49 CEST 2022
+; Mon Jun 20 23:26:35 CEST 2022
 ; 
 ;+ (version "3.3.1")
 ;+ (build "Build 430")
@@ -7,7 +7,54 @@
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
+	(single-slot gameID
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot aid
+		(type INSTANCE)
+;+		(allowed-classes AID)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameResult
+		(type INSTANCE)
+;+		(allowed-classes GameResult)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRound
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRow2
+		(type INSTANCE)
+;+		(allowed-classes GameRow)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot remisPlayer1
+		(type INSTANCE)
+;+		(allowed-classes AbstractPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot gameMoveHistory
+		(type INSTANCE)
+;+		(allowed-classes GameMove)
+		(create-accessor read-write))
+	(single-slot xMarkPlayer
+		(type INSTANCE)
+;+		(allowed-classes AbstractPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(single-slot gameRow3
+		(type INSTANCE)
+;+		(allowed-classes GameRow)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot column1
+		(type INSTANCE)
+;+		(allowed-classes AbstractMarkType)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRow1
 		(type INSTANCE)
 ;+		(allowed-classes GameRow)
 ;+		(cardinality 0 1)
@@ -15,23 +62,6 @@
 	(single-slot TicTacToeCommunication_Slot_1
 		(type STRING)
 ;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot gameID
-		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot column3
-		(type INSTANCE)
-;+		(allowed-classes AbstractMarkType)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot score
-		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(multislot gameMoveHistory
-		(type INSTANCE)
-;+		(allowed-classes GameMove)
 		(create-accessor read-write))
 	(single-slot remisPlayer2
 		(type INSTANCE)
@@ -43,54 +73,16 @@
 ;+		(allowed-classes GameMove)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot loser
+	(single-slot player
 		(type INSTANCE)
 ;+		(allowed-classes AbstractPlayer)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot mark
-		(type INSTANCE)
-;+		(allowed-classes AbstractMarkType)
+	(single-slot TicTacToeCommunication_Slot_3
+		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot aid
-		(type INSTANCE)
-;+		(allowed-classes AID)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot gameRound
-		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot markType
-		(type INSTANCE)
-;+		(allowed-classes AbstractMarkType)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot gameColumn
-		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot remisPlayer1
-		(type INSTANCE)
-;+		(allowed-classes AbstractPlayer)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot gameBoard
-		(type INSTANCE)
-;+		(allowed-classes GameBoard)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot xMarkPlayer
-		(type INSTANCE)
-;+		(allowed-classes AbstractPlayer)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(multislot gameList
-		(type INSTANCE)
-;+		(allowed-classes AbstractGameConcepts)
-		(create-accessor read-write))
-	(single-slot oMarkPlayer
+	(single-slot winner
 		(type INSTANCE)
 ;+		(allowed-classes AbstractPlayer)
 ;+		(cardinality 0 1)
@@ -100,41 +92,49 @@
 ;+		(allowed-classes AbstractMarkType)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot gameResult
-		(type INSTANCE)
-;+		(allowed-classes GameResult)
+	(single-slot gameRow
+		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot winner
-		(type INSTANCE)
-;+		(allowed-classes AbstractPlayer)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot gameRow1
-		(type INSTANCE)
-;+		(allowed-classes GameRow)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot column1
+	(single-slot markType
 		(type INSTANCE)
 ;+		(allowed-classes AbstractMarkType)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot TicTacToeCommunication_Slot_3
-		(type STRING)
+	(single-slot score
+		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot gameRow2
+	(single-slot mark
 		(type INSTANCE)
-;+		(allowed-classes GameRow)
+;+		(allowed-classes AbstractMarkType)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot agentPlayer
+	(single-slot oMarkPlayer
 		(type INSTANCE)
-;+		(allowed-classes AgentPlayer)
+;+		(allowed-classes AbstractPlayer)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot gameRow
+	(single-slot gameBoard
+		(type INSTANCE)
+;+		(allowed-classes GameBoard)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot gameList
+		(type INSTANCE)
+;+		(allowed-classes AbstractGameConcepts)
+		(create-accessor read-write))
+	(single-slot loser
+		(type INSTANCE)
+;+		(allowed-classes AbstractPlayer)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot column3
+		(type INSTANCE)
+;+		(allowed-classes AbstractMarkType)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameColumn
 		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
@@ -142,13 +142,13 @@
 (defclass GameFieldInteraction
 	(is-a AgentAction)
 	(role abstract)
+	(single-slot gameID
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(single-slot gameBoard
 		(type INSTANCE)
 ;+		(allowed-classes GameBoard)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot gameID
-		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
@@ -163,9 +163,9 @@
 (defclass RegisterInteraction
 	(is-a AgentAction)
 	(role abstract)
-	(single-slot agentPlayer
+	(single-slot player
 		(type INSTANCE)
-;+		(allowed-classes AgentPlayer)
+;+		(allowed-classes AbstractPlayer)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
@@ -202,11 +202,6 @@
 (defclass Game
 	(is-a AbstractGameConcepts)
 	(role concrete)
-	(single-slot oMarkPlayer
-		(type INSTANCE)
-;+		(allowed-classes AbstractPlayer)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(multislot gameMoveHistory
 		(type INSTANCE)
 ;+		(allowed-classes GameMove)
@@ -220,12 +215,17 @@
 		(type INSTANCE)
 ;+		(allowed-classes AbstractPlayer)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot oMarkPlayer
+		(type INSTANCE)
+;+		(allowed-classes AbstractPlayer)
+;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
 (defclass GameResult
 	(is-a AbstractGameConcepts)
 	(role concrete)
-	(single-slot remisPlayer2
+	(single-slot remisPlayer1
 		(type INSTANCE)
 ;+		(allowed-classes AbstractPlayer)
 ;+		(cardinality 0 1)
@@ -235,12 +235,12 @@
 ;+		(allowed-classes AbstractPlayer)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot winner
+	(single-slot remisPlayer2
 		(type INSTANCE)
 ;+		(allowed-classes AbstractPlayer)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot remisPlayer1
+	(single-slot winner
 		(type INSTANCE)
 ;+		(allowed-classes AbstractPlayer)
 ;+		(cardinality 0 1)
@@ -261,17 +261,17 @@
 (defclass GameBoard
 	(is-a Concept)
 	(role concrete)
-	(single-slot gameRow3
-		(type INSTANCE)
-;+		(allowed-classes GameRow)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(single-slot gameRow2
 		(type INSTANCE)
 ;+		(allowed-classes GameRow)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot gameRow1
+		(type INSTANCE)
+;+		(allowed-classes GameRow)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameRow3
 		(type INSTANCE)
 ;+		(allowed-classes GameRow)
 ;+		(cardinality 0 1)
@@ -333,12 +333,7 @@
 (defclass GameMove
 	(is-a Concept)
 	(role concrete)
-	(single-slot markType
-		(type INSTANCE)
-;+		(allowed-classes AbstractMarkType)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot gameColumn
+	(single-slot gameID
 		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
@@ -346,7 +341,12 @@
 		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot gameID
+	(single-slot markType
+		(type INSTANCE)
+;+		(allowed-classes AbstractMarkType)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot gameColumn
 		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))

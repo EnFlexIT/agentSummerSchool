@@ -22,13 +22,14 @@ import javax.swing.JSeparator;
 import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.ontology.AbstractMarkType;
 import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
-import org.asSchool.ttt.dataModel.ontology.AbstracttPlayer;
 import org.asSchool.ttt.dataModel.ontology.Circle;
 import org.asSchool.ttt.dataModel.ontology.Cross;
 import org.asSchool.ttt.dataModel.ontology.Game;
 import org.asSchool.ttt.dataModel.ontology.GameBoard;
 
 import jade.core.AID;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 /**
  * The Class JPanelGameBoard.
@@ -72,6 +73,7 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	private ImageIcon imageIconCross;
 	private int imageSizeCross;
 	private ImageIcon imageIconCrossScaled;
+	private JLabel jLableStatus;
 	
 	
 	/**
@@ -90,9 +92,9 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{50, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{50, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		GridBagConstraints gbc_jPanelPlayer1 = new GridBagConstraints();
@@ -102,6 +104,7 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		gbc_jPanelPlayer1.gridx = 0;
 		gbc_jPanelPlayer1.gridy = 0;
 		add(getJPanelPlayer1X(), gbc_jPanelPlayer1);
+		
 		GridBagConstraints gbc_jPanelPlayer2 = new GridBagConstraints();
 		gbc_jPanelPlayer2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jPanelPlayer2.anchor = GridBagConstraints.NORTH;
@@ -109,6 +112,7 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		gbc_jPanelPlayer2.gridx = 1;
 		gbc_jPanelPlayer2.gridy = 0;
 		add(getJPanelPlayer2O(), gbc_jPanelPlayer2);
+		
 		GridBagConstraints gbc_separator = new GridBagConstraints();
 		gbc_separator.fill = GridBagConstraints.HORIZONTAL;
 		gbc_separator.gridwidth = 2;
@@ -116,13 +120,21 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		gbc_separator.gridx = 0;
 		gbc_separator.gridy = 1;
 		add(getSeparator(), gbc_separator);
+		
 		GridBagConstraints gbc_jPanelPlayGround = new GridBagConstraints();
-		gbc_jPanelPlayGround.insets = new Insets(10, 10, 10, 10);
+		gbc_jPanelPlayGround.insets = new Insets(10, 10, 0, 10);
 		gbc_jPanelPlayGround.gridwidth = 2;
 		gbc_jPanelPlayGround.fill = GridBagConstraints.BOTH;
 		gbc_jPanelPlayGround.gridx = 0;
 		gbc_jPanelPlayGround.gridy = 2;
 		add(getJPanelPlayGround(), gbc_jPanelPlayGround);
+		
+		GridBagConstraints gbc_jLableStatus = new GridBagConstraints();
+		gbc_jLableStatus.insets = new Insets(0, 10, 20, 10);
+		gbc_jLableStatus.gridwidth = 2;
+		gbc_jLableStatus.gridx = 0;
+		gbc_jLableStatus.gridy = 3;
+		add(getJLableStatus(), gbc_jLableStatus);
 	}
 	 
 	private JPanelPlayer getJPanelPlayer1X() {
@@ -296,6 +308,23 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		}
 		return jButton33;
 	}
+	
+	
+	private JLabel getJLableStatus() {
+		if (jLableStatus == null) {
+			jLableStatus = new JLabel("Status");
+			jLableStatus.setFont(new Font("Dialog", Font.BOLD, 12));
+		}
+		return jLableStatus;
+	}
+	/**
+	 * Sets the status text.
+	 * @param statusMessage the new status
+	 */
+	public void setStatus(String statusMessage) {
+		this.getJLableStatus().setText(statusMessage);
+	}
+	
 	/**
 	 * Adds the local action listener to all JButtons.
 	 */

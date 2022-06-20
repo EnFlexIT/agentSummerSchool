@@ -8,7 +8,7 @@ import jade.core.*;
 /**
 * Protege name: AbstractGameConcepts
 * @author ontology bean generator
-* @version 2022/06/20, 20:33:52
+* @version 2022/06/20, 23:26:38
 */
 public class AbstractGameConcepts implements Concept {
 

@@ -18,8 +18,6 @@ public class GameMasterAgent extends Agent {
 	private static final long serialVersionUID = -3300871772757135436L;
 
 	private GameMasterBoardModel gameMasterBoardModel;
-	private GameList gameList = new GameList();
-	
 	
 	/* (non-Javadoc)
 	 * @see jade.core.Agent#setup()
@@ -28,7 +26,7 @@ public class GameMasterAgent extends Agent {
 	protected void setup() {
 		
 		this.getContentManager().registerLanguage(new SLCodec());
-		this.getContentManager().registerOntology(TicTacToeOntologyOntology.getInstance()); 
+		this.getContentManager().registerOntology(TicTacToeOntology.getInstance()); 
 		
 		this.addBehaviour(new MessageReceiveBehaviour(this));
 		

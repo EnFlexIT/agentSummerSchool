@@ -8,19 +8,19 @@ import jade.core.*;
 /**
 * Protege name: RegisterInteraction
 * @author ontology bean generator
-* @version 2022/06/20, 20:33:52
+* @version 2022/06/20, 23:26:38
 */
 public class RegisterInteraction implements AgentAction {
 
    /**
-* Protege name: agentPlayer
+* Protege name: player
    */
-   private AgentPlayer agentPlayer;
-   public void setAgentPlayer(AgentPlayer value) { 
-    this.agentPlayer=value;
+   private AbstractPlayer player;
+   public void setPlayer(AbstractPlayer value) { 
+    this.player=value;
    }
-   public AgentPlayer getAgentPlayer() {
-     return this.agentPlayer;
+   public AbstractPlayer getPlayer() {
+     return this.player;
    }
 
 }

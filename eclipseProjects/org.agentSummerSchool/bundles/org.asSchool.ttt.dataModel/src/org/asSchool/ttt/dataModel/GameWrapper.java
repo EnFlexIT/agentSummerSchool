@@ -5,7 +5,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.asSchool.ttt.dataModel.ontology.AbstractMarkType;
 import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
-import org.asSchool.ttt.dataModel.ontology.AbstracttPlayer;
 import org.asSchool.ttt.dataModel.ontology.Circle;
 import org.asSchool.ttt.dataModel.ontology.Cross;
 import org.asSchool.ttt.dataModel.ontology.Game;

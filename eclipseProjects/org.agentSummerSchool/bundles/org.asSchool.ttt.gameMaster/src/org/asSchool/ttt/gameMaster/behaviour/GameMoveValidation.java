@@ -157,16 +157,16 @@ public class GameMoveValidation extends OneShotBehaviour {
 		ACLMessage remisMessage2 = new ACLMessage();
 		
 		winnerMessage.setLanguage(new SLCodec().getName());
-		winnerMessage.setOntology(TicTacToeOntologyOntology.getInstance().getName());
+		winnerMessage.setOntology(TicTacToeOntology.getInstance().getName());
 		
 		loserMessage.setLanguage(new SLCodec().getName());
-		loserMessage.setOntology(TicTacToeOntologyOntology.getInstance().getName());
+		loserMessage.setOntology(TicTacToeOntology.getInstance().getName());
 		
 		remisMessage1.setLanguage(new SLCodec().getName());
-		remisMessage1.setOntology(TicTacToeOntologyOntology.getInstance().getName());
+		remisMessage1.setOntology(TicTacToeOntology.getInstance().getName());
 		
 		remisMessage2.setLanguage(new SLCodec().getName());
-		remisMessage2.setOntology(TicTacToeOntologyOntology.getInstance().getName());
+		remisMessage2.setOntology(TicTacToeOntology.getInstance().getName());
 		
 		GameResult gameResult = new GameResult();
 		gameResult.setGameID(finishedGame.getGameID());

@@ -1,4 +1,4 @@
-; Mon Jun 20 20:33:49 CEST 2022
+; Mon Jun 20 23:26:35 CEST 2022
 ; 
 ;+ (version "3.3.1")
 ;+ (build "Build 430")
@@ -21,7 +21,7 @@
 
 ([project+annotation] of  %3APROJECT-ANNOTATION
 
-	(%3ALOCATION "D:\\Git\\agentSummerSchool\\eclipseProjects\\org.agentSummerSchool\\bundles\\org.asSchool.ttt.dataModel\\src")
+	(%3ALOCATION "D:\\20_GIT\\11_AgentSummerSchool\\eclipseProjects\\org.agentSummerSchool\\bundles\\org.asSchool.ttt.dataModel\\src")
 	(%3AONTOLOGYNAME "TicTacToeOntology")
 	(%3APACKAGE "org.asSchool.ttt.dataModel.ontology")
 	(%3ASUPPORT "j2se"))

@@ -35,7 +35,7 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 	 */
 	@Override
 	public void action() {
-		Action contentAction = new Action();
+		
 		ACLMessage aclMessage = this.getAgent().receive();
 		if (aclMessage==null) {
 			// --- Block till next message arrives ------------------
@@ -43,10 +43,10 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 			
 		} else {
 			
+			Action contentAction = null;
 			try {
 				contentAction = (Action) this.myAgent.getContentManager().extractContent(aclMessage);
 			} catch (CodecException | OntologyException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			

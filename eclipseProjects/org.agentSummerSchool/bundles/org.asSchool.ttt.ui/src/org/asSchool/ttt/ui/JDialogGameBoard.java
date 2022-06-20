@@ -40,6 +40,7 @@ public class JDialogGameBoard extends JDialog {
 		
 		this.setModal(false);
 		this.setResizable(true);
+		this.setAlwaysOnTop(true);
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		
 		this.getContentPane().add(this.getJPanelGameBoard(), BorderLayout.CENTER);
@@ -75,6 +76,14 @@ public class JDialogGameBoard extends JDialog {
 	 */
 	public Game getGame() {
 		return this.getJPanelGameBoard().getGame();
+	}
+	
+	/**
+	 * Sets the status text.
+	 * @param statusMessage the new status
+	 */
+	public void setStatus(String statusMessage) {
+		this.getJPanelGameBoard().setStatus(statusMessage);
 	}
 	
 	/**

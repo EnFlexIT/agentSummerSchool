@@ -9,16 +9,24 @@
     <updateDateLastChecked>0</updateDateLastChecked>
     <projectFeatures/>
     <plugins/>
-    <subOntologies/>
+    <subOntologies>
+        <subOntology>org.asSchool.ttt.dataModel.ontology.TicTacToeOntology</subOntology>
+    </subOntologies>
     <agentStartConfiguration>
-        <agentVector/>
+        <agentVector>
+            <agent agentReference="org.asSchool.ttt.humanPlayer.HumanPlayerAgent">
+                <startArgumentVector>
+                    <startArgument position="1" ontologyReference="jade.core.AID"/>
+                </startArgumentVector>
+            </agent>
+        </agentVector>
     </agentStartConfiguration>
     <jadeConfiguration>
         <skipUserRequestForJadeStart>true</skipUserRequestForJadeStart>
         <useLocalPort>1099</useLocalPort>
         <useLocalMtpPort>7778</useLocalMtpPort>
-        <mtpCreation>ConfiguredByJADE</mtpCreation>
-        <mtpIpAddress>Auto-Configuration</mtpIpAddress>
+        <mtpCreation>ConfiguredByIPandPort</mtpCreation>
+        <mtpIpAddress>127.0.0.1</mtpIpAddress>
         <mtpProtocol>HTTP</mtpProtocol>
         <serviceList>
             <service>agentgui.simulationService.LoadService</service>

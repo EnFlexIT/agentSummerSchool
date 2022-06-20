@@ -7,20 +7,9 @@ import jade.core.*;
 /**
 * Protege name: Game
 * @author ontology bean generator
-* @version 2022/06/20, 20:33:52
+* @version 2022/06/20, 23:26:38
 */
 public class Game extends AbstractGameConcepts{ 
-
-   /**
-* Protege name: oMarkPlayer
-   */
-   private AbstractPlayer oMarkPlayer;
-   public void setOMarkPlayer(AbstractPlayer value) { 
-    this.oMarkPlayer=value;
-   }
-   public AbstractPlayer getOMarkPlayer() {
-     return this.oMarkPlayer;
-   }
 
    /**
 * Protege name: gameMoveHistory
@@ -63,6 +52,17 @@ public class Game extends AbstractGameConcepts{
    }
    public AbstractPlayer getXMarkPlayer() {
      return this.xMarkPlayer;
+   }
+
+   /**
+* Protege name: oMarkPlayer
+   */
+   private AbstractPlayer oMarkPlayer;
+   public void setOMarkPlayer(AbstractPlayer value) { 
+    this.oMarkPlayer=value;
+   }
+   public AbstractPlayer getOMarkPlayer() {
+     return this.oMarkPlayer;
    }
 
 }

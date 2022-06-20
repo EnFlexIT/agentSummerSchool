@@ -28,7 +28,7 @@ public class SendGameMoveToPlayer extends OneShotBehaviour {
 		ACLMessage gameMessage = new ACLMessage();
 		gameMessage.addReceiver(this.nextPlayer.getAid()); 
 		gameMessage.setLanguage(new SLCodec().getName());
-		gameMessage.setOntology(TicTacToeOntologyOntology.getInstance().getName());
+		gameMessage.setOntology(TicTacToeOntology.getInstance().getName());
 		
 		GetGameField getGameField = new GetGameField ();
 		getGameField.setGameBoard(this.gameHashMap.get(this.gameID).getGameBoard());

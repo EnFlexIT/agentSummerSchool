@@ -66,7 +66,7 @@ public class RegisterationReceiveBehaviour extends OneShotBehaviour {
 			this.getGameMasterBoardModel().setGamePending(game);
 
 			
-			sendRegisterAnswer(newPlayer.getMarkType(), register.getAgentPlayer());
+			sendRegisterAnswer(newPlayer.getMarkType(), register.getPlayer());
 //			createNewGame(1, register.getAgentPlayer()); //if there is no game in the list, create a new game with gameID = 1;
 		
 		} else {
@@ -80,7 +80,7 @@ public class RegisterationReceiveBehaviour extends OneShotBehaviour {
 			}			
 			
 			this.gameHashMap.put(this.gameMasterAgent.getGameMasterBoardModel().getGamePending().getGameID(), this.gameMasterAgent.getGameMasterBoardModel().getGamePending());
-			sendRegisterAnswer(newPlayer.getMarkType(), register.getAgentPlayer());
+			sendRegisterAnswer(newPlayer.getMarkType(), register.getPlayer());
 			
 			//Send Board to first Player which is always the player with mark O
 			
@@ -91,17 +91,17 @@ public class RegisterationReceiveBehaviour extends OneShotBehaviour {
 		
 	}
 	
-	private void sendRegisterAnswer(AbstractMarkType mt, AgentPlayer ap) {
+	private void sendRegisterAnswer(AbstractMarkType mt, AbstractPlayer ap) {
 		
 		ACLMessage answerMessage = new ACLMessage();
 		answerMessage.addReceiver(ap.getAid());
 		answerMessage.setLanguage(new SLCodec().getName());
-		answerMessage.setOntology(TicTacToeOntologyOntology.getInstance().getName());
+		answerMessage.setOntology(TicTacToeOntology.getInstance().getName());
 		
 		
 		RegisterAnswer registerAnswer = new RegisterAnswer();
 		registerAnswer.setMark(mt);
-		registerAnswer.setAgentPlayer(ap);
+		registerAnswer.setPlayer(ap);
 		Action agentAction = new Action();
 		agentAction.setActor(this.myAgent.getAID());
 		agentAction.setAction(registerAnswer);

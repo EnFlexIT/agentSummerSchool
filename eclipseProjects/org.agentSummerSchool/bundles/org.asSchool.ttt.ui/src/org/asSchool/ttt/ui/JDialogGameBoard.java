@@ -23,16 +23,31 @@ public class JDialogGameBoard extends JDialog {
 	private JPanelGameBoard jPanelGameBoard;
 
 	private AID parentAgent;
-	
+	private boolean isUiDevelopment;
+
 	/**
-	 * Instantiates a new j dialog game board.
-	 * 
+	 * Instantiates a new JDialogGameBoard.
+	 *
 	 * @param parentAgent the AID of the parent agent
 	 */
 	public JDialogGameBoard(AID parentAgent) {
+		this(parentAgent, false);
+	}
+	/**
+	 * Instantiates a new JDialogGameBoard.
+	 *
+	 * @param parentAgent the AID of the parent agent
+	 * @param isUiDevelopment the is ui development
+	 */
+	public JDialogGameBoard(AID parentAgent, boolean isUiDevelopment) {
 		this.parentAgent = parentAgent;
+		this.isUiDevelopment = isUiDevelopment;
 		this.initialize();
 	}
+
+	/**
+	 * Initializes this dialog.
+	 */
 	private void initialize() {
 		
 		this.setSize(450, 550);
@@ -52,9 +67,14 @@ public class JDialogGameBoard extends JDialog {
 	    this.setLocation(left, top);
 		
 	}
+	
+	/**
+	 * Returns the JPanelGameBoard to integrate in this dialog.
+	 * @return the j panel game board
+	 */
 	private JPanelGameBoard getJPanelGameBoard() {
 		if (jPanelGameBoard == null) {
-			jPanelGameBoard = new JPanelGameBoard(this.parentAgent);
+			jPanelGameBoard = new JPanelGameBoard(this.parentAgent, this.isUiDevelopment);
 		}
 		return jPanelGameBoard;
 	}

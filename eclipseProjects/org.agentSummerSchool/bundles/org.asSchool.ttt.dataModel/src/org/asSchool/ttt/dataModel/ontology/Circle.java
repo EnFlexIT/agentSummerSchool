@@ -7,7 +7,7 @@ import jade.core.*;
 /**
 * Protege name: Circle
 * @author ontology bean generator
-* @version 2022/06/20, 23:26:38
+* @version 2022/06/21, 19:18:37
 */
 public class Circle extends AbstractMarkType{ 
 

@@ -8,20 +8,9 @@ import jade.core.*;
 /**
 * Protege name: AbstractPlayer
 * @author ontology bean generator
-* @version 2022/06/20, 23:26:38
+* @version 2022/06/21, 19:18:37
 */
 public class AbstractPlayer implements Concept {
-
-   /**
-* Protege name: markType
-   */
-   private AbstractMarkType markType;
-   public void setMarkType(AbstractMarkType value) { 
-    this.markType=value;
-   }
-   public AbstractMarkType getMarkType() {
-     return this.markType;
-   }
 
    /**
 * Protege name: score

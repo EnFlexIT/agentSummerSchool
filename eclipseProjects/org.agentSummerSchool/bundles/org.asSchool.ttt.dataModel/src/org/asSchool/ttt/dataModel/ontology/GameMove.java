@@ -8,30 +8,19 @@ import jade.core.*;
 /**
 * Protege name: GameMove
 * @author ontology bean generator
-* @version 2022/06/20, 23:26:38
+* @version 2022/06/21, 19:18:37
 */
 public class GameMove implements Concept {
 
    /**
-* Protege name: gameRow
+* Protege name: gameColumn
    */
-   private int gameRow;
-   public void setGameRow(int value) { 
-    this.gameRow=value;
+   private int gameColumn;
+   public void setGameColumn(int value) { 
+    this.gameColumn=value;
    }
-   public int getGameRow() {
-     return this.gameRow;
-   }
-
-   /**
-* Protege name: gameID
-   */
-   private int gameID;
-   public void setGameID(int value) { 
-    this.gameID=value;
-   }
-   public int getGameID() {
-     return this.gameID;
+   public int getGameColumn() {
+     return this.gameColumn;
    }
 
    /**
@@ -46,14 +35,25 @@ public class GameMove implements Concept {
    }
 
    /**
-* Protege name: gameColumn
+* Protege name: gameID
    */
-   private int gameColumn;
-   public void setGameColumn(int value) { 
-    this.gameColumn=value;
+   private int gameID;
+   public void setGameID(int value) { 
+    this.gameID=value;
    }
-   public int getGameColumn() {
-     return this.gameColumn;
+   public int getGameID() {
+     return this.gameID;
+   }
+
+   /**
+* Protege name: gameRow
+   */
+   private int gameRow;
+   public void setGameRow(int value) { 
+    this.gameRow=value;
+   }
+   public int getGameRow() {
+     return this.gameRow;
    }
 
 }

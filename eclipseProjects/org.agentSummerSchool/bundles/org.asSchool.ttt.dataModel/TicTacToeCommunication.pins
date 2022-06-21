@@ -1,13 +1,9 @@
-; Mon Jun 20 23:26:35 CEST 2022
+; Tue Jun 21 19:18:38 CEST 2022
 ; 
 ;+ (version "3.3.1")
 ;+ (build "Build 430")
 
 ([GameBoard] of  %3AJADE-CLASS
-
-	(%3AJADE-IGNORE FALSE))
-
-([GameList] of  %3AJADE-CLASS
 
 	(%3AJADE-IGNORE FALSE))
 
@@ -22,6 +18,6 @@
 ([project+annotation] of  %3APROJECT-ANNOTATION
 
 	(%3ALOCATION "D:\\20_GIT\\11_AgentSummerSchool\\eclipseProjects\\org.agentSummerSchool\\bundles\\org.asSchool.ttt.dataModel\\src")
-	(%3AONTOLOGYNAME "TicTacToeOntology")
+	(%3AONTOLOGYNAME "TicTacToe")
 	(%3APACKAGE "org.asSchool.ttt.dataModel.ontology")
 	(%3ASUPPORT "j2se"))

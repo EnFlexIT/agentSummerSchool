@@ -45,6 +45,8 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	private static final Color COLOR_PLAYER_TWO_O = new Color(0, 0, 205);
 	
 	private AID parentAgent;
+	private boolean isUiDevelopment;
+	
 	private GameBoardListener gameBoardListener;
 	private GameWrapper gameWrapper;
 
@@ -75,17 +77,31 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	private ImageIcon imageIconCrossScaled;
 	private JLabel jLableStatus;
 	
-	
+
 	/**
 	 * Instantiates a new JPanelGameBoard.
+	 * 
 	 * @param parentAgent the AID of the parent agent
 	 */
 	public JPanelGameBoard(AID parentAgent) {
+		this(parentAgent, false);
+	}
+	/**
+	 * Instantiates a new JPanelGameBoard.
+	 *
+	 * @param parentAgent the AID of the parent agent
+	 * @param isUiDevelopment the is ui development
+	 */
+	public JPanelGameBoard(AID parentAgent, boolean isUiDevelopment) {
 		this.parentAgent = parentAgent;
 		this.initialize();
 		this.addResizeListener();
 		this.addActionListener();
 	}
+	
+	/**
+	 * Initializes mthe panel.
+	 */
 	private void initialize() {
 		
 		this.setBackground(COLOR_BACKGROUND);
@@ -487,7 +503,9 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	 * Updates the local game board.
 	 */
 	private void updateGameBoard() {
-		this.setGameBoard(this.getGame().getGameBoard());
+		if (this.getGame()!=null && this.getGame().getGameBoard()!=null) {
+			this.setGameBoard(this.getGame().getGameBoard());
+		}
 	}
 	/**
 	 * Sets the game board.
@@ -569,16 +587,15 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 			
 			// --- Who I am? ---------------------------------------------------
 			AID nextMover = this.parentAgent;
-			if (this.getGameWrapper().isNextMover(nextMover)==false) {
+			if (this.isUiDevelopment==true && this.getGameWrapper().isNextMover(nextMover)==false) {
 				// -------------------------------------------------------------
 				// --- Only for UI development purposes !!! --------------------
 				// -------------------------------------------------------------
 				nextMover = this.getGameWrapper().getNextMover();
 			}
-
 			
 			// --- Is it allowed to make the next move ? ----------------------
-			if (this.getGameWrapper().isNextMover(nextMover)) {
+			if (this.getGameWrapper().isNextMover(nextMover)==true) {
 				// --- Get my mark and check if the cell is free --------------
 				AbstractMarkType myMark = this.getGameWrapper().getMark(nextMover);
 				boolean isFreeCell = this.getGameWrapper().isFreeCell(sel[0],sel[1]);
@@ -595,10 +612,12 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 			}
 
 			// --- Print the resulting GameState ------------------------------
-			System.out.println("GameState: " + this.getGameWrapper().getGameState());
-			GameWrapper.print(this.getGame().getGameBoard());
-			AbstractPlayer winner = this.getGameWrapper().getWinner();
-			System.out.println("Winner: " + (winner==null ? "-" : winner.getAid().getLocalName()));
+			if (this.isUiDevelopment==true) {
+				System.out.println("GameState: " + this.getGameWrapper().getGameState());
+				GameWrapper.print(this.getGame().getGameBoard());
+				AbstractPlayer winner = this.getGameWrapper().getWinner();
+				System.out.println("Winner: " + (winner==null ? "-" : winner.getAid().getLocalName()));
+			}
 			
 		}
 	}

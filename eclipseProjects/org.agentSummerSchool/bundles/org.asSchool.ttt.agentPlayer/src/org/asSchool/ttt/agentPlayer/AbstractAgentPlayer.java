@@ -5,6 +5,7 @@ import org.asSchool.ttt.agentPlayer.behaviour.RegisterBehaviour;
 import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
 import org.asSchool.ttt.dataModel.ontology.TicTacToeOntology;
 
+import jade.content.AgentAction;
 import jade.content.Concept;
 import jade.content.OntoAID;
 import jade.content.lang.Codec.CodecException;
@@ -110,8 +111,8 @@ public abstract class AbstractAgentPlayer extends Agent {
 	
 	/**
 	 * Will be invoked if a message was received.
-	 * @param aclMessage the ACLMessage to react on
+	 * @param agentAction the agent action to work on
 	 */
-	public abstract void onMessageReceived(ACLMessage aclMessage);
+	public abstract void onMessageReceived(AgentAction agentAction);
 	
 }

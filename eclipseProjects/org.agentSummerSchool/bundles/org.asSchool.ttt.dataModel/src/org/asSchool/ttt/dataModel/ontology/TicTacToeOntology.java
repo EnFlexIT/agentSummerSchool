@@ -9,7 +9,7 @@ import jade.core.CaseInsensitiveString;
 
 /** file: TicTacToeOntology.java
  * @author ontology bean generator
- * @version 2022/06/20, 23:26:38
+ * @version 2022/06/21, 19:18:37
  */
 public class TicTacToeOntology extends jade.content.onto.Ontology  {
   //NAME
@@ -23,54 +23,42 @@ public class TicTacToeOntology extends jade.content.onto.Ontology  {
 
 
    // VOCABULARY
-    public static final String REGISTERINTERACTION_PLAYER="player";
-    public static final String REGISTERINTERACTION="RegisterInteraction";
-    public static final String GAMEFIELDINTERACTION_GAMEBOARD="gameBoard";
-    public static final String GAMEFIELDINTERACTION_GAMEID="gameID";
-    public static final String GAMEFIELDINTERACTION="GameFieldInteraction";
-    public static final String REGISTERANSWER_MARK="mark";
-    public static final String REGISTERANSWER="RegisterAnswer";
-    public static final String GAMERESULTINTERACTION_GAMERESULT="gameResult";
-    public static final String GAMERESULTINTERACTION="GameResultInteraction";
-    public static final String PUTGAMEFIELD="PutGameField";
-    public static final String GETGAMEFIELD="GetGameField";
-    public static final String REGISTER="Register";
-    public static final String CIRCLE="Circle";
-    public static final String CROSS="Cross";
-    public static final String GAMERESULT_WINNER="winner";
-    public static final String GAMERESULT_REMISPLAYER2="remisPlayer2";
-    public static final String GAMERESULT_LOSER="loser";
-    public static final String GAMERESULT_REMISPLAYER1="remisPlayer1";
+    public static final String GAMELOST="GameLost";
     public static final String GAMERESULT="GameResult";
-    public static final String GAMEROW_COLUMN3="column3";
-    public static final String GAMEROW_COLUMN2="column2";
-    public static final String GAMEROW_COLUMN1="column1";
-    public static final String GAMEROW="GameRow";
-    public static final String ABSTRACTGAMECONCEPTS_GAMEID="gameID";
-    public static final String ABSTRACTGAMECONCEPTS="AbstractGameConcepts";
+    public static final String GAMEWON="GameWon";
+    public static final String REGISTER_PLAYER="player";
+    public static final String REGISTER="Register";
+    public static final String GAMEACTION_GAME="game";
+    public static final String GAMEACTION="GameAction";
+    public static final String GAMEREMIS="GameRemis";
+    public static final String AGENTPLAYER="AgentPlayer";
+    public static final String GAMEMOVE_GAMEROW="gameRow";
+    public static final String GAMEMOVE_GAMEID="gameID";
+    public static final String GAMEMOVE_MARKTYPE="markType";
+    public static final String GAMEMOVE_GAMECOLUMN="gameColumn";
+    public static final String GAMEMOVE="GameMove";
+    public static final String GAME_GAMEBOARD="gameBoard";
+    public static final String GAME_XMARKPLAYER="xMarkPlayer";
+    public static final String GAME_GAMEMOVEHISTORY="gameMoveHistory";
+    public static final String GAME_OMARKPLAYER="oMarkPlayer";
+    public static final String GAME="Game";
+    public static final String CIRCLE="Circle";
+    public static final String ABSTRACTMARKTYPE="AbstractMarkType";
     public static final String ABSTRACTPLAYER_AID="aid";
     public static final String ABSTRACTPLAYER_SCORE="score";
-    public static final String ABSTRACTPLAYER_MARKTYPE="markType";
     public static final String ABSTRACTPLAYER="AbstractPlayer";
-    public static final String ABSTRACTMARKTYPE="AbstractMarkType";
-    public static final String GAME_OMARKPLAYER="oMarkPlayer";
-    public static final String GAME_XMARKPLAYER="xMarkPlayer";
-    public static final String GAME_GAMEBOARD="gameBoard";
-    public static final String GAME_GAMEMOVEHISTORY="gameMoveHistory";
-    public static final String GAME="Game";
-    public static final String AGENTPLAYER="AgentPlayer";
-    public static final String HUMANPLAYER="HumanPlayer";
-    public static final String GAMEMOVE_GAMECOLUMN="gameColumn";
-    public static final String GAMEMOVE_MARKTYPE="markType";
-    public static final String GAMEMOVE_GAMEID="gameID";
-    public static final String GAMEMOVE_GAMEROW="gameRow";
-    public static final String GAMEMOVE="GameMove";
-    public static final String GAMEBOARD_GAMEROW3="gameRow3";
+    public static final String CROSS="Cross";
     public static final String GAMEBOARD_GAMEROW1="gameRow1";
+    public static final String GAMEBOARD_GAMEROW3="gameRow3";
     public static final String GAMEBOARD_GAMEROW2="gameRow2";
     public static final String GAMEBOARD="GameBoard";
-    public static final String GAMELIST_GAMELIST="gameList";
-    public static final String GAMELIST="GameList";
+    public static final String ABSTRACTGAMECONCEPTS_GAMEID="gameID";
+    public static final String ABSTRACTGAMECONCEPTS="AbstractGameConcepts";
+    public static final String HUMANPLAYER="HumanPlayer";
+    public static final String GAMEROW_COLUMN1="column1";
+    public static final String GAMEROW_COLUMN2="column2";
+    public static final String GAMEROW_COLUMN3="column3";
+    public static final String GAMEROW="GameRow";
 
   /**
    * Constructor
@@ -80,48 +68,42 @@ public class TicTacToeOntology extends jade.content.onto.Ontology  {
     try { 
 
     // adding Concept(s)
-    ConceptSchema gameListSchema = new ConceptSchema(GAMELIST);
-    add(gameListSchema, org.asSchool.ttt.dataModel.ontology.GameList.class);
-    ConceptSchema gameBoardSchema = new ConceptSchema(GAMEBOARD);
-    add(gameBoardSchema, org.asSchool.ttt.dataModel.ontology.GameBoard.class);
-    ConceptSchema gameMoveSchema = new ConceptSchema(GAMEMOVE);
-    add(gameMoveSchema, org.asSchool.ttt.dataModel.ontology.GameMove.class);
-    ConceptSchema humanPlayerSchema = new ConceptSchema(HUMANPLAYER);
-    add(humanPlayerSchema, org.asSchool.ttt.dataModel.ontology.HumanPlayer.class);
-    ConceptSchema agentPlayerSchema = new ConceptSchema(AGENTPLAYER);
-    add(agentPlayerSchema, org.asSchool.ttt.dataModel.ontology.AgentPlayer.class);
-    ConceptSchema gameSchema = new ConceptSchema(GAME);
-    add(gameSchema, org.asSchool.ttt.dataModel.ontology.Game.class);
-    ConceptSchema abstractMarkTypeSchema = new ConceptSchema(ABSTRACTMARKTYPE);
-    add(abstractMarkTypeSchema, org.asSchool.ttt.dataModel.ontology.AbstractMarkType.class);
-    ConceptSchema abstractPlayerSchema = new ConceptSchema(ABSTRACTPLAYER);
-    add(abstractPlayerSchema, org.asSchool.ttt.dataModel.ontology.AbstractPlayer.class);
-    ConceptSchema abstractGameConceptsSchema = new ConceptSchema(ABSTRACTGAMECONCEPTS);
-    add(abstractGameConceptsSchema, org.asSchool.ttt.dataModel.ontology.AbstractGameConcepts.class);
     ConceptSchema gameRowSchema = new ConceptSchema(GAMEROW);
     add(gameRowSchema, org.asSchool.ttt.dataModel.ontology.GameRow.class);
-    ConceptSchema gameResultSchema = new ConceptSchema(GAMERESULT);
-    add(gameResultSchema, org.asSchool.ttt.dataModel.ontology.GameResult.class);
+    ConceptSchema humanPlayerSchema = new ConceptSchema(HUMANPLAYER);
+    add(humanPlayerSchema, org.asSchool.ttt.dataModel.ontology.HumanPlayer.class);
+    ConceptSchema abstractGameConceptsSchema = new ConceptSchema(ABSTRACTGAMECONCEPTS);
+    add(abstractGameConceptsSchema, org.asSchool.ttt.dataModel.ontology.AbstractGameConcepts.class);
+    ConceptSchema gameBoardSchema = new ConceptSchema(GAMEBOARD);
+    add(gameBoardSchema, org.asSchool.ttt.dataModel.ontology.GameBoard.class);
     ConceptSchema crossSchema = new ConceptSchema(CROSS);
     add(crossSchema, org.asSchool.ttt.dataModel.ontology.Cross.class);
+    ConceptSchema abstractPlayerSchema = new ConceptSchema(ABSTRACTPLAYER);
+    add(abstractPlayerSchema, org.asSchool.ttt.dataModel.ontology.AbstractPlayer.class);
+    ConceptSchema abstractMarkTypeSchema = new ConceptSchema(ABSTRACTMARKTYPE);
+    add(abstractMarkTypeSchema, org.asSchool.ttt.dataModel.ontology.AbstractMarkType.class);
     ConceptSchema circleSchema = new ConceptSchema(CIRCLE);
     add(circleSchema, org.asSchool.ttt.dataModel.ontology.Circle.class);
+    ConceptSchema gameSchema = new ConceptSchema(GAME);
+    add(gameSchema, org.asSchool.ttt.dataModel.ontology.Game.class);
+    ConceptSchema gameMoveSchema = new ConceptSchema(GAMEMOVE);
+    add(gameMoveSchema, org.asSchool.ttt.dataModel.ontology.GameMove.class);
+    ConceptSchema agentPlayerSchema = new ConceptSchema(AGENTPLAYER);
+    add(agentPlayerSchema, org.asSchool.ttt.dataModel.ontology.AgentPlayer.class);
 
     // adding AgentAction(s)
+    AgentActionSchema gameRemisSchema = new AgentActionSchema(GAMEREMIS);
+    add(gameRemisSchema, org.asSchool.ttt.dataModel.ontology.GameRemis.class);
+    AgentActionSchema gameActionSchema = new AgentActionSchema(GAMEACTION);
+    add(gameActionSchema, org.asSchool.ttt.dataModel.ontology.GameAction.class);
     AgentActionSchema registerSchema = new AgentActionSchema(REGISTER);
     add(registerSchema, org.asSchool.ttt.dataModel.ontology.Register.class);
-    AgentActionSchema getGameFieldSchema = new AgentActionSchema(GETGAMEFIELD);
-    add(getGameFieldSchema, org.asSchool.ttt.dataModel.ontology.GetGameField.class);
-    AgentActionSchema putGameFieldSchema = new AgentActionSchema(PUTGAMEFIELD);
-    add(putGameFieldSchema, org.asSchool.ttt.dataModel.ontology.PutGameField.class);
-    AgentActionSchema gameResultInteractionSchema = new AgentActionSchema(GAMERESULTINTERACTION);
-    add(gameResultInteractionSchema, org.asSchool.ttt.dataModel.ontology.GameResultInteraction.class);
-    AgentActionSchema registerAnswerSchema = new AgentActionSchema(REGISTERANSWER);
-    add(registerAnswerSchema, org.asSchool.ttt.dataModel.ontology.RegisterAnswer.class);
-    AgentActionSchema gameFieldInteractionSchema = new AgentActionSchema(GAMEFIELDINTERACTION);
-    add(gameFieldInteractionSchema, org.asSchool.ttt.dataModel.ontology.GameFieldInteraction.class);
-    AgentActionSchema registerInteractionSchema = new AgentActionSchema(REGISTERINTERACTION);
-    add(registerInteractionSchema, org.asSchool.ttt.dataModel.ontology.RegisterInteraction.class);
+    AgentActionSchema gameWonSchema = new AgentActionSchema(GAMEWON);
+    add(gameWonSchema, org.asSchool.ttt.dataModel.ontology.GameWon.class);
+    AgentActionSchema gameResultSchema = new AgentActionSchema(GAMERESULT);
+    add(gameResultSchema, org.asSchool.ttt.dataModel.ontology.GameResult.class);
+    AgentActionSchema gameLostSchema = new AgentActionSchema(GAMELOST);
+    add(gameLostSchema, org.asSchool.ttt.dataModel.ontology.GameLost.class);
 
     // adding AID(s)
 
@@ -129,48 +111,38 @@ public class TicTacToeOntology extends jade.content.onto.Ontology  {
 
 
     // adding fields
-    gameListSchema.add(GAMELIST_GAMELIST, abstractGameConceptsSchema, 0, ObjectSchema.UNLIMITED);
+    gameRowSchema.add(GAMEROW_COLUMN3, abstractMarkTypeSchema, ObjectSchema.OPTIONAL);
+    gameRowSchema.add(GAMEROW_COLUMN2, abstractMarkTypeSchema, ObjectSchema.OPTIONAL);
+    gameRowSchema.add(GAMEROW_COLUMN1, abstractMarkTypeSchema, ObjectSchema.OPTIONAL);
+    abstractGameConceptsSchema.add(ABSTRACTGAMECONCEPTS_GAMEID, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
     gameBoardSchema.add(GAMEBOARD_GAMEROW2, gameRowSchema, ObjectSchema.OPTIONAL);
-    gameBoardSchema.add(GAMEBOARD_GAMEROW1, gameRowSchema, ObjectSchema.OPTIONAL);
     gameBoardSchema.add(GAMEBOARD_GAMEROW3, gameRowSchema, ObjectSchema.OPTIONAL);
-    gameMoveSchema.add(GAMEMOVE_GAMEROW, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
-    gameMoveSchema.add(GAMEMOVE_GAMEID, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
-    gameMoveSchema.add(GAMEMOVE_MARKTYPE, abstractMarkTypeSchema, ObjectSchema.OPTIONAL);
-    gameMoveSchema.add(GAMEMOVE_GAMECOLUMN, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
-    gameSchema.add(GAME_GAMEMOVEHISTORY, gameMoveSchema, 0, ObjectSchema.UNLIMITED);
-    gameSchema.add(GAME_GAMEBOARD, gameBoardSchema, ObjectSchema.OPTIONAL);
-    gameSchema.add(GAME_XMARKPLAYER, abstractPlayerSchema, ObjectSchema.OPTIONAL);
-    gameSchema.add(GAME_OMARKPLAYER, abstractPlayerSchema, ObjectSchema.OPTIONAL);
-    abstractPlayerSchema.add(ABSTRACTPLAYER_MARKTYPE, abstractMarkTypeSchema, ObjectSchema.OPTIONAL);
+    gameBoardSchema.add(GAMEBOARD_GAMEROW1, gameRowSchema, ObjectSchema.OPTIONAL);
     abstractPlayerSchema.add(ABSTRACTPLAYER_SCORE, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
     abstractPlayerSchema.add(ABSTRACTPLAYER_AID, (ConceptSchema)getSchema(BasicOntology.AID), ObjectSchema.OPTIONAL);
-    abstractGameConceptsSchema.add(ABSTRACTGAMECONCEPTS_GAMEID, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
-    gameRowSchema.add(GAMEROW_COLUMN1, abstractMarkTypeSchema, ObjectSchema.OPTIONAL);
-    gameRowSchema.add(GAMEROW_COLUMN2, abstractMarkTypeSchema, ObjectSchema.OPTIONAL);
-    gameRowSchema.add(GAMEROW_COLUMN3, abstractMarkTypeSchema, ObjectSchema.OPTIONAL);
-    gameResultSchema.add(GAMERESULT_REMISPLAYER1, abstractPlayerSchema, ObjectSchema.OPTIONAL);
-    gameResultSchema.add(GAMERESULT_LOSER, abstractPlayerSchema, ObjectSchema.OPTIONAL);
-    gameResultSchema.add(GAMERESULT_REMISPLAYER2, abstractPlayerSchema, ObjectSchema.OPTIONAL);
-    gameResultSchema.add(GAMERESULT_WINNER, abstractPlayerSchema, ObjectSchema.OPTIONAL);
-    gameResultInteractionSchema.add(GAMERESULTINTERACTION_GAMERESULT, gameResultSchema, ObjectSchema.OPTIONAL);
-    registerAnswerSchema.add(REGISTERANSWER_MARK, abstractMarkTypeSchema, ObjectSchema.OPTIONAL);
-    gameFieldInteractionSchema.add(GAMEFIELDINTERACTION_GAMEID, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
-    gameFieldInteractionSchema.add(GAMEFIELDINTERACTION_GAMEBOARD, gameBoardSchema, ObjectSchema.OPTIONAL);
-    registerInteractionSchema.add(REGISTERINTERACTION_PLAYER, abstractPlayerSchema, ObjectSchema.OPTIONAL);
+    gameSchema.add(GAME_OMARKPLAYER, abstractPlayerSchema, ObjectSchema.OPTIONAL);
+    gameSchema.add(GAME_GAMEMOVEHISTORY, gameMoveSchema, 0, ObjectSchema.UNLIMITED);
+    gameSchema.add(GAME_XMARKPLAYER, abstractPlayerSchema, ObjectSchema.OPTIONAL);
+    gameSchema.add(GAME_GAMEBOARD, gameBoardSchema, ObjectSchema.OPTIONAL);
+    gameMoveSchema.add(GAMEMOVE_GAMECOLUMN, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
+    gameMoveSchema.add(GAMEMOVE_MARKTYPE, abstractMarkTypeSchema, ObjectSchema.OPTIONAL);
+    gameMoveSchema.add(GAMEMOVE_GAMEID, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
+    gameMoveSchema.add(GAMEMOVE_GAMEROW, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
+    gameActionSchema.add(GAMEACTION_GAME, gameSchema, ObjectSchema.OPTIONAL);
+    registerSchema.add(REGISTER_PLAYER, abstractPlayerSchema, ObjectSchema.OPTIONAL);
 
     // adding name mappings
 
     // adding inheritance
     humanPlayerSchema.addSuperSchema(abstractPlayerSchema);
-    agentPlayerSchema.addSuperSchema(abstractPlayerSchema);
-    gameSchema.addSuperSchema(abstractGameConceptsSchema);
-    gameResultSchema.addSuperSchema(abstractGameConceptsSchema);
     crossSchema.addSuperSchema(abstractMarkTypeSchema);
     circleSchema.addSuperSchema(abstractMarkTypeSchema);
-    registerSchema.addSuperSchema(registerInteractionSchema);
-    getGameFieldSchema.addSuperSchema(gameFieldInteractionSchema);
-    putGameFieldSchema.addSuperSchema(gameFieldInteractionSchema);
-    registerAnswerSchema.addSuperSchema(registerInteractionSchema);
+    gameSchema.addSuperSchema(abstractGameConceptsSchema);
+    agentPlayerSchema.addSuperSchema(abstractPlayerSchema);
+    gameRemisSchema.addSuperSchema(gameResultSchema);
+    gameWonSchema.addSuperSchema(gameResultSchema);
+    gameResultSchema.addSuperSchema(gameActionSchema);
+    gameLostSchema.addSuperSchema(gameResultSchema);
 
    }catch (java.lang.Exception e) {e.printStackTrace();}
   }

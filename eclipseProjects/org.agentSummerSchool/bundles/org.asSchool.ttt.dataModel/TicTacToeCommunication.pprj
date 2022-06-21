@@ -1,4 +1,4 @@
-; Mon Jun 20 23:26:35 CEST 2022
+; Tue Jun 21 19:18:38 CEST 2022
 ; 
 ;+ (version "3.3.1")
 ;+ (build "Build 430")
@@ -12,6 +12,7 @@
 	(height 100)
 	(is_hidden FALSE)
 	(name ":ANNOTATION-TEXT")
+	(property_list [TicTacToeCommunication_ProjectKB_Instance_10169])
 	(widget_class_name "edu.stanford.smi.protege.widget.YellowStickyWidget")
 	(width 200)
 	(x 0)
@@ -19,7 +20,7 @@
 
 ([BROWSER_SLOT_NAMES] of  Property_List
 
-	(properties [TicTacToeCommunication_ProjectKB_Instance_10155]))
+	(properties [TicTacToeCommunication_ProjectKB_Instance_10179]))
 
 ([CLSES_TAB] of  Widget
 
@@ -56,7 +57,8 @@
 		[ANNOTATED_INSTANCE_WIDGET]
 		[CREATOR_WIDGET]
 		[CREATION_TIMESTAMP_WIDGET]
-		[ANNOTATION_TEXT_WIDGET]))
+		[ANNOTATION_TEXT_WIDGET]
+		[TicTacToeCommunication_ProjectKB_Instance_10168]))
 
 ([INSTANCES_TAB] of  Widget
 
@@ -264,6 +266,8 @@
 		[FORMS_TAB]
 		[INSTANCES_TAB]
 		[QUERIES_TAB]
+		[TicTacToeCommunication_ProjectKB_Instance_141]
+		[TicTacToeCommunication_ProjectKB_Instance_199]
 		[TicTacToeCommunication_ProjectKB_Instance_191]
 		[TicTacToeCommunication_ProjectKB_Instance_149]
 		[TicTacToeCommunication_ProjectKB_Instance_177]
@@ -276,7 +280,6 @@
 		[TicTacToeCommunication_ProjectKB_Instance_179]
 		[TicTacToeCommunication_ProjectKB_Instance_165]
 		[TicTacToeCommunication_ProjectKB_Instance_173]
-		[TicTacToeCommunication_ProjectKB_Instance_141]
 		[TicTacToeCommunication_ProjectKB_Instance_135]
 		[TicTacToeCommunication_ProjectKB_Instance_201]
 		[TicTacToeCommunication_ProjectKB_Instance_151]
@@ -287,7 +290,6 @@
 		[TicTacToeCommunication_ProjectKB_Instance_143]
 		[TicTacToeCommunication_ProjectKB_Instance_133]
 		[TicTacToeCommunication_ProjectKB_Instance_197]
-		[TicTacToeCommunication_ProjectKB_Instance_199]
 		[TicTacToeCommunication_ProjectKB_Instance_161]
 		[TicTacToeCommunication_ProjectKB_Instance_159]
 		[TicTacToeCommunication_ProjectKB_Instance_195]
@@ -657,24 +659,74 @@
 ([TicTacToeCommunication_ProjectKB_Instance_10142] of  Property_List
 )
 
-([TicTacToeCommunication_ProjectKB_Instance_10155] of  String
+([TicTacToeCommunication_ProjectKB_Instance_10149] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([TicTacToeCommunication_ProjectKB_Instance_10150] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Delete Instance"))
+
+([TicTacToeCommunication_ProjectKB_Instance_10151] of  Property_List
+)
+
+([TicTacToeCommunication_ProjectKB_Instance_10152] of  Property_List
+)
+
+([TicTacToeCommunication_ProjectKB_Instance_10153] of  Property_List
+)
+
+([TicTacToeCommunication_ProjectKB_Instance_10166] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "gameID")
+	(property_list [TicTacToeCommunication_ProjectKB_Instance_10167])
+	(widget_class_name "edu.stanford.smi.protege.widget.IntegerFieldWidget")
+	(width 100)
+	(x 0)
+	(y 0))
+
+([TicTacToeCommunication_ProjectKB_Instance_10167] of  Property_List
+)
+
+([TicTacToeCommunication_ProjectKB_Instance_10168] of  Property_List
+
+	(name "layout properties"))
+
+([TicTacToeCommunication_ProjectKB_Instance_10169] of  Property_List
+)
+
+([TicTacToeCommunication_ProjectKB_Instance_10179] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([TicTacToeCommunication_ProjectKB_Instance_10156] of  Map_Entry
+([TicTacToeCommunication_ProjectKB_Instance_10180] of  Map_Entry
 
 	(key "change_tracking_active")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([TicTacToeCommunication_ProjectKB_Instance_10157] of  Map_Entry
+([TicTacToeCommunication_ProjectKB_Instance_10181] of  Map_Entry
 
 	(key "add_name_on_instance_form")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
+
+([TicTacToeCommunication_ProjectKB_Instance_10182] of  Map
+)
+
+([TicTacToeCommunication_ProjectKB_Instance_10183] of  Map_Entry
+
+	(key "InstanceDisplay.yellow_stickies")
+	(key_class "java.lang.String")
+	(value "TicTacToeCommunication_ProjectKB_Instance_10182")
+	(value_class "java.util.Map"))
 
 ([TicTacToeCommunication_ProjectKB_Instance_133] of  Widget
 
@@ -1003,8 +1055,10 @@
 ([TicTacToeCommunication_ProjectKB_Instance_216] of  Map
 
 	(entries
-		[TicTacToeCommunication_ProjectKB_Instance_10156]
-		[TicTacToeCommunication_ProjectKB_Instance_10157]))
+		[TicTacToeCommunication_ProjectKB_Instance_10180]
+		[TicTacToeCommunication_ProjectKB_Instance_10181]
+		[TicTacToeCommunication_ProjectKB_Instance_10183])
+	(referenced_maps [TicTacToeCommunication_ProjectKB_Instance_10182]))
 
 ([TicTacToeCommunication_ProjectKB_Instance_98] of  String
 

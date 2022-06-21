@@ -2,6 +2,9 @@ package org.asSchool.ttt.agentPlayer.behaviour;
 
 import org.asSchool.ttt.agentPlayer.AbstractAgentPlayer;
 
+import jade.content.AgentAction;
+import jade.content.lang.Codec.CodecException;
+import jade.content.onto.OntologyException;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 
@@ -38,7 +41,13 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 			
 		} else {
 			// --- Work on the current message ----------------------
-			this.playerAgent.onMessageReceived(aclMessage);
+			try {
+				AgentAction agentAction = (AgentAction) this.playerAgent.getContentManager().extractContent(aclMessage);
+				this.playerAgent.onMessageReceived(agentAction);
+				
+			} catch (CodecException | OntologyException ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 

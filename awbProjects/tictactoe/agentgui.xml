@@ -16,7 +16,7 @@
         <agentVector>
             <agent agentReference="org.asSchool.ttt.humanPlayer.HumanPlayerAgent">
                 <startArgumentVector>
-                    <startArgument position="1" ontologyReference="jade.core.AID"/>
+                    <startArgument position="1" displayTitle="Game Master AID" ontologyReference="jade.core.AID"/>
                 </startArgumentVector>
             </agent>
         </agentVector>
@@ -134,11 +134,15 @@
         <preventUsageOfAlreadyUsedComputers>true</preventUsageOfAlreadyUsedComputers>
         <showJADErmaGUI>false</showJADErmaGUI>
     </remoteContainerConfiguration>
-    <simulationSetupCurrent>UI-Development</simulationSetupCurrent>
+    <simulationSetupCurrent>Game For Two Humans</simulationSetupCurrent>
     <simulationSetups>
         <entry>
-            <key>RegularGameMode</key>
-            <value>RegularGameMode.xml</value>
+            <key>Game For Two Humans</key>
+            <value>Game_For_Two_Humans.xml</value>
+        </entry>
+        <entry>
+            <key>GameMaster only</key>
+            <value>GameMaster_only.xml</value>
         </entry>
         <entry>
             <key>UI-Development</key>

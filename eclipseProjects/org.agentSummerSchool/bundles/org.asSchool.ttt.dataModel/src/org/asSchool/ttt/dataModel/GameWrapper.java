@@ -339,6 +339,22 @@ public class GameWrapper {
 		}
 		return null;
 	}
+	
+	/**
+	 * Returns the player that lost the current game.
+	 * @return the winner player
+	 */
+	public AbstractPlayer getLoser() {
+		
+		AbstractMarkType winnerMark = this.getWinnerMark();
+		if (winnerMark instanceof Circle) {
+			return this.getGame().getXMarkPlayer();
+		} else if (winnerMark instanceof Cross) {
+			return this.getGame().getOMarkPlayer();
+		}
+		return null;
+	}
+	
 	/**
 	 * Return the current winner or <code>null</code> if no winner can be found.
 	 * @return the winner mark

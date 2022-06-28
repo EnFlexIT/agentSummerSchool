@@ -1,10 +1,12 @@
 package org.asSchool.ttt.agentPlayer.behaviour;
 
 import org.asSchool.ttt.agentPlayer.AbstractAgentPlayer;
+import org.asSchool.ttt.dataModel.ontology.GameAction;
 
 import jade.content.AgentAction;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
+import jade.content.onto.basic.Action;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 
@@ -34,6 +36,7 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 	@Override
 	public void action() {
 		
+		Action agentAction = new Action();
 		ACLMessage aclMessage = this.getAgent().receive();
 		if (aclMessage==null) {
 			// --- Block till next message arrives ------------------
@@ -42,11 +45,15 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 		} else {
 			// --- Work on the current message ----------------------
 			try {
-				AgentAction agentAction = (AgentAction) this.playerAgent.getContentManager().extractContent(aclMessage);
+				agentAction = (Action) this.playerAgent.getContentManager().extractContent(aclMessage);
 				this.playerAgent.onMessageReceived(agentAction);
 				
 			} catch (CodecException | OntologyException ex) {
 				ex.printStackTrace();
+			}
+			
+			if (agentAction.getAction() instanceof GameAction) {
+				
 			}
 		}
 	}

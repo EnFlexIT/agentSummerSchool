@@ -1,7 +1,5 @@
 package org.asSchool.ttt.humanPlayer;
 
-import javax.swing.SwingUtilities;
-
 import org.asSchool.ttt.agentPlayer.AbstractAgentPlayer;
 import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
@@ -38,22 +36,21 @@ public class HumanPlayerAgent extends AbstractAgentPlayer implements GameBoardLi
 	@Override
 	protected void setup() {
 
-		// --- Register codec, ontology and start MessageReceiveBehaviour -----
-		super.setup();
-		
+		// --- Show user game board -------------------------------------------
+		this.getJDialogGameBoard().setGame(null);
+		this.getJDialogGameBoard().setShowRestartButton(false);
+		this.getJDialogGameBoard().setStatus("Waiting for second player ...");
+		this.getJDialogGameBoard().setVisible(true);
+		this.getJDialogGameBoard().validate();
+		this.getJDialogGameBoard().repaint();
+
 		// --- Check if we're in the development setup ------------------------
 		if (this.isDevelopment()==true) {
-			this.setGameToGameBoardDialog(this.getGameForDevelopment());
+			this.getJDialogGameBoard().setGame(this.getGameForDevelopment());
 		}
-		// --- Show user game board -------------------------------------------
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				HumanPlayerAgent.this.getJDialogGameBoard().setVisible(true);
-				HumanPlayerAgent.this.getJDialogGameBoard().validate();
-				HumanPlayerAgent.this.getJDialogGameBoard().repaint();
-			}
-		});
+		
+		// --- Register Codec, ontology and start MessageReceiveBehaviour -----
+		super.setup();
 	}
 	/**
 	 * Checks if is development.
@@ -111,7 +108,7 @@ public class HumanPlayerAgent extends AbstractAgentPlayer implements GameBoardLi
 				// --- Set game status ------------------------------
 				String status = "";
 				GameResult gameResult = (GameResult) action.getAction();
-				this.setGameToGameBoardDialog(gameResult.getGame());
+				this.getJDialogGameBoard().setGame(gameResult.getGame());
 				if (gameResult instanceof GameWon) {
 					status = "You won - Congratulations!";
 				} else if (gameResult instanceof GameLost) {
@@ -120,11 +117,12 @@ public class HumanPlayerAgent extends AbstractAgentPlayer implements GameBoardLi
 					status = "Remis - Just try again!";
 				}
 				this.getJDialogGameBoard().setStatus(status);
+				this.getJDialogGameBoard().setShowRestartButton(true);
 				
 			} else 	if (action.getAction() instanceof GameAction) {
 				// --- Set the new Game to the UI -------------------
 				GameAction gameAction = (GameAction) action.getAction();
-				this.setGameToGameBoardDialog(gameAction.getGame());
+				this.getJDialogGameBoard().setGame(gameAction.getGame());
 				this.getJDialogGameBoard().setStatus("Your move " + this.getLocalName() + "?");
 			}
 		}
@@ -141,20 +139,16 @@ public class HumanPlayerAgent extends AbstractAgentPlayer implements GameBoardLi
 		this.sendMessageToGameMaster(ACLMessage.INFORM, gameAction);
 		this.getJDialogGameBoard().setStatus("Waiting for response ...");
 	}
-
 	
-	/**
-	 * Sets the game instance to the dialog.
-	 * @param game the new game to UI
+	/* (non-Javadoc)
+	 * @see org.asSchool.ttt.ui.GameBoardListener#startNewGame()
 	 */
-	private void setGameToGameBoardDialog(final Game game) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				HumanPlayerAgent.this.getJDialogGameBoard().setGame(game);
-			}
-		});
+	@Override
+	public void startNewGame() {
+		// --- Start a new game by re-call the setup-method ---------
+		this.setup();
 	}
+
 	/**
 	 * Return the JDialogGameBoard.
 	 * @return the game board dialog

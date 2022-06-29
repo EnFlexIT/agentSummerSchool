@@ -130,6 +130,8 @@ public class GameWrapper {
 	 */
 	public AID getNextMover() {
 		
+		if (this.getGame()==null) return null;
+		
 		AID nextMover = null;
 		List gameHistory = this.getGame().getGameMoveHistory();
 		if (gameHistory.size()==0) {

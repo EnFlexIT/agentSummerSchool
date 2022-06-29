@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.SwingUtilities;
 
 import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.ontology.AbstractMarkType;
@@ -76,12 +77,15 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	private int imageSizeCross;
 	private ImageIcon imageIconCrossScaled;
 	private JLabel jLableStatus;
+	private JPanel jPanelStatus;
+	private JButton jButtonRestartGame;
 	
 
 	/**
 	 * Instantiates a new JPanelGameBoard.
 	 * 
 	 * @param parentAgent the AID of the parent agent
+	 * @wbp.parser.constructor
 	 */
 	public JPanelGameBoard(AID parentAgent) {
 		this(parentAgent, false);
@@ -119,7 +123,7 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		gbc_jPanelPlayer1.insets = new Insets(10, 10, 0, 5);
 		gbc_jPanelPlayer1.gridx = 0;
 		gbc_jPanelPlayer1.gridy = 0;
-		add(getJPanelPlayer1X(), gbc_jPanelPlayer1);
+		this.add(this.getJPanelPlayer1X(), gbc_jPanelPlayer1);
 		
 		GridBagConstraints gbc_jPanelPlayer2 = new GridBagConstraints();
 		gbc_jPanelPlayer2.fill = GridBagConstraints.HORIZONTAL;
@@ -127,7 +131,7 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		gbc_jPanelPlayer2.insets = new Insets(10, 5, 0, 10);
 		gbc_jPanelPlayer2.gridx = 1;
 		gbc_jPanelPlayer2.gridy = 0;
-		add(getJPanelPlayer2O(), gbc_jPanelPlayer2);
+		this.add(this.getJPanelPlayer2O(), gbc_jPanelPlayer2);
 		
 		GridBagConstraints gbc_separator = new GridBagConstraints();
 		gbc_separator.fill = GridBagConstraints.HORIZONTAL;
@@ -135,7 +139,7 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		gbc_separator.insets = new Insets(10, 10, 0, 10);
 		gbc_separator.gridx = 0;
 		gbc_separator.gridy = 1;
-		add(getSeparator(), gbc_separator);
+		this.add(this.getSeparator(), gbc_separator);
 		
 		GridBagConstraints gbc_jPanelPlayGround = new GridBagConstraints();
 		gbc_jPanelPlayGround.insets = new Insets(10, 10, 0, 10);
@@ -143,14 +147,16 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		gbc_jPanelPlayGround.fill = GridBagConstraints.BOTH;
 		gbc_jPanelPlayGround.gridx = 0;
 		gbc_jPanelPlayGround.gridy = 2;
-		add(getJPanelPlayGround(), gbc_jPanelPlayGround);
+		this.add(this.getJPanelPlayGround(), gbc_jPanelPlayGround);
 		
-		GridBagConstraints gbc_jLableStatus = new GridBagConstraints();
-		gbc_jLableStatus.insets = new Insets(0, 10, 20, 10);
-		gbc_jLableStatus.gridwidth = 2;
-		gbc_jLableStatus.gridx = 0;
-		gbc_jLableStatus.gridy = 3;
-		add(getJLableStatus(), gbc_jLableStatus);
+		GridBagConstraints gbc_jPanelStatus = new GridBagConstraints();
+		gbc_jPanelStatus.insets = new Insets(0, 10, 20, 10);
+		gbc_jPanelStatus.gridwidth = 2;
+		gbc_jPanelStatus.fill = GridBagConstraints.BOTH;
+		gbc_jPanelStatus.gridx = 0;
+		gbc_jPanelStatus.gridy = 3;
+		this.add(this.getJPanelStatus(), gbc_jPanelStatus);
+		
 	}
 	 
 	private JPanelPlayer getJPanelPlayer1X() {
@@ -325,7 +331,32 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		return jButton33;
 	}
 	
-	
+	private JPanel getJPanelStatus() {
+		if (jPanelStatus == null) {
+			jPanelStatus = new JPanel();
+			jPanelStatus.setMinimumSize(new Dimension(26, 200));
+			jPanelStatus.setBackground(COLOR_BACKGROUND);
+			
+			GridBagLayout gbl_jPanelStatus = new GridBagLayout();
+			gbl_jPanelStatus.columnWidths = new int[]{0, 0, 0};
+			gbl_jPanelStatus.rowHeights = new int[]{0, 0};
+			gbl_jPanelStatus.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+			gbl_jPanelStatus.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+			jPanelStatus.setLayout(gbl_jPanelStatus);
+			
+			GridBagConstraints gbc_jLableStatus = new GridBagConstraints();
+			gbc_jLableStatus.gridx = 0;
+			gbc_jLableStatus.gridy = 0;
+			jPanelStatus.add(this.getJLableStatus(), gbc_jLableStatus);
+			
+			GridBagConstraints gbc_jButtonRestartGame = new GridBagConstraints();
+			gbc_jButtonRestartGame.insets = new Insets(0, 0, 0, 20);
+			gbc_jButtonRestartGame.gridx = 1;
+			gbc_jButtonRestartGame.gridy = 0;
+			jPanelStatus.add(this.getJButtonRestartGame(), gbc_jButtonRestartGame);
+		}
+		return jPanelStatus;
+	}
 	private JLabel getJLableStatus() {
 		if (jLableStatus == null) {
 			jLableStatus = new JLabel("Status");
@@ -338,7 +369,37 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	 * @param statusMessage the new status
 	 */
 	public void setStatus(String statusMessage) {
-		this.getJLableStatus().setText(statusMessage);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				JPanelGameBoard.this.getJLableStatus().setText(statusMessage);
+			}
+		});
+	}
+
+	private JButton getJButtonRestartGame() {
+		if (jButtonRestartGame == null) {
+			jButtonRestartGame = new JButton("Try Again!");
+			jButtonRestartGame.setFont(new Font("Dialog", Font.BOLD, 12));
+			jButtonRestartGame.setPreferredSize(new Dimension(100, 24));
+			jButtonRestartGame.setVisible(false);
+			jButtonRestartGame.addActionListener(this);
+		}
+		return jButtonRestartGame;
+	}
+	/**
+	 * Sets to show/hide the restart button.
+	 * @param setVisible the indicator to show or hide the restart button
+	 */
+	public void setShowRestartButton(boolean setVisible) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				JPanelGameBoard.this.getJButtonRestartGame().setVisible(setVisible);
+				JPanelGameBoard.this.validate();
+				JPanelGameBoard.this.repaint();
+			}
+		});
 	}
 	
 	/**
@@ -465,8 +526,14 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	 * @param game the new game
 	 */
 	public void setGame(Game game) {
-		this.getGameWrapper().setGame(game);
-		this.updateView();
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				JPanelGameBoard.this.getGameWrapper().setGame(game);
+				JPanelGameBoard.this.updateView();
+			}
+		});
+		
 	}
 	/**
 	 * Returns the current game.
@@ -481,8 +548,13 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	 * Update view.
 	 */
 	private void updateView() {
-		this.setPlayer(this.getGame().getXMarkPlayer().getAid(), 1);
-		this.setPlayer(this.getGame().getOMarkPlayer().getAid(), 2);
+		if (this.getGame()!=null) {
+			this.setPlayer(this.getGame().getXMarkPlayer().getAid(), 1);
+			this.setPlayer(this.getGame().getOMarkPlayer().getAid(), 2);
+		} else {
+			this.setPlayer(new AID("XXX", true), 1);
+			this.setPlayer(new AID("YYY", true), 2);
+		}
 		this.updateGameBoard();
 	}
 	/**
@@ -505,6 +577,8 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	private void updateGameBoard() {
 		if (this.getGame()!=null && this.getGame().getGameBoard()!=null) {
 			this.setGameBoard(this.getGame().getGameBoard());
+		} else {
+			this.setGameBoard(null);
 		}
 	}
 	/**
@@ -513,17 +587,32 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	 */
 	private void setGameBoard(GameBoard gameBoard) {
 		
-		this.setGameBoard("11", gameBoard.getGameRow1().getColumn1());
-		this.setGameBoard("12", gameBoard.getGameRow1().getColumn2());
-		this.setGameBoard("13", gameBoard.getGameRow1().getColumn3());
-		
-		this.setGameBoard("21", gameBoard.getGameRow2().getColumn1());
-		this.setGameBoard("22", gameBoard.getGameRow2().getColumn2());
-		this.setGameBoard("23", gameBoard.getGameRow2().getColumn3());
-		
-		this.setGameBoard("31", gameBoard.getGameRow3().getColumn1());
-		this.setGameBoard("32", gameBoard.getGameRow3().getColumn2());
-		this.setGameBoard("33", gameBoard.getGameRow3().getColumn3());
+		if (gameBoard!=null) {
+			this.setGameBoard("11", gameBoard.getGameRow1().getColumn1());
+			this.setGameBoard("12", gameBoard.getGameRow1().getColumn2());
+			this.setGameBoard("13", gameBoard.getGameRow1().getColumn3());
+			
+			this.setGameBoard("21", gameBoard.getGameRow2().getColumn1());
+			this.setGameBoard("22", gameBoard.getGameRow2().getColumn2());
+			this.setGameBoard("23", gameBoard.getGameRow2().getColumn3());
+			
+			this.setGameBoard("31", gameBoard.getGameRow3().getColumn1());
+			this.setGameBoard("32", gameBoard.getGameRow3().getColumn2());
+			this.setGameBoard("33", gameBoard.getGameRow3().getColumn3());
+			
+		} else {
+			this.setGameBoard("11", null);
+			this.setGameBoard("12", null);
+			this.setGameBoard("13", null);
+			
+			this.setGameBoard("21", null);
+			this.setGameBoard("22", null);
+			this.setGameBoard("23", null);
+			
+			this.setGameBoard("31", null);
+			this.setGameBoard("32", null);
+			this.setGameBoard("33", null);
+		}
 	}
 	/**
 	 * Sets the specified game field.
@@ -573,14 +662,19 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 	}
 	
 	
-	
 	/* (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 
-		if (ae.getSource() instanceof JButton) {
+		if (ae.getSource()==this.getJButtonRestartGame()) {
+			// --- Restart the Game -------------------------------------------
+			if (this.gameBoardListener!=null) {
+				this.gameBoardListener.startNewGame();
+			}
+			
+		} else if (ae.getSource() instanceof JButton) {
 			// --- Which button was pressed? ----------------------------------
 			JButton jButtonPressed = (JButton) ae.getSource();
 			int[] sel = this.getGameBoardSelection(jButtonPressed.getActionCommand());
@@ -649,5 +743,6 @@ public class JPanelGameBoard extends JPanel implements ActionListener {
 		}
 		return -1;
 	}
+	
 	
 }

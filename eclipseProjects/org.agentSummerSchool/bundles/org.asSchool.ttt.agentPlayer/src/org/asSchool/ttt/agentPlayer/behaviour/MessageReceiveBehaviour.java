@@ -1,9 +1,7 @@
 package org.asSchool.ttt.agentPlayer.behaviour;
 
 import org.asSchool.ttt.agentPlayer.AbstractAgentPlayer;
-import org.asSchool.ttt.dataModel.ontology.GameAction;
 
-import jade.content.AgentAction;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
 import jade.content.onto.basic.Action;
@@ -50,10 +48,6 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 				
 			} catch (CodecException | OntologyException ex) {
 				ex.printStackTrace();
-			}
-			
-			if (agentAction.getAction() instanceof GameAction) {
-				
 			}
 		}
 	}

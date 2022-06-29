@@ -36,8 +36,9 @@ public class RegistrationReceiveBehaviour extends OneShotBehaviour {
 		this.register = register;
 	}
 	
-	
-	
+	/* (non-Javadoc)
+	 * @see jade.core.behaviours.Behaviour#action()
+	 */
 	@Override
 	public void action() {
 		
@@ -65,7 +66,6 @@ public class RegistrationReceiveBehaviour extends OneShotBehaviour {
 			//Send Board to first Player which is always the player with mark O
 			this.myAgent.addBehaviour(new SendGameMoveToPlayer(gamePending, gamePending.getXMarkPlayer()));
 		}
-		
 	}
 
 }

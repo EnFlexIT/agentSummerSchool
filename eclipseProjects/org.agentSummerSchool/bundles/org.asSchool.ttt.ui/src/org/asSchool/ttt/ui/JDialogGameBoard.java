@@ -105,6 +105,13 @@ public class JDialogGameBoard extends JDialog {
 	public void setStatus(String statusMessage) {
 		this.getJPanelGameBoard().setStatus(statusMessage);
 	}
+	/**
+	 * Sets to show/hide the restart button.
+	 * @param setVisible the indicator to show or hide the restart button
+	 */
+	public void setShowRestartButton(boolean setVisible) {
+		this.getJPanelGameBoard().setShowRestartButton(setVisible);
+	}
 	
 	/**
 	 * Sets the game board listener that has to react on changes in the game board (normally an agent).

@@ -16,9 +16,9 @@ public class MessageReceiveBehaviourExample extends CyclicBehaviour {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Agent playerAgent;
+	AgentPlayerExample playerAgent;
 
-	public MessageReceiveBehaviourExample(Agent playerAgent) {
+	public MessageReceiveBehaviourExample(AgentPlayerExample playerAgent) {
 		super();
 		this.playerAgent = playerAgent;
 		// TODO Auto-generated constructor stub
@@ -44,7 +44,7 @@ public class MessageReceiveBehaviourExample extends CyclicBehaviour {
 			}
 			
 			if (agentAction.getAction() instanceof GameAction) {
-				this.myAgent.addBehaviour(new GetGameActionBehaviour((AgentPlayerExample) playerAgent, agentAction.getAction()));
+				this.myAgent.addBehaviour(new GetGameActionBehaviour(playerAgent, (GameAction) agentAction.getAction()));
 			}
 		}	
 		

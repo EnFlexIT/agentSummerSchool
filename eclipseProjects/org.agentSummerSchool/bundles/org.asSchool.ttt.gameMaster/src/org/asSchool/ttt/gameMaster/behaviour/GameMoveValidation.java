@@ -97,9 +97,16 @@ public class GameMoveValidation extends OneShotBehaviour {
 							isCircle = true;
 					}
 				}
+				
 			}
 		}
-
+		AbstractMarkType[][] a=newGameBoardArray;
+		System.out.println("OldBoard: \n"+a[0][0]+a[0][1]+a[0][2]+"\n"+a[1][0]+a[1][1]+a[1][2]+"\n"+a[2][0]+a[2][1]+a[2][2]);
+		a=oldGameBoardArray;
+		System.out.println("NewBoard: \n"+a[0][0]+a[0][1]+a[0][2]+"\n"+a[1][0]+a[1][1]+a[1][2]+"\n"+a[2][0]+a[2][1]+a[2][2]);
+		
+		
+		
 		if (correctGameMove == true && newMarkCnt == 1) {
 			// Add new GameBoard to GameList
 			this.gameMasterAgent.getGameMasterBoardModel().getGameHashMap().put(newGame.getGameID(), newGame);

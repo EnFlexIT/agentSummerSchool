@@ -10,7 +10,6 @@ import org.asSchool.ttt.dataModel.ontology.TicTacToeOntology;
 
 import jade.content.AgentAction;
 import jade.content.Concept;
-import jade.content.OntoAID;
 import jade.content.lang.Codec.CodecException;
 import jade.content.lang.sl.SLCodec;
 import jade.content.onto.Ontology;
@@ -36,12 +35,6 @@ public class AgentPlayerExample extends Agent {
 		// --- Add message receive behaviour ------------------------
 		this.addBehaviour(new MessageReceiveBehaviourExample(this));
 		this.addBehaviour(new RegisterBehaviourExample(this));
-		
-		Register register = new Register();
-		AgentPlayer agentPlayer = new AgentPlayer();
-		agentPlayer.setAid(this.getAID());
-		register.setPlayer(agentPlayer);
-		this.sendMessageToGameMaster(ACLMessage.REQUEST, register);
 	
 	}
 	
@@ -91,10 +84,10 @@ public class AgentPlayerExample extends Agent {
 	
 	protected AID getGameMasterAID() {
 		if (gameMasterAID==null) {
-			Object[] startArgs = this.getArguments();
-			gameMasterAID = (OntoAID) startArgs[0];
-			//AID newAID = new AID ("GaMaAg", AID.ISLOCALNAME);
-			//gameMasterAID = newAID;
+			//Object[] startArgs = this.getArguments();
+			//gameMasterAID = (OntoAID) startArgs[0];
+			AID newAID = new AID ("GaMaAg", AID.ISLOCALNAME);
+			gameMasterAID = newAID;
 			
 		}
 		return gameMasterAID;

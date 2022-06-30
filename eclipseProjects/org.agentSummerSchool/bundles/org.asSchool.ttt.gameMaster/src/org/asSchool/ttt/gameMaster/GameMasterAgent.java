@@ -1,8 +1,8 @@
 package org.asSchool.ttt.gameMaster;
 
 import org.asSchool.ttt.dataModel.GameMasterBoardModel;
-import org.asSchool.ttt.dataModel.ontology.*;
-import org.asSchool.ttt.gameMaster.behaviour.MessageReceiveBehaviour;
+import org.asSchool.ttt.dataModel.ontology.TicTacToeOntology;
+import org.asSchool.ttt.gameMaster.behaviour.MessageReceiveBehaviourGameMaster;
 
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
@@ -28,7 +28,7 @@ public class GameMasterAgent extends Agent {
 		this.getContentManager().registerLanguage(new SLCodec());
 		this.getContentManager().registerOntology(TicTacToeOntology.getInstance()); 
 		
-		this.addBehaviour(new MessageReceiveBehaviour(this));
+		this.addBehaviour(new MessageReceiveBehaviourGameMaster(this));
 		
 	}
 

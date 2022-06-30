@@ -1,6 +1,7 @@
 package org.asSchool.ttt.agentPlayerExample.behaviour;
 
 import org.asSchool.ttt.agentPlayerExample.AgentPlayerExample;
+import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
 import org.asSchool.ttt.dataModel.ontology.Register;
 
 import jade.core.behaviours.OneShotBehaviour;
@@ -21,8 +22,11 @@ public class RegisterBehaviourExample extends OneShotBehaviour {
 	 */
 	@Override
 	public void action() {
+		AbstractPlayer abstractPlayer = new AbstractPlayer();
+		abstractPlayer.setAid(this.agentPlayer.getAID());
+		abstractPlayer.setScore(0);
 		Register register = new Register();
-		register.setPlayer(this.agentPlayer.getPlayer());
+		register.setPlayer(abstractPlayer);
 		this.agentPlayer.sendMessageToGameMaster(ACLMessage.REQUEST, register);
 	}
 }

@@ -15,7 +15,7 @@ import jade.lang.acl.ACLMessage;
  *
  * @author Christian Derksen - SOFTEC - ICB - University of Duisburg-Essen
  */
-public class MessageReceiveBehaviour extends CyclicBehaviour {
+public class MessageReceiveBehaviourGameMaster extends CyclicBehaviour {
 
 	private static final long serialVersionUID = 4748239182828378302L;
 
@@ -25,7 +25,7 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 	 * Instantiates a new message receive behaviour.
 	 * @param agent the instance of the agent
 	 */
-	public MessageReceiveBehaviour(GameMasterAgent gameMasterAgent) {
+	public MessageReceiveBehaviourGameMaster(GameMasterAgent gameMasterAgent) {
 		super(gameMasterAgent);
 		this.gameMasterAgent = gameMasterAgent;
 	}

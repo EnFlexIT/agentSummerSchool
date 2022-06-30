@@ -11,6 +11,7 @@ import org.asSchool.ttt.dataModel.ontology.GameBoard;
 import org.asSchool.ttt.dataModel.ontology.GameRow;
 
 import jade.content.Concept;
+import jade.core.AID;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
@@ -24,9 +25,9 @@ public class GetGameActionBehaviour extends OneShotBehaviour {
 	AgentPlayerExample playerAgent;
 	GameAction gameAction = new GameAction();
 	
-	public GetGameActionBehaviour(AgentPlayerExample playerAgent, Concept action) {
+	public GetGameActionBehaviour(AgentPlayerExample playerAgent, GameAction action) {
 		this.playerAgent = playerAgent;
-		this.gameAction = (GameAction) action;
+		this.gameAction = action;
 		
 		// TODO Auto-generated constructor stub
 	}

@@ -22,6 +22,7 @@ public class RegistrationReceiveBehaviour extends OneShotBehaviour {
 
 	private GameMasterAgent gameMasterAgent;
 	private Register register;
+	private AID aid;
 	
 	/**
 	 * Instantiates a new registration receive behaviour.
@@ -34,6 +35,7 @@ public class RegistrationReceiveBehaviour extends OneShotBehaviour {
 		super(gameMasterAgent);
 		this.gameMasterAgent = gameMasterAgent;
 		this.register = register;
+		this.aid=aid;
 	}
 	
 	/* (non-Javadoc)
@@ -45,15 +47,16 @@ public class RegistrationReceiveBehaviour extends OneShotBehaviour {
 		//Get the GameList of the GameMasterAgent
 		GameMasterBoardModel gmBoard = this.gameMasterAgent.getGameMasterBoardModel();
 		AbstractPlayer newPlayer = this.register.getPlayer();
+		//newPlayer.setAid(this.register.getPlayer().getAid());
 		
 		//Check if there is an open/pending game where a second player can join	
 		Game gamePending = gmBoard.getGamePending(); 
-		if (gamePending==null) {
+		if (gamePending==null && newPlayer!=null) {
 			// --- Create game and place as pending ---------------------------
 			Game game = GameWrapper.createGame(newPlayer, null, true);
 			gmBoard.setGamePending(game);
 		
-		} else {
+		} else if (newPlayer!=null){
 			
 			if (gamePending.getOMarkPlayer()==null) {
 				gamePending.setOMarkPlayer(newPlayer);
@@ -65,6 +68,7 @@ public class RegistrationReceiveBehaviour extends OneShotBehaviour {
 
 			//Send Board to first Player which is always the player with mark O
 			this.myAgent.addBehaviour(new SendGameMoveToPlayer(gamePending, gamePending.getXMarkPlayer()));
+			System.out.println("AID_O: "+gamePending.getOMarkPlayer().getAid()+"AID_X: "+gamePending.getOMarkPlayer().getAid());
 		}
 	}
 

@@ -10,7 +10,7 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class MessageReceiveBehaviour extends CyclicBehaviour {
+public class MessageReceiveBehaviourExample extends CyclicBehaviour {
 
 	/**
 	 * 
@@ -18,7 +18,7 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 	private static final long serialVersionUID = 1L;
 	Agent playerAgent;
 
-	public MessageReceiveBehaviour(Agent playerAgent) {
+	public MessageReceiveBehaviourExample(Agent playerAgent) {
 		super();
 		this.playerAgent = playerAgent;
 		// TODO Auto-generated constructor stub

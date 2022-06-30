@@ -74,6 +74,9 @@ public abstract class AbstractAgentPlayer extends Agent {
 		if (gameMasterAID==null) {
 			Object[] startArgs = this.getArguments();
 			gameMasterAID = (OntoAID) startArgs[0];
+			//AID newAID = new AID ("GaMaAg", AID.ISLOCALNAME);
+			//gameMasterAID = newAID;
+			
 		}
 		return gameMasterAID;
 	}

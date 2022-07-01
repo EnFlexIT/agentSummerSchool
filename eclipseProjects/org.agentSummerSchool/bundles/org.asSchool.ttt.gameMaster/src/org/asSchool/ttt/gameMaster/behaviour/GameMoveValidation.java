@@ -126,10 +126,14 @@ public class GameMoveValidation extends OneShotBehaviour {
 			// Add new GameBoard to GameList
 			this.gameMasterAgent.getGameMasterBoardModel().getGameHashMap().put(newGame.getGameID(), newGame);
 			
-			newGame.addGameMoveHistory(gm);
+			//GameMove gameMove = (GameMove) newGame.getGameMoveHistory().get(newGame.getGameMoveHistory().size()-1);
+			
+			if (newGame.getGameMoveHistory().size()==0) {
+				newGame.addGameMoveHistory(gm);
+				
+				gameWrapperNew.setGame(newGame);
+			}
 			int sizeList = newGame.getGameMoveHistory().size();
-			gameWrapperNew.setGame(newGame);
-			GameState g = gameWrapperNew.getGameState();
 			switch (gameWrapperNew.getGameState()) {
 			case InitialState:
 				// --- Should never happen ---

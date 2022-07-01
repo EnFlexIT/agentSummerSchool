@@ -311,7 +311,7 @@ public class GameWrapper {
 		}
 		
 		// --- In case of a remis ... -----------------------------------------
-		if (this.getGame().getGameMoveHistory()==null || this.getGame().getGameMoveHistory().size()==13) {
+		if (this.getGame().getGameMoveHistory()==null || this.getGame().getGameMoveHistory().size()==9) {
 			return GameState.FinalizedRemis;
 		}
 		

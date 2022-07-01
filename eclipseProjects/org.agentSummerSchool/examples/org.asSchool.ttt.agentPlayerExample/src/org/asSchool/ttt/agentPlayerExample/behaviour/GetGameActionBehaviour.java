@@ -8,6 +8,7 @@ import org.asSchool.ttt.dataModel.ontology.Cross;
 import org.asSchool.ttt.dataModel.ontology.Game;
 import org.asSchool.ttt.dataModel.ontology.GameAction;
 import org.asSchool.ttt.dataModel.ontology.GameBoard;
+import org.asSchool.ttt.dataModel.ontology.GameMove;
 import org.asSchool.ttt.dataModel.ontology.GameRow;
 
 import jade.content.Concept;
@@ -56,22 +57,33 @@ public class GetGameActionBehaviour extends OneShotBehaviour {
 	}
 	
 	private GameBoard strategicGameMove (GameBoard currentGameBoard, AbstractMarkType markType) {
-
+		int col =0;
+		int row =0;
 		AbstractMarkType[][] markArray = GameWrapper.transformToMarkArray(currentGameBoard);
-		for (int col = 0; col<3; col++) {
+		for (col = 0; col<3; col++) {
 			
-			for (int row = 0; row<3; row++) {
+			for (row = 0; row<3; row++) {
 				if (markArray[row][col] == null) {
 					//set a mark in the first free field of the gameBoard
 					markArray[row][col] = markType;
+					setGameMove(row,col,markType);
 					return updatedGameBoard(currentGameBoard, markArray);
 				}
 					
 			}
 		}
 		
+		setGameMove(row,col,markType);
 		return updatedGameBoard(currentGameBoard, markArray);
 		
+		
+	}
+	private void setGameMove(int row, int col, AbstractMarkType markType) {
+		GameMove gameMove = new GameMove();
+		gameMove.setGameRow(row);
+		gameMove.setGameColumn(col);
+		gameMove.setMarkType(markType);
+		gameWrapper.getGame().getGameMoveHistory().add(gameMove);
 		
 	}
 	

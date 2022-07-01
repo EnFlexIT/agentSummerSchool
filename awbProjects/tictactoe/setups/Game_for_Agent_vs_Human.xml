@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<simulationSetup>
+    <agentSetup>
+        <agent>
+            <postionNo>1</postionNo>
+            <listMembership>01 AgentStartManual</listMembership>
+            <agentClassReference>org.asSchool.ttt.gameMaster.GameMasterAgent</agentClassReference>
+            <startAsName>GaMaAg</startAsName>
+        </agent>
+        <agent>
+            <postionNo>2</postionNo>
+            <listMembership>01 AgentStartManual</listMembership>
+            <agentClassReference>org.asSchool.ttt.agentPlayerExample.AgentPlayerExample</agentClassReference>
+            <startAsName>AgentPlayer</startAsName>
+            <startArguments>
+                <argument>PGFnZW50LWlkZW50aWZpZXIgbmFtZT0iR2FNYUFnQDEyNy4wLjAuMToxMDk5L0pBREUiPgoJPGFkZHJlc3Nlcz4KCQk8cHJpbWl0aXZlIHR5cGU9IlNUUklORyIgdmFsdWU9Imh0dHA6Ly8xMjcuMC4wLjE6Nzc3OC9hY2MiLz4KCTwvYWRkcmVzc2VzPgo8L2FnZW50LWlkZW50aWZpZXI+Cg==</argument>
+            </startArguments>
+        </agent>
+        <agent>
+            <postionNo>3</postionNo>
+            <listMembership>01 AgentStartManual</listMembership>
+            <agentClassReference>org.asSchool.ttt.humanPlayer.HumanPlayerAgent</agentClassReference>
+            <startAsName>HumanPlayer</startAsName>
+            <startArguments>
+                <argument>PGFnZW50LWlkZW50aWZpZXIgbmFtZT0iR2FNYUFnQDEyNy4wLjAuMToxMDk5L0pBREUiPgoJPGFkZHJlc3Nlcz4KCQk8cHJpbWl0aXZlIHR5cGU9IlNUUklORyIgdmFsdWU9Imh0dHA6Ly8xMjcuMC4wLjE6Nzc3OC9hY2MiLz4KCTwvYWRkcmVzc2VzPgo8L2FnZW50LWlkZW50aWZpZXI+Cg==</argument>
+            </startArguments>
+        </agent>
+    </agentSetup>
+</simulationSetup>

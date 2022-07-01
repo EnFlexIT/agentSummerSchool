@@ -2,6 +2,7 @@ package org.asSchool.ttt.gameMaster.behaviour;
 
 import org.asSchool.ttt.dataModel.GameHashMap;
 import org.asSchool.ttt.dataModel.GameWrapper;
+import org.asSchool.ttt.dataModel.GameWrapper.GameState;
 import org.asSchool.ttt.dataModel.ontology.AbstractMarkType;
 import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
 import org.asSchool.ttt.dataModel.ontology.Circle;
@@ -9,6 +10,7 @@ import org.asSchool.ttt.dataModel.ontology.Cross;
 import org.asSchool.ttt.dataModel.ontology.Game;
 import org.asSchool.ttt.dataModel.ontology.GameAction;
 import org.asSchool.ttt.dataModel.ontology.GameLost;
+import org.asSchool.ttt.dataModel.ontology.GameMove;
 import org.asSchool.ttt.dataModel.ontology.GameRemis;
 import org.asSchool.ttt.dataModel.ontology.GameResult;
 import org.asSchool.ttt.dataModel.ontology.GameWon;
@@ -31,6 +33,7 @@ public class GameMoveValidation extends OneShotBehaviour {
 	private GameMasterAgent gameMasterAgent;
 	private GameHashMap gameHashMap;
 	private GameAction gameAction;
+	private GameMove gm = new GameMove();
 	
 	
 	/**
@@ -56,6 +59,8 @@ public class GameMoveValidation extends OneShotBehaviour {
 		//GetGameField getGameField = new GetGameField();
 		Game newGame = this.gameAction.getGame();
 		Game oldGame = this.gameMasterAgent.getGameMasterBoardModel().getGameHashMap().get(newGame.getGameID());
+		Cross cross = new Cross();
+		Circle circle = new Circle();
 		
 		GameWrapper gameWrapperNew = new GameWrapper(newGame);
 		
@@ -91,29 +96,48 @@ public class GameMoveValidation extends OneShotBehaviour {
 					// ---
 					if (newGameBoardArray[row][col] != null) {
 						newMarkCnt++;
-						if (newGameBoardArray[row][col] instanceof Cross)
+						if (newGameBoardArray[row][col] instanceof Cross) {
 							isCross = true;
-						if (newGameBoardArray[row][col] instanceof Circle)
+							gm.setGameColumn(col);
+							gm.setGameRow(row);
+							gm.setGameID(newGame.getGameID());
+							gm.setMarkType(cross);
+						}
+						if (newGameBoardArray[row][col] instanceof Circle) {
 							isCircle = true;
+							gm.setGameColumn(col);
+							gm.setGameRow(row);
+							gm.setGameID(newGame.getGameID());
+							gm.setMarkType(circle);
+						}
 					}
 				}
 				
 			}
 		}
 		AbstractMarkType[][] a=newGameBoardArray;
-		System.out.println("OldBoard: \n"+a[0][0]+a[0][1]+a[0][2]+"\n"+a[1][0]+a[1][1]+a[1][2]+"\n"+a[2][0]+a[2][1]+a[2][2]);
-		a=oldGameBoardArray;
 		System.out.println("NewBoard: \n"+a[0][0]+a[0][1]+a[0][2]+"\n"+a[1][0]+a[1][1]+a[1][2]+"\n"+a[2][0]+a[2][1]+a[2][2]);
+		a=oldGameBoardArray;
+		System.out.println("OldBoard: \n"+a[0][0]+a[0][1]+a[0][2]+"\n"+a[1][0]+a[1][1]+a[1][2]+"\n"+a[2][0]+a[2][1]+a[2][2]);
 		
 		
 		
 		if (correctGameMove == true && newMarkCnt == 1) {
 			// Add new GameBoard to GameList
 			this.gameMasterAgent.getGameMasterBoardModel().getGameHashMap().put(newGame.getGameID(), newGame);
-
+			
+			newGame.addGameMoveHistory(gm);
+			int sizeList = newGame.getGameMoveHistory().size();
+			gameWrapperNew.setGame(newGame);
+			GameState g = gameWrapperNew.getGameState();
 			switch (gameWrapperNew.getGameState()) {
 			case InitialState:
 				// --- Should never happen ---
+				if (isCross) {
+					this.myAgent.addBehaviour(new SendGameMoveToPlayer(newGame, newGame.getOMarkPlayer()));
+				} else if (isCircle) {
+					this.myAgent.addBehaviour(new SendGameMoveToPlayer(newGame, newGame.getXMarkPlayer()));
+				}
 				break;
 				
 			case InProgress: // Send the new GameBoard to the NextPlayer (dependend of the previous MarkType)
@@ -135,7 +159,8 @@ public class GameMoveValidation extends OneShotBehaviour {
 				break;
 				
 			}
-		}
+			
+		} else System.out.println("Wrong Game Move");
 		
 	}
 	

@@ -22,8 +22,9 @@ public class GetGameActionBehaviour extends OneShotBehaviour {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	AgentPlayerExample playerAgent;
-	GameAction gameAction = new GameAction();
+	private AgentPlayerExample playerAgent;
+	private GameAction gameAction = new GameAction();
+	private GameWrapper gameWrapper;
 	
 	public GetGameActionBehaviour(AgentPlayerExample playerAgent, GameAction action) {
 		this.playerAgent = playerAgent;
@@ -39,11 +40,19 @@ public class GetGameActionBehaviour extends OneShotBehaviour {
 		Game currentGame = this.gameAction.getGame();
 		GameBoard currentGameBoard = currentGame.getGameBoard();
 		
-		currentGameBoard = strategicGameMove(currentGameBoard, getMarkType(currentGame));
+		this.getGameWrapper().setGame(currentGame);
+		currentGameBoard = strategicGameMove(currentGameBoard, this.getGameWrapper().getMark(this.playerAgent.getAID()));
 		currentGame.setGameBoard(currentGameBoard);
 		this.gameAction.setGame(currentGame);	
 		this.playerAgent.sendMessageToGameMaster(ACLMessage.INFORM, this.gameAction);
 
+	}
+	
+	private GameWrapper getGameWrapper() {
+		if (this.gameWrapper==null) {
+			gameWrapper = new GameWrapper();
+		}
+		return gameWrapper;
 	}
 	
 	private GameBoard strategicGameMove (GameBoard currentGameBoard, AbstractMarkType markType) {
@@ -55,6 +64,7 @@ public class GetGameActionBehaviour extends OneShotBehaviour {
 				if (markArray[row][col] == null) {
 					//set a mark in the first free field of the gameBoard
 					markArray[row][col] = markType;
+					return updatedGameBoard(currentGameBoard, markArray);
 				}
 					
 			}
@@ -69,10 +79,10 @@ public class GetGameActionBehaviour extends OneShotBehaviour {
 		Circle circle = new Circle();
 		Cross cross = new Cross();
 		
-		if (currentGame.getOMarkPlayer().getAid() == this.playerAgent.getAID()) {
+		if (currentGame.getOMarkPlayer().getAid().equals(this.playerAgent.getAID()) ) {
 			return circle;
 			
-		} else if (currentGame.getXMarkPlayer().getAid() == this.playerAgent.getAID()) {
+		} else if (currentGame.getXMarkPlayer().getAid().equals(this.playerAgent.getAID())) {
 			return cross;
 			
 		} else {
@@ -90,15 +100,15 @@ public class GetGameActionBehaviour extends OneShotBehaviour {
 		
 		gameRow1.setColumn1(markArray[0][0]);
 		gameRow1.setColumn2(markArray[0][1]);
-		gameRow1.setColumn2(markArray[0][2]);
+		gameRow1.setColumn3(markArray[0][2]);
 		
 		gameRow2.setColumn1(markArray[1][0]);
 		gameRow2.setColumn2(markArray[1][1]);
-		gameRow2.setColumn2(markArray[1][2]);
+		gameRow2.setColumn3(markArray[1][2]);
 		
 		gameRow3.setColumn1(markArray[2][0]);
 		gameRow3.setColumn2(markArray[2][1]);
-		gameRow3.setColumn2(markArray[2][2]);
+		gameRow3.setColumn3(markArray[2][2]);
 		
 		gameBoard.setGameRow1(gameRow1);
 		gameBoard.setGameRow2(gameRow2);

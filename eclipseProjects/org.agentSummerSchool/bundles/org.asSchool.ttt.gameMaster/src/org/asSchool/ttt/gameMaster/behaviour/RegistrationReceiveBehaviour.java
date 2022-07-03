@@ -22,20 +22,20 @@ public class RegistrationReceiveBehaviour extends OneShotBehaviour {
 
 	private GameMasterAgent gameMasterAgent;
 	private Register register;
-	private AID aid;
+	private AID senderAID;
 	
 	/**
 	 * Instantiates a new registration receive behaviour.
 	 *
 	 * @param gameMasterAgent the game master agent
 	 * @param register the register
-	 * @param aid the aid
+	 * @param senderAID the senderAID
 	 */
-	public RegistrationReceiveBehaviour(GameMasterAgent gameMasterAgent, Register register, AID aid) {
+	public RegistrationReceiveBehaviour(GameMasterAgent gameMasterAgent, Register register, AID senderAID) {
 		super(gameMasterAgent);
 		this.gameMasterAgent = gameMasterAgent;
 		this.register = register;
-		this.aid=aid;
+		this.senderAID = senderAID;
 	}
 	
 	/* (non-Javadoc)
@@ -47,7 +47,6 @@ public class RegistrationReceiveBehaviour extends OneShotBehaviour {
 		//Get the GameList of the GameMasterAgent
 		GameMasterBoardModel gmBoard = this.gameMasterAgent.getGameMasterBoardModel();
 		AbstractPlayer newPlayer = this.register.getPlayer();
-		//newPlayer.setAid(this.register.getPlayer().getAid());
 		
 		//Check if there is an open/pending game where a second player can join	
 		Game gamePending = gmBoard.getGamePending(); 
@@ -55,7 +54,8 @@ public class RegistrationReceiveBehaviour extends OneShotBehaviour {
 			// --- Create game and place as pending ---------------------------
 			Game game = GameWrapper.createGame(newPlayer, null, true);
 			gmBoard.setGamePending(game);
-		
+			this.gameMasterAgent.printToUiConsole("New game with player " + senderAID.getName() + " is waiting for second player ", false);
+			
 		} else if (newPlayer!=null){
 			
 			if (gamePending.getOMarkPlayer()==null) {
@@ -68,7 +68,8 @@ public class RegistrationReceiveBehaviour extends OneShotBehaviour {
 
 			//Send Board to first Player which is always the player with mark O
 			this.myAgent.addBehaviour(new SendGameMoveToPlayer(gamePending, gamePending.getXMarkPlayer()));
-			System.out.println("AID_O: "+gamePending.getOMarkPlayer().getAid()+"AID_X: "+gamePending.getOMarkPlayer().getAid());
+			this.gameMasterAgent.printToUiConsole("Starting game " + gamePending.getXMarkPlayer().getAid().getName() + " (X) vs. " + gamePending.getOMarkPlayer().getAid().getName() + " (O)", false);
+			
 		}
 	}
 

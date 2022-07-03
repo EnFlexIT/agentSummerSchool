@@ -41,18 +41,21 @@ public class GameWrapper {
 		Remis
 	}
 	
-	private Game game;
+	private static final String lineSeparator = System.getProperty("line.separator");
 	
+	private Game game;
+
+	
+	/**
+	 * Instantiates a new game wrapper.
+	 */
+	public GameWrapper() {}
 	/**
 	 * Instantiates a new game wrapper.
 	 * @param game the game
 	 */
 	public GameWrapper(Game game) {
 		this.game = game;
-	}
-	
-	public GameWrapper() {
-		
 	}
 
 	/**
@@ -69,6 +72,32 @@ public class GameWrapper {
 	public Game getGame() {
 		return game;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object compObj) {
+
+		if (compObj==null) return false;
+		if (!(compObj instanceof GameWrapper)) return false;
+		
+		GameWrapper gwComp = (GameWrapper) compObj;
+		return gwComp.toString().equals(this.toString());
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		
+		if (this.getGame()==null) {
+			return this.getClass().getSimpleName() + " without Game instance";
+		}
+		return this.getGame().getXMarkPlayer().getAid().getName() + " <=> " + this.getGame().getOMarkPlayer().getAid().getName();
+	}
+	
 
 	// ------------------------------------------------------------------------
 	// --- Here a static help method that creates a new Game ------------------
@@ -521,6 +550,42 @@ public class GameWrapper {
 			}
 			System.out.println(line);
 		}
+	}
+
+	/**
+	 * Returns the specified GameBoard as string.
+	 *
+	 * @param gameBoard the game board
+	 * @return the game board as string
+	 */
+	public static String getGameBoardAsString(GameBoard gameBoard) {
+		return getGameBoardArrayAsString(transformToMarkArray(gameBoard));
+	}
+	/**
+	 * Returns the specified game board array as string.
+	 *
+	 * @param gameBoardArray the game board array
+	 * @return the game board array as string
+	 */
+	public static String getGameBoardArrayAsString(AbstractMarkType[][] gameBoardArray) {
+		
+		String gameBoardString = "";
+		for (int i = 0; i < gameBoardArray.length; i++) {
+			AbstractMarkType[] row = gameBoardArray[i]; 
+			String line = "";
+			for (int j = 0; j < row.length; j++) {
+				AbstractMarkType mark = row[j];
+				if (mark==null) {
+					line += " -";
+				} else  if (mark instanceof Circle) {
+					line += " O";
+				} else  if (mark instanceof Cross) {
+					line += " X";
+				}
+			}
+			gameBoardString += line + lineSeparator;
+		}
+		return gameBoardString;
 	}
 	
 }

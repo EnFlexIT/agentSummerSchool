@@ -4,6 +4,7 @@ import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
 import org.asSchool.ttt.dataModel.ontology.Game;
 import org.asSchool.ttt.dataModel.ontology.GameAction;
 import org.asSchool.ttt.dataModel.ontology.TicTacToeOntology;
+import org.asSchool.ttt.gameMaster.GameMasterAgent;
 
 import jade.content.lang.Codec.CodecException;
 import jade.content.lang.sl.SLCodec;
@@ -58,10 +59,22 @@ public class SendGameMoveToPlayer extends OneShotBehaviour {
 		try {
 			this.myAgent.getContentManager().fillContent(gameMessage, agentAction);
 			this.myAgent.send(gameMessage);
-
+			this.getGameMasterAgent().updateUI();
+			
 		} catch (CodecException | OntologyException e) {
 			System.err.println(this.myAgent.getLocalName() + " - Error: " + e.getMessage());
 		}
 	}
 
+	/**
+	 * Returns the game master agent instance.
+	 * @return the game master agent
+	 */
+	private GameMasterAgent getGameMasterAgent() {
+		if (this.myAgent instanceof GameMasterAgent) {
+			return (GameMasterAgent) this.myAgent;
+		}
+		return null;
+	}
+	
 }

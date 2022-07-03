@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
  */
 public class BundleHelper {
 
+	private static final String lineSeparator = System.getProperty("line.separator");
 	private static final String imagePackage = "/icons/";
 	
 	/**
@@ -36,6 +37,14 @@ public class BundleHelper {
 		return imageIcon;
 	}
 
+	/**
+	 * Returns the line separator used by the current OS.
+	 * @return the line separator
+	 */
+	public static String getLineSeparator () {
+		return lineSeparator;
+	}
+	
 	
 	// ----------------------------------------------------
 	// --- From here, debug print methods -----------------

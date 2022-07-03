@@ -1,5 +1,7 @@
 package org.asSchool.ttt.humanPlayer;
 
+import javax.swing.SwingUtilities;
+
 import org.asSchool.ttt.agentPlayer.AbstractAgentPlayer;
 import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
@@ -166,9 +168,18 @@ public class HumanPlayerAgent extends AbstractAgentPlayer implements GameBoardLi
 	 */
 	private void closeGameBoardDialog() {
 		if (jDialogGameBoard!=null) {
-			jDialogGameBoard.setVisible(false);
-			jDialogGameBoard.dispose();
-			jDialogGameBoard = null;
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						jDialogGameBoard.setVisible(false);
+						jDialogGameBoard.dispose();
+					} catch (Exception e) {
+					} finally {
+						jDialogGameBoard = null;
+					}
+				}
+			});
 		}
 	}
 

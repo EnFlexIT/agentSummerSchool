@@ -12,5 +12,6 @@ Require-Bundle: org.agentgui.core,
  org.agentgui.lib.jade,
  org.asSchool.ttt.dataModel
 Export-Package: org.asSchool.ttt.ui,
- org.asSchool.ttt.ui.classLoadService
+ org.asSchool.ttt.ui.classLoadService,
+ org.asSchool.ttt.ui.gameMaster
 Bundle-ActivationPolicy: lazy

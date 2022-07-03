@@ -19,6 +19,8 @@ public class MessageReceiveBehaviourGameMaster extends CyclicBehaviour {
 
 	private static final long serialVersionUID = 4748239182828378302L;
 
+	private boolean isPrintMessageReceived = false;
+	
 	private GameMasterAgent gameMasterAgent;
 	
 	/**
@@ -51,9 +53,11 @@ public class MessageReceiveBehaviourGameMaster extends CyclicBehaviour {
 			}
 			
 			if (contentAction.getAction() instanceof Register) {
+				if (this.isPrintMessageReceived==true) this.gameMasterAgent.printToUiConsole("Got Register message from " + aclMessage.getSender().getName(), false);
 				this.gameMasterAgent.addBehaviour(new RegistrationReceiveBehaviour(this.gameMasterAgent, (Register) contentAction.getAction(), aclMessage.getSender()));
 				
 			} else if (contentAction.getAction() instanceof GameAction) {
+				if (this.isPrintMessageReceived==true) this.gameMasterAgent.printToUiConsole("Got GameAction from " + aclMessage.getSender().getName(), false);
 				this.gameMasterAgent.addBehaviour(new GameMoveValidation(this.gameMasterAgent, (GameAction) contentAction.getAction()));
 			}
 			

@@ -179,6 +179,7 @@ public class GameMoveValidation extends OneShotBehaviour {
 			
 			this.sendGameResult(gameWrapper.getGame().getXMarkPlayer().getAid(), gameRemis);
 			this.sendGameResult(gameWrapper.getGame().getOMarkPlayer().getAid(), gameRemis);
+			this.gameMasterAgent.printToUiConsole("Remis in game between " + gameWrapper.getGame().getXMarkPlayer().getAid().getName() + " (X) and " + gameWrapper.getGame().getOMarkPlayer().getAid().getName() + " (O)", false);
 			
 		} else {
 			// --- Create winner loser instance ---------------------
@@ -189,6 +190,7 @@ public class GameMoveValidation extends OneShotBehaviour {
 			GameLost gameLost = new GameLost();
 			gameLost.setGame(gameWrapper.getGame());
 			this.sendGameResult(loser.getAid(), gameLost);
+			this.gameMasterAgent.printToUiConsole("Game was won by " + winner.getAid().getName() + " (against  " + loser.getAid().getName() + ")", false);
 			
 		}
 		this.gameMasterAgent.updateUI();

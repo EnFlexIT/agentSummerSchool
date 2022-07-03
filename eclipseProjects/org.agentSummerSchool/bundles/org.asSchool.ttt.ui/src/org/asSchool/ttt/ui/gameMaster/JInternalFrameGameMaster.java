@@ -18,8 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.AttributeSet;
@@ -36,9 +38,6 @@ import org.asSchool.ttt.dataModel.ontology.Game;
 import org.asSchool.ttt.ui.BundleHelper;
 
 import jade.core.AID;
-import javax.swing.JSplitPane;
-import javax.swing.JTextPane;
-import javax.swing.border.EtchedBorder;
 
 /**
  * The Class JInternalFrameGameMaster is used in the ProjectDesktop to show the

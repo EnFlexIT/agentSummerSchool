@@ -2,19 +2,17 @@ package org.asSchool.ttt.agentPlayerExample.behaviour;
 
 import org.asSchool.ttt.agentPlayerExample.AgentPlayerExample;
 import org.asSchool.ttt.dataModel.ontology.GameAction;
+import org.asSchool.ttt.dataModel.ontology.GameResult;
 
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
 import jade.content.onto.basic.Action;
-import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class MessageReceiveBehaviourExample extends CyclicBehaviour {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	AgentPlayerExample playerAgent;
 
@@ -43,15 +41,14 @@ public class MessageReceiveBehaviourExample extends CyclicBehaviour {
 				ex.printStackTrace();
 			}
 			
-			if (agentAction.getAction() instanceof GameAction) {
+		
+			if (agentAction.getAction() instanceof GameResult) {
+				this.myAgent.addBehaviour(new RegisterBehaviourExample((AgentPlayerExample) this.myAgent));
+			} else  if (agentAction.getAction() instanceof GameAction) {
 				this.myAgent.addBehaviour(new GetGameActionBehaviour(playerAgent, (GameAction) agentAction.getAction()));
 			}
-		}	
-		
+		}			
 		
 	}
-	
-	
-	
 
 }

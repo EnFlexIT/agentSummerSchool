@@ -1,5 +1,7 @@
 package org.asSchool.ttt.gameMaster.behaviour;
 
+import java.util.List;
+
 import org.asSchool.ttt.dataModel.GameHashMap;
 import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.ontology.AbstractMarkType;
@@ -190,7 +192,22 @@ public class GameMoveValidation extends OneShotBehaviour {
 			GameLost gameLost = new GameLost();
 			gameLost.setGame(gameWrapper.getGame());
 			this.sendGameResult(loser.getAid(), gameLost);
+			winner.setScore(winner.getScore()+1);
+			
+			List<AbstractPlayer> agentList = this.gameMasterAgent.getGameMasterBoardModel().getListPlaingAgents();
+			AbstractPlayer oldAbstractPlayer;
+			if (agentList != null) {
+				for (int i = 0; i < agentList.size(); i++) {
+					oldAbstractPlayer = this.gameMasterAgent.getGameMasterBoardModel().getListPlaingAgents().get(i);
+					if (oldAbstractPlayer.getAid().equals(winner.getAid())){
+						this.gameMasterAgent.getGameMasterBoardModel().getListPlaingAgents().get(i).setScore(oldAbstractPlayer.getScore()+1);
+					}
+				}
+						
+			} 
+			
 			this.gameMasterAgent.printToUiConsole("Game was won by " + winner.getAid().getName() + " (against  " + loser.getAid().getName() + ")", false);
+			
 			
 		}
 		this.gameMasterAgent.updateUI();

@@ -1,5 +1,8 @@
 package org.asSchool.ttt.dataModel;
 
+import java.util.List;
+
+import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
 import org.asSchool.ttt.dataModel.ontology.Game;
 
 /**
@@ -12,8 +15,19 @@ public class GameMasterBoardModel {
 	
 	private Game gamePending;
 	private  GameHashMap gameHashMap;
+	private List<AbstractPlayer> listPlaingAgents;
 	
 	
+	public List<AbstractPlayer> getListPlaingAgents() {
+		return listPlaingAgents;
+	}
+
+
+	public void setListPlaingAgents(List<AbstractPlayer> listPlaingAgents) {
+		this.listPlaingAgents = listPlaingAgents;
+	}
+
+
 	/**
 	 * Return the HashMap of all running games.
 	 * @return the game hash map

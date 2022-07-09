@@ -1,5 +1,8 @@
 package org.asSchool.ttt.gameMaster.behaviour;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.asSchool.ttt.dataModel.GameMasterBoardModel;
 import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
@@ -43,6 +46,28 @@ public class RegistrationReceiveBehaviour extends OneShotBehaviour {
 	 */
 	@Override
 	public void action() {
+		
+		//add Agent to ListPlayingAgents
+		List<AbstractPlayer> agentList = new ArrayList<>();
+		agentList = this.gameMasterAgent.getGameMasterBoardModel().getListPlaingAgents();
+		AbstractPlayer newAbstractPlayer; 
+		//List testList = new ArrayList();
+		boolean alreadyInList = false;
+		if (agentList != null) {
+			for (int i = 0; i < agentList.size(); i++) {
+				newAbstractPlayer = this.gameMasterAgent.getGameMasterBoardModel().getListPlaingAgents().get(i);
+				if (newAbstractPlayer.getAid().equals(this.senderAID)) alreadyInList = true;
+			}
+			
+			if (!alreadyInList) agentList.add(this.register.getPlayer());		
+		} else {
+			newAbstractPlayer = this.register.getPlayer();
+			agentList = new ArrayList<>();
+			agentList.add(newAbstractPlayer);	
+		}
+		this.gameMasterAgent.getGameMasterBoardModel().setListPlaingAgents(agentList);
+		
+		//this.gameMasterAgent.
 		
 		//Get the GameList of the GameMasterAgent
 		GameMasterBoardModel gmBoard = this.gameMasterAgent.getGameMasterBoardModel();

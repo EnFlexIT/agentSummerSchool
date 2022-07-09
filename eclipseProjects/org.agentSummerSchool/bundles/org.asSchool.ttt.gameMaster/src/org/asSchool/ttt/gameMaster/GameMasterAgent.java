@@ -69,7 +69,8 @@ public class GameMasterAgent extends Agent {
 	 */
 	public JInternalFrameGameMaster getGameMasterUI() {
 		if (jInternalFrameGameMaster==null) {
-			jInternalFrameGameMaster = new JInternalFrameGameMaster(this.getAID(), this.getGameMasterBoardModel());
+			GameMasterBoardModel gmbm = this.getGameMasterBoardModel();
+			jInternalFrameGameMaster = new JInternalFrameGameMaster(this.getAID(), gmbm);
 			jInternalFrameGameMaster.setTitle("GameMaster - Board - " + this.getAID().getLocalName());
 			jInternalFrameGameMaster.setClosable(false);
 			jInternalFrameGameMaster.setMaximizable(true);

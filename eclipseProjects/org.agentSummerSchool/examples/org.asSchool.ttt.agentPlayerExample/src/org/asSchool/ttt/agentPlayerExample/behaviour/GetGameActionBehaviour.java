@@ -11,8 +11,6 @@ import org.asSchool.ttt.dataModel.ontology.GameBoard;
 import org.asSchool.ttt.dataModel.ontology.GameMove;
 import org.asSchool.ttt.dataModel.ontology.GameRow;
 
-import jade.content.Concept;
-import jade.core.AID;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
@@ -85,22 +83,6 @@ public class GetGameActionBehaviour extends OneShotBehaviour {
 		gameMove.setMarkType(markType);
 		gameWrapper.getGame().getGameMoveHistory().add(gameMove);
 		
-	}
-	
-	private AbstractMarkType getMarkType (Game currentGame) {
-		Circle circle = new Circle();
-		Cross cross = new Cross();
-		
-		if (currentGame.getOMarkPlayer().getAid().equals(this.playerAgent.getAID()) ) {
-			return circle;
-			
-		} else if (currentGame.getXMarkPlayer().getAid().equals(this.playerAgent.getAID())) {
-			return cross;
-			
-		} else {
-			return null;
-		}
-
 	}
 	
 	private GameBoard updatedGameBoard (GameBoard gameBoard, AbstractMarkType[][] markArray) {

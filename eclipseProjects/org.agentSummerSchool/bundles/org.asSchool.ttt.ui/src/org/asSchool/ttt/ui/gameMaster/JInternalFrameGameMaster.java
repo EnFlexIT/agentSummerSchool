@@ -34,6 +34,7 @@ import javax.swing.text.StyleContext;
 import org.asSchool.ttt.dataModel.GameMasterBoardModel;
 import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.GameWrapper.GameState;
+import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
 import org.asSchool.ttt.dataModel.ontology.Game;
 import org.asSchool.ttt.ui.BundleHelper;
 
@@ -63,6 +64,7 @@ public class JInternalFrameGameMaster extends JInternalFrame {
 	private JList<GameWrapper> jListGames;
 	
 	private JTextPane jTextPaneGameState;
+	private JTextPane jTextPaneHistory;
 	private JLabel jLabelGameState;
 	private JLabel jLabelGameHistory;
 	private JLabel lblNewLabel;
@@ -129,6 +131,8 @@ public class JInternalFrameGameMaster extends JInternalFrame {
 		gbc_jScrollPaneAgentConsole.gridx = 0;
 		gbc_jScrollPaneAgentConsole.gridy = 3;
 		this.getContentPane().add(this.getJScrollPaneAgentConsole(), gbc_jScrollPaneAgentConsole);
+		
+		this.setGameState();
 	}
 	
 	private JPanel getJPanelAgentInfo() {
@@ -351,6 +355,13 @@ public class JInternalFrameGameMaster extends JInternalFrame {
 			gbc_JTextFieldGameState.gridx = 0;
 			gbc_JTextFieldGameState.gridy = 1;
 			jPanelGameInfo.add(this.getJTextFieldGameState(), gbc_JTextFieldGameState);
+			
+			GridBagConstraints gbc_JTextFieldGameHistory = new GridBagConstraints();
+			gbc_JTextFieldGameHistory.insets = new Insets(6, 5, 0, 0);
+			gbc_JTextFieldGameHistory.fill = GridBagConstraints.BOTH;
+			gbc_JTextFieldGameHistory.gridx = 1;
+			gbc_JTextFieldGameHistory.gridy = 1;
+			jPanelGameInfo.add(this.getJTextFieldHistory(), gbc_JTextFieldGameHistory);
 		}
 		return jPanelGameInfo;
 	}
@@ -385,10 +396,33 @@ public class JInternalFrameGameMaster extends JInternalFrame {
 	}
 	private JLabel getJLabelGameHistory() {
 		if (jLabelGameHistory == null) {
-			jLabelGameHistory = new JLabel("Game-History");
+			jLabelGameHistory = new JLabel("Score-List");
 			jLabelGameHistory.setFont(new Font("Dialog", Font.BOLD, 12));
 		}
 		return jLabelGameHistory;
+	}
+	
+	private JTextPane getJTextFieldHistory() {
+		if (jTextPaneHistory == null) {
+			
+			StyleContext.NamedStyle textPaneStyle = StyleContext.getDefaultStyleContext().new NamedStyle();
+			StyleConstants.setFontFamily(textPaneStyle, "Dialog");
+			StyleConstants.setBold(textPaneStyle, false);
+			StyleConstants.setFontSize(textPaneStyle, 12);
+			StyleConstants.setAlignment(textPaneStyle, StyleConstants.ALIGN_LEFT);
+			
+			jTextPaneHistory = new JTextPane();
+			jTextPaneHistory.setEditable(false);
+			jTextPaneHistory.setLogicalStyle(textPaneStyle);
+			jTextPaneHistory.setAlignmentX(TOP_ALIGNMENT);
+			jTextPaneHistory.setMargin(new Insets(30, 0, 0, 0));
+			
+			Dimension stateFieldDim = new Dimension(200, 130);
+			jTextPaneHistory.setPreferredSize(stateFieldDim);
+			jTextPaneHistory.setMinimumSize(stateFieldDim);
+			jTextPaneHistory.setMaximumSize(stateFieldDim);
+		}
+		return jTextPaneHistory;
 	}
 	
 	
@@ -432,6 +466,17 @@ public class JInternalFrameGameMaster extends JInternalFrame {
 		}
 	}
 	
+	private void setScore() {
+		List<AbstractPlayer> agentList = this.gameMasterBoardModel.getListPlaingAgents();
+		String agentString = "";
+		if (agentList != null) {
+			for (int i = 0; i < agentList.size(); i++) {
+				agentString = agentString + agentList.get(i).getAid().getLocalName() + " Score " + agentList.get(i).getScore()+ "\n"; 
+			}
+			this.getJTextFieldHistory().setText(agentString);
+		}
+	}
+	
 	/**
 	 * Updates the game master UI.
 	 */
@@ -440,6 +485,7 @@ public class JInternalFrameGameMaster extends JInternalFrame {
 		this.setGameMasterAID(this.gameMasterAID);
 		this.fillListModelGames();
 		this.setGameState();
+		this.setScore();
 	}
 	
 	

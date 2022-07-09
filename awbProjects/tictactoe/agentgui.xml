@@ -31,7 +31,7 @@
         <useLocalPort>1099</useLocalPort>
         <useLocalMtpPort>7778</useLocalMtpPort>
         <mtpCreation>ConfiguredByIPandPort</mtpCreation>
-        <mtpIpAddress>132.252.192.75</mtpIpAddress>
+        <mtpIpAddress>127.0.0.1</mtpIpAddress>
         <mtpProtocol>HTTP</mtpProtocol>
         <serviceList>
             <service>agentgui.simulationService.LoadService</service>

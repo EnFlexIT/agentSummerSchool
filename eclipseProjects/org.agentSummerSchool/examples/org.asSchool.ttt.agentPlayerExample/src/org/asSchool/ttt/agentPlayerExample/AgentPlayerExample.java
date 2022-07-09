@@ -4,8 +4,6 @@ package org.asSchool.ttt.agentPlayerExample;
 import org.asSchool.ttt.agentPlayerExample.behaviour.MessageReceiveBehaviourExample;
 import org.asSchool.ttt.agentPlayerExample.behaviour.RegisterBehaviourExample;
 import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
-import org.asSchool.ttt.dataModel.ontology.AgentPlayer;
-import org.asSchool.ttt.dataModel.ontology.Register;
 import org.asSchool.ttt.dataModel.ontology.TicTacToeOntology;
 
 import jade.content.AgentAction;

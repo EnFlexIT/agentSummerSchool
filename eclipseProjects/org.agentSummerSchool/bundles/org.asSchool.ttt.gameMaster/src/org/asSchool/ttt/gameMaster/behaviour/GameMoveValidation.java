@@ -194,13 +194,13 @@ public class GameMoveValidation extends OneShotBehaviour {
 			this.sendGameResult(loser.getAid(), gameLost);
 			winner.setScore(winner.getScore()+1);
 			
-			List<AbstractPlayer> agentList = this.gameMasterAgent.getGameMasterBoardModel().getListPlaingAgents();
+			List<AbstractPlayer> agentList = this.gameMasterAgent.getGameMasterBoardModel().getListPlayingAgents();
 			AbstractPlayer oldAbstractPlayer;
 			if (agentList != null) {
 				for (int i = 0; i < agentList.size(); i++) {
-					oldAbstractPlayer = this.gameMasterAgent.getGameMasterBoardModel().getListPlaingAgents().get(i);
+					oldAbstractPlayer = this.gameMasterAgent.getGameMasterBoardModel().getListPlayingAgents().get(i);
 					if (oldAbstractPlayer.getAid().equals(winner.getAid())){
-						this.gameMasterAgent.getGameMasterBoardModel().getListPlaingAgents().get(i).setScore(oldAbstractPlayer.getScore()+1);
+						this.gameMasterAgent.getGameMasterBoardModel().getListPlayingAgents().get(i).setScore(oldAbstractPlayer.getScore()+1);
 					}
 				}
 						

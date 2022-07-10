@@ -3,16 +3,14 @@ package org.asSchool.ttt.agentPlayerExample.behaviour;
 import org.asSchool.ttt.agentPlayerExample.AgentPlayerExample;
 import org.asSchool.ttt.dataModel.GameWrapper;
 import org.asSchool.ttt.dataModel.ontology.AbstractMarkType;
-import org.asSchool.ttt.dataModel.ontology.Circle;
-import org.asSchool.ttt.dataModel.ontology.Cross;
 import org.asSchool.ttt.dataModel.ontology.Game;
 import org.asSchool.ttt.dataModel.ontology.GameAction;
 import org.asSchool.ttt.dataModel.ontology.GameBoard;
-import org.asSchool.ttt.dataModel.ontology.GameMove;
 import org.asSchool.ttt.dataModel.ontology.GameRow;
 
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
+
 
 public class GetGameActionBehaviour extends OneShotBehaviour {
 
@@ -28,13 +26,10 @@ public class GetGameActionBehaviour extends OneShotBehaviour {
 	public GetGameActionBehaviour(AgentPlayerExample playerAgent, GameAction action) {
 		this.playerAgent = playerAgent;
 		this.gameAction = action;
-		
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void action() {
-		// TODO Auto-generated method stub
 		
 		Game currentGame = this.gameAction.getGame();
 		GameBoard currentGameBoard = currentGame.getGameBoard();
@@ -48,13 +43,13 @@ public class GetGameActionBehaviour extends OneShotBehaviour {
 	}
 	
 	private GameWrapper getGameWrapper() {
-		if (this.gameWrapper==null) {
+		if (gameWrapper==null) {
 			gameWrapper = new GameWrapper();
 		}
 		return gameWrapper;
 	}
 	
-	private GameBoard strategicGameMove (GameBoard currentGameBoard, AbstractMarkType markType) {
+	private GameBoard strategicGameMove(GameBoard currentGameBoard, AbstractMarkType markType) {
 		int col =0;
 		int row =0;
 		AbstractMarkType[][] markArray = GameWrapper.transformToMarkArray(currentGameBoard);
@@ -64,26 +59,20 @@ public class GetGameActionBehaviour extends OneShotBehaviour {
 				if (markArray[row][col] == null) {
 					//set a mark in the first free field of the gameBoard
 					markArray[row][col] = markType;
-					setGameMove(row,col,markType);
+					
+					this.getGameWrapper().setMark(row+1, col+1, markType);
 					return updatedGameBoard(currentGameBoard, markArray);
 				}
 					
 			}
 		}
 		
-		setGameMove(row,col,markType);
+		this.getGameWrapper().setMark(row+1, col+1, markType);
 		return updatedGameBoard(currentGameBoard, markArray);
 		
 		
 	}
-	private void setGameMove(int row, int col, AbstractMarkType markType) {
-		GameMove gameMove = new GameMove();
-		gameMove.setGameRow(row);
-		gameMove.setGameColumn(col);
-		gameMove.setMarkType(markType);
-		gameWrapper.getGame().getGameMoveHistory().add(gameMove);
-		
-	}
+	
 	
 	private GameBoard updatedGameBoard (GameBoard gameBoard, AbstractMarkType[][] markArray) {
 

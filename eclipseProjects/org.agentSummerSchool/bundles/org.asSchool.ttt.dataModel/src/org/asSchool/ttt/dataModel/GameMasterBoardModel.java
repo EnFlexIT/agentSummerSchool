@@ -1,5 +1,6 @@
 package org.asSchool.ttt.dataModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.asSchool.ttt.dataModel.ontology.AbstractPlayer;
@@ -15,19 +16,9 @@ public class GameMasterBoardModel {
 	
 	private Game gamePending;
 	private  GameHashMap gameHashMap;
-	private List<AbstractPlayer> listPlaingAgents;
+	private List<AbstractPlayer> listPlayingAgents;
 	
 	
-	public List<AbstractPlayer> getListPlaingAgents() {
-		return listPlaingAgents;
-	}
-
-
-	public void setListPlaingAgents(List<AbstractPlayer> listPlaingAgents) {
-		this.listPlaingAgents = listPlaingAgents;
-	}
-
-
 	/**
 	 * Return the HashMap of all running games.
 	 * @return the game hash map
@@ -55,4 +46,33 @@ public class GameMasterBoardModel {
 		this.gamePending = gamePending;
 	}
 
+	
+	/**
+	 * Returns the list playing agents.
+	 * @return the list playing agents
+	 */
+	public List<AbstractPlayer> getListPlayingAgents() {
+		if (listPlayingAgents==null) {
+			listPlayingAgents = new ArrayList<>();
+		}
+		return listPlayingAgents;
+	}
+	/**
+	 * Adds the specified playing agent (if not already in the list of playing agents).
+	 * @param player the player
+	 */
+	public void addPlayingAgent(AbstractPlayer newPlayer) {
+		
+		if (newPlayer==null) return;
+		
+		// --- Check to exit because of already registered player ---
+		for (AbstractPlayer player : this.getListPlayingAgents()) {
+			if (newPlayer.getAid().equals(player.getAid())) {
+				return;
+			}
+			
+		}
+		// --- New player not found => add to list ------------------
+		this.getListPlayingAgents().add(newPlayer);
+	}
 }

@@ -34,19 +34,26 @@ public class MessageReceiveBehaviourExample extends CyclicBehaviour {
 			
 		} else {
 			// --- Work on the current message ----------------------
-			try {
-				agentAction = (Action) this.playerAgent.getContentManager().extractContent(aclMessage);
+			if (aclMessage.getPerformative()==ACLMessage.FAILURE) {
+				System.err.println("Failure Message: "+aclMessage);
 				
-			} catch (CodecException | OntologyException ex) {
-				ex.printStackTrace();
+			} else {
+				
+				try {
+					agentAction = (Action) this.playerAgent.getContentManager().extractContent(aclMessage);
+					
+				} catch (CodecException | OntologyException ex) {
+					ex.printStackTrace();
+				}
+				
+				
+				if (agentAction.getAction() instanceof GameResult) {
+					this.myAgent.addBehaviour(new RegisterBehaviourExample((AgentPlayerExample) this.myAgent));
+				} else  if (agentAction.getAction() instanceof GameAction) {
+					this.myAgent.addBehaviour(new GetGameActionBehaviour(playerAgent, (GameAction) agentAction.getAction()));
+				}
 			}
 			
-		
-			if (agentAction.getAction() instanceof GameResult) {
-				this.myAgent.addBehaviour(new RegisterBehaviourExample((AgentPlayerExample) this.myAgent));
-			} else  if (agentAction.getAction() instanceof GameAction) {
-				this.myAgent.addBehaviour(new GetGameActionBehaviour(playerAgent, (GameAction) agentAction.getAction()));
-			}
 		}			
 		
 	}

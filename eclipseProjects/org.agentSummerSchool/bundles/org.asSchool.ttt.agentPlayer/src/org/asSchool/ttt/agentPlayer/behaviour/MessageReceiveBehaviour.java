@@ -42,13 +42,20 @@ public class MessageReceiveBehaviour extends CyclicBehaviour {
 			
 		} else {
 			// --- Work on the current message ----------------------
-			try {
-				agentAction = (Action) this.playerAgent.getContentManager().extractContent(aclMessage);
-				this.playerAgent.onMessageReceived(agentAction);
+			if (aclMessage.getPerformative()==ACLMessage.FAILURE) {
+				System.err.println("Error: " + aclMessage);
 				
-			} catch (CodecException | OntologyException ex) {
-				ex.printStackTrace();
+			} else {
+				
+				try {
+					agentAction = (Action) this.playerAgent.getContentManager().extractContent(aclMessage);
+					this.playerAgent.onMessageReceived(agentAction);
+					
+				} catch (CodecException | OntologyException ex) {
+					ex.printStackTrace();
+				}
 			}
+			
 		}
 	}
 

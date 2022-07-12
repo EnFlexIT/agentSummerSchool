@@ -4,10 +4,14 @@
     <projectStartTab>2|0</projectStartTab>
     <projectTreeVisible>true</projectTreeVisible>
     <projectTabHeaderVisible>false</projectTabHeaderVisible>
+    <version>0.1.0.20220712-1700</version>
     <versionTag>Complete Project</versionTag>
     <updateSite>https://p2.enflex.it/awbProjectRepository/</updateSite>
     <updateAutoConfiguration>0</updateAutoConfiguration>
-    <updateDateLastChecked>0</updateDateLastChecked>
+    <updateDateLastChecked>1657639678428</updateDateLastChecked>
+    <updateAuthorization>
+        <authorizationType>NONE</authorizationType>
+    </updateAuthorization>
     <projectFeatures/>
     <plugins/>
     <subOntologies>

@@ -4,9 +4,14 @@
     <projectStartTab>2|0</projectStartTab>
     <projectTreeVisible>true</projectTreeVisible>
     <projectTabHeaderVisible>false</projectTabHeaderVisible>
+    <version>0.1.0.20220712-1700</version>
     <versionTag>Complete Project</versionTag>
+    <updateSite>https://p2.enflex.it/awbProjectRepository/</updateSite>
     <updateAutoConfiguration>0</updateAutoConfiguration>
-    <updateDateLastChecked>0</updateDateLastChecked>
+    <updateDateLastChecked>1657639678428</updateDateLastChecked>
+    <updateAuthorization>
+        <authorizationType>NONE</authorizationType>
+    </updateAuthorization>
     <projectFeatures/>
     <plugins/>
     <subOntologies>
@@ -22,6 +27,16 @@
             <agent agentReference="org.asSchool.ttt.agentPlayerExample.AgentPlayerExample">
                 <startArgumentVector>
                     <startArgument position="1" displayTitle="GameMasterAgentAID" ontologyReference="jade.core.AID"/>
+                </startArgumentVector>
+            </agent>
+            <agent agentReference="org.asSchool.ttt.bastard.BastardAgentPlayer">
+                <startArgumentVector>
+                    <startArgument position="1" displayTitle="Game Master AID" ontologyReference="jade.core.AID"/>
+                </startArgumentVector>
+            </agent>
+            <agent agentReference="org.asSchool.ttt.brainy.BrainyAgentPlayer">
+                <startArgumentVector>
+                    <startArgument position="1" displayTitle="Game Master AID" ontologyReference="jade.core.AID"/>
                 </startArgumentVector>
             </agent>
         </agentVector>
@@ -139,15 +154,23 @@
         <preventUsageOfAlreadyUsedComputers>true</preventUsageOfAlreadyUsedComputers>
         <showJADErmaGUI>false</showJADErmaGUI>
     </remoteContainerConfiguration>
-    <simulationSetupCurrent>Game for Agent vs Human</simulationSetupCurrent>
+    <simulationSetupCurrent>Game for Two Agents</simulationSetupCurrent>
     <simulationSetups>
         <entry>
             <key>Game For Two Humans</key>
             <value>Game_For_Two_Humans.xml</value>
         </entry>
         <entry>
-            <key>Game for Agent vs Human</key>
-            <value>Game_for_Agent_vs_Human.xml</value>
+            <key>Game for Agent vs Human (easy)</key>
+            <value>Game_for_Agent_vs_Human_easy.xml</value>
+        </entry>
+        <entry>
+            <key>Game for Agent vs Human (hard)</key>
+            <value>Game_for_Agent_vs_Human_hard.xml</value>
+        </entry>
+        <entry>
+            <key>Game for Two Agents</key>
+            <value>Game_for_Two_Agents.xml</value>
         </entry>
         <entry>
             <key>GameMaster only</key>

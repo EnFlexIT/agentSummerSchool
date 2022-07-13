@@ -469,8 +469,8 @@ public class GameWrapper {
 	 * @return the abstract mark type[][]
 	 */
 	public static AbstractMarkType[][] rotateMarkArrayBy180Degrees(AbstractMarkType[][] originalMarkArray) {
-		AbstractMarkType[][] workingMarkArry = rotateMarkArrayBy90DegreesMinus(originalMarkArray);
-		return rotateMarkArrayBy90DegreesMinus(workingMarkArry);
+		AbstractMarkType[][] workingMarkArray = rotateMarkArrayBy90DegreesPlus(originalMarkArray);
+		return rotateMarkArrayBy90DegreesPlus(workingMarkArray);
 	}
 	
 	/**
@@ -480,8 +480,8 @@ public class GameWrapper {
 	 * @return the abstract mark type[][]
 	 */
 	public static AbstractMarkType[][] rotateMarkArrayBy90DegreesPlus(AbstractMarkType[][] originalMarkArray) {
-		AbstractMarkType[][] transposedMarkArry = transposeMarkArray(originalMarkArray);
-		return reverseMarkArrayRows(transposedMarkArry);
+		AbstractMarkType[][] transposedMarkArray = transposeMarkArray(originalMarkArray);
+		return reverseMarkArrayRows(transposedMarkArray);
 	}
 	/**
 	 * Rotates the specified mark array by 90 degrees minus.
@@ -490,8 +490,8 @@ public class GameWrapper {
 	 * @return the abstract mark type[][]
 	 */
 	public static AbstractMarkType[][] rotateMarkArrayBy90DegreesMinus(AbstractMarkType[][] originalMarkArray) {
-		AbstractMarkType[][] transposedMarkArry = transposeMarkArray(originalMarkArray);
-		return reverseMarkArrayColumns(transposedMarkArry);
+		AbstractMarkType[][] transposedMarkArray = transposeMarkArray(originalMarkArray);
+		return reverseMarkArrayColumns(transposedMarkArray);
 	}
 	
 	/**
@@ -502,15 +502,15 @@ public class GameWrapper {
 	 */
 	public static AbstractMarkType[][] transposeMarkArray(AbstractMarkType[][] originalMarkArray) {
 		
-		AbstractMarkType[][] transposedMarkArry = new AbstractMarkType[3][3];
+		AbstractMarkType[][] transposedMarkArray = new AbstractMarkType[3][3];
 		
 		for (int i = 0; i < originalMarkArray.length; i++) {
 			for (int j = i; j < originalMarkArray[0].length; j++) {
-				transposedMarkArry[j][i] = originalMarkArray[i][j];
-				transposedMarkArry[i][j] = originalMarkArray[j][i];;
+				transposedMarkArray[j][i] = originalMarkArray[i][j];
+				transposedMarkArray[i][j] = originalMarkArray[j][i];;
 			}
 		}
-		return transposedMarkArry;
+		return transposedMarkArray;
 	}
 	/**
 	 * Returns the specified mark array with reversed columns.
@@ -520,15 +520,16 @@ public class GameWrapper {
 	 */
 	public static AbstractMarkType[][] reverseMarkArrayColumns(AbstractMarkType[][] originalMarkArray) {
 		
-		AbstractMarkType[][] reversedMarkArry = new AbstractMarkType[3][3];
+		AbstractMarkType[][] reversedMarkArray = copyMarkArray(originalMarkArray);
 		
 		for (int i = 0; i < originalMarkArray[0].length; i++) {
             for (int j = 0, k = originalMarkArray[0].length - 1; j < k; j++, k--) {
-                reversedMarkArry[j][i] = originalMarkArray[k][i];
-                reversedMarkArry[k][i] = originalMarkArray[j][i];
+            	AbstractMarkType temp = originalMarkArray[j][i];
+                reversedMarkArray[j][i] = originalMarkArray[k][i];
+                reversedMarkArray[k][i] = temp;
             }
 		}
-		return reversedMarkArry;
+		return reversedMarkArray;
 	}
 	/**
 	 * Returns the specified mark array with reversed rows.
@@ -538,18 +539,34 @@ public class GameWrapper {
 	 */
 	public static AbstractMarkType[][] reverseMarkArrayRows(AbstractMarkType[][] originalMarkArray) {
 		
-		AbstractMarkType[][] reversedMarkArry = new AbstractMarkType[3][3];
+		AbstractMarkType[][] reversedMarkArray = copyMarkArray(originalMarkArray);
 		
 		for (int i = 0; i < originalMarkArray[0].length; i++) {
             for (int j = 0, k = originalMarkArray[0].length - 1; j < k; j++, k--) {
-            	reversedMarkArry[i][j] = originalMarkArray[i][k];
-                reversedMarkArry[i][k] = originalMarkArray[i][j];
+            	AbstractMarkType temp = originalMarkArray[i][j];
+            	reversedMarkArray[i][j] = originalMarkArray[i][k];
+                reversedMarkArray[i][k] = temp;
             }
 		}
-		return reversedMarkArry;
+		return reversedMarkArray;
 	}
 	
-	
+	/**
+	 * Copies the specified mark array.
+	 *
+	 * @param originalMarkArray the original mark array
+	 * @return the abstract mark type[][]
+	 */
+	public static AbstractMarkType[][] copyMarkArray(AbstractMarkType[][] originalMarkArray) {
+		
+		AbstractMarkType[][] copiedMarkArray = new AbstractMarkType[3][3];
+		for (int row = 0; row < originalMarkArray.length; row++) {
+            for (int col=0; col < originalMarkArray[row].length; col++) {
+            	copiedMarkArray[row][col] = originalMarkArray[row][col];
+            }
+		}
+		return copiedMarkArray;
+	}
 	
 	/**
 	 * Returns a possible game line of the game board as array of marks.

@@ -53,9 +53,7 @@ public class MessageReceiveBehaviourExample extends CyclicBehaviour {
 					this.myAgent.addBehaviour(new GetGameActionBehaviour(playerAgent, (GameAction) agentAction.getAction()));
 				}
 			}
-			
 		}			
-		
 	}
 
 }

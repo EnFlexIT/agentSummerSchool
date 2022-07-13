@@ -24,6 +24,7 @@ import jade.content.onto.OntologyException;
 import jade.content.onto.basic.Action;
 import jade.core.AID;
 import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.WakerBehaviour;
 import jade.lang.acl.ACLMessage;
 
 
@@ -54,7 +55,8 @@ public class GameMoveValidation extends OneShotBehaviour {
 	 */
 	@Override
 	public void action() {
-		
+		 
+		this.myAgent.addBehaviour(new TimerBehaviour(this.gameMasterAgent, 500000));
 		this.gameHashMap = this.gameMasterAgent.getGameMasterBoardModel().getGameHashMap();
 		
 		//GetGameField getGameField = new GetGameField();
@@ -76,8 +78,8 @@ public class GameMoveValidation extends OneShotBehaviour {
 		
 		
 		if (oldGameBoardArray!=null) {
-			// Check if the new Move is valid (X remains X, O remains O and one previously
-			// empty field has to be filled by a mark)
+
+
 			for (int col = 0; col<3; col++) {
 				for (int row = 0; row<3; row++) {
 					if (oldGameBoardArray[row][col] instanceof Cross) {

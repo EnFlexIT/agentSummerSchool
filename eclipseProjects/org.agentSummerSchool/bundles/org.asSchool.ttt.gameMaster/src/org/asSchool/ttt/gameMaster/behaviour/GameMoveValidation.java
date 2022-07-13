@@ -24,10 +24,13 @@ import jade.content.onto.OntologyException;
 import jade.content.onto.basic.Action;
 import jade.core.AID;
 import jade.core.behaviours.OneShotBehaviour;
-import jade.core.behaviours.WakerBehaviour;
 import jade.lang.acl.ACLMessage;
 
 
+/**
+ * The Class GameMoveValidation.
+ * @author Christian Derksen - SOFTEC - ICB - University of Duisburg-Essen
+ */
 public class GameMoveValidation extends OneShotBehaviour {
 
 	private static final long serialVersionUID = -7222793667703958346L;
@@ -54,7 +57,6 @@ public class GameMoveValidation extends OneShotBehaviour {
 	@Override
 	public void action() {
 		 
-		this.myAgent.addBehaviour(new TimerBehaviour(this.gameMasterAgent, 500000));
 		GameHashMap gameHashMap = this.gameMasterAgent.getGameMasterBoardModel().getGameHashMap();
 		
 		Game newGame = this.gameAction.getGame();

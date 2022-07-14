@@ -47,12 +47,6 @@ public class GameWrapper {
 	private boolean wrongGameMove;
 	
 	
-	public boolean isWrongGameMove() {
-		return wrongGameMove;
-	}
-	public void setWrongGameMove(boolean wrongGameMove) {
-		this.wrongGameMove = wrongGameMove;
-	}
 	/**
 	 * Instantiates a new game wrapper.
 	 */
@@ -78,6 +72,21 @@ public class GameWrapper {
 	 */
 	public Game getGame() {
 		return game;
+	}
+	
+	/**
+	 * Checks if is wrong game move.
+	 * @return true, if is wrong game move
+	 */
+	public boolean isWrongGameMove() {
+		return wrongGameMove;
+	}
+	/**
+	 * Sets the indicator for wrong game moves.
+	 * @param wrongGameMove the new wrong game move
+	 */
+	public void setWrongGameMove(boolean wrongGameMove) {
+		this.wrongGameMove = wrongGameMove;
 	}
 	
 	/* (non-Javadoc)
@@ -347,10 +356,9 @@ public class GameWrapper {
 		}
 		
 		// --- In case of a remis ... -----------------------------------------
-		if (this.getGame().getGameMoveHistory()==null || this.getGame().getGameMoveHistory().size()==9 || this.wrongGameMove == true) {
+		if (this.getGame().getGameMoveHistory()==null || this.getGame().getGameMoveHistory().size()==9 || this.isWrongGameMove()==true) {
 			return GameState.FinalizedRemis;
 		}
-		
 		
 		// --- Otherwise the game is in progress ------------------------------
 		return GameState.InProgress;

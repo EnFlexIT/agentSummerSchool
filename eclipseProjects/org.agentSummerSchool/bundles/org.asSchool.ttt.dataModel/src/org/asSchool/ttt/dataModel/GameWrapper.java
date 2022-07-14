@@ -44,8 +44,15 @@ public class GameWrapper {
 	private static final String lineSeparator = System.getProperty("line.separator");
 	
 	private Game game;
-
+	private boolean wrongGameMove;
 	
+	
+	public boolean isWrongGameMove() {
+		return wrongGameMove;
+	}
+	public void setWrongGameMove(boolean wrongGameMove) {
+		this.wrongGameMove = wrongGameMove;
+	}
 	/**
 	 * Instantiates a new game wrapper.
 	 */
@@ -340,9 +347,10 @@ public class GameWrapper {
 		}
 		
 		// --- In case of a remis ... -----------------------------------------
-		if (this.getGame().getGameMoveHistory()==null || this.getGame().getGameMoveHistory().size()==9) {
+		if (this.getGame().getGameMoveHistory()==null || this.getGame().getGameMoveHistory().size()==9 || this.wrongGameMove == true) {
 			return GameState.FinalizedRemis;
 		}
+		
 		
 		// --- Otherwise the game is in progress ------------------------------
 		return GameState.InProgress;

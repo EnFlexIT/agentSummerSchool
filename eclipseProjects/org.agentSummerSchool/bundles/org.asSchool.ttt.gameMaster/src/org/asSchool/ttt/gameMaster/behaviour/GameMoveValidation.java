@@ -143,15 +143,18 @@ public class GameMoveValidation extends OneShotBehaviour {
 
 			case FinalizedRemis: // Send information about result to players +++ end game, delete game in
 			case FinalizedWon: // Send information about result to players +++ end game, delete game in
-				this.sendGameResult(gameWrapperNew);
+				this.sendGameResult(gameWrapperNew, true);
 				gameHashMap.remove(newGame.getGameID());
 				break;
 				
 			}
 			
 		} else {
-			// --- TODO: What happens here? ---------------
+			
 			System.out.println("Wrong Game Move");
+			gameWrapperNew.setWrongGameMove(true);
+			this.sendGameResult(gameWrapperNew, false);
+			gameHashMap.remove(newGame.getGameID());
 		}
 		
 	}
@@ -160,12 +163,12 @@ public class GameMoveValidation extends OneShotBehaviour {
 	 * Send the game result to all player.
 	 * @param gameWrapper the game wrapper
 	 */
-	private void sendGameResult(GameWrapper gameWrapper) {
+	private void sendGameResult(GameWrapper gameWrapper, boolean correctGame) {
 		
 		AbstractPlayer winner = gameWrapper.getWinner();
 		AbstractPlayer loser  = gameWrapper.getLoser();
 		
-		if (winner==null && loser==null) {
+		if (winner==null && loser==null && correctGame == true) {
 			// --- Create remis instance ---------------------------- 
 			GameRemis gameRemis = new GameRemis();
 			gameRemis.setGame(gameWrapper.getGame());
@@ -174,7 +177,7 @@ public class GameMoveValidation extends OneShotBehaviour {
 			this.sendGameResult(gameWrapper.getGame().getOMarkPlayer().getAid(), gameRemis);
 			this.gameMasterAgent.printToUiConsole("Remis in game between " + gameWrapper.getGame().getXMarkPlayer().getAid().getName() + " (X) and " + gameWrapper.getGame().getOMarkPlayer().getAid().getName() + " (O)", false);
 			
-		} else {
+		} else if (correctGame == true){
 			// --- Create winner loser instance ---------------------
 			GameWon gameWon = new GameWon();
 			gameWon.setGame(gameWrapper.getGame());
@@ -200,7 +203,17 @@ public class GameMoveValidation extends OneShotBehaviour {
 			this.gameMasterAgent.printToUiConsole("Game was won by " + winner.getAid().getName() + " (against  " + loser.getAid().getName() + ")", false);
 			
 			
+		} else {
+			
+			GameRemis gameRemis = new GameRemis();
+			gameRemis.setGame(gameWrapper.getGame());
+			
+			this.sendGameResult(gameWrapper.getGame().getXMarkPlayer().getAid(), gameRemis);
+			this.sendGameResult(gameWrapper.getGame().getOMarkPlayer().getAid(), gameRemis);
+			this.gameMasterAgent.printToUiConsole("Wrong Game Move, Play new Game ", false);
+			
 		}
+		
 		this.gameMasterAgent.updateUI();
 	}
 	

@@ -7,9 +7,8 @@ import org.asSchool.ttt.dataModel.GameMasterBoardModel;
 import org.asSchool.ttt.dataModel.ontology.TicTacToeOntology;
 import org.asSchool.ttt.gameMaster.behaviour.MessageReceiveBehaviourGameMaster;
 import org.asSchool.ttt.ui.gameMaster.JInternalFrameGameMaster;
-
-import agentgui.core.application.Application;
-import agentgui.core.project.Project;
+import de.enflexit.awb.core.Application;
+import de.enflexit.awb.core.project.Project;
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
 

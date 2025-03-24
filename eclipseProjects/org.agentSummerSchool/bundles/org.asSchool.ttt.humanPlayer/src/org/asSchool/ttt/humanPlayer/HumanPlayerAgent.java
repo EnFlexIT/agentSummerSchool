@@ -15,7 +15,7 @@ import org.asSchool.ttt.dataModel.ontology.HumanPlayer;
 import org.asSchool.ttt.ui.GameBoardListener;
 import org.asSchool.ttt.ui.JDialogGameBoard;
 
-import agentgui.core.application.Application;
+import de.enflexit.awb.core.Application;
 import jade.content.AgentAction;
 import jade.content.onto.basic.Action;
 import jade.core.AID;

@@ -4,15 +4,19 @@ Bundle-Name: AgentPlayerExample
 Bundle-SymbolicName: org.asSchool.ttt.agentPlayerExample
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.asSchool.ttt.agentPlayerExample
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Service-Component: OSGI-INF/classLoadService.xml
-Require-Bundle: org.agentgui.lib.jade;bundle-version="4.5.1",
- de.enflexit.common;bundle-version="1.2.8",
- org.agentgui.core;bundle-version="2.2.4",
- org.asSchool.ttt.agentPlayer
+Require-Bundle: de.enflexit.common,
+ org.asSchool.ttt.agentPlayer,
+ de.enflexit.jade
 Export-Package: org.asSchool.ttt.agentPlayerExample,
  org.asSchool.ttt.agentPlayerExample.classLoadService
 Bundle-ActivationPolicy: lazy
-Import-Package: org.asSchool.ttt.agentPlayer,
+Import-Package: de.enflexit.awb.core.classLoadService,
+ de.enflexit.awb.core.project,
+ de.enflexit.awb.core.project.plugins,
+ de.enflexit.awb.simulation.balancing,
+ de.enflexit.awb.simulation.environment.time,
+ org.asSchool.ttt.agentPlayer,
  org.asSchool.ttt.dataModel,
  org.asSchool.ttt.dataModel.ontology

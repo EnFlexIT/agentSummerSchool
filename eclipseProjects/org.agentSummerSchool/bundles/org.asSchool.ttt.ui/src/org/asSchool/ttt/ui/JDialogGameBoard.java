@@ -7,8 +7,7 @@ import java.awt.Toolkit;
 import javax.swing.JDialog;
 
 import org.asSchool.ttt.dataModel.ontology.Game;
-
-import agentgui.core.config.GlobalInfo;
+import de.enflexit.awb.core.config.GlobalInfo;
 import jade.core.AID;
 
 /**

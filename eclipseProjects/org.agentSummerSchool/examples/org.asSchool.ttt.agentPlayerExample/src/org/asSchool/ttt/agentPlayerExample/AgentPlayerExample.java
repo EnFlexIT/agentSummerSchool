@@ -20,10 +20,8 @@ import jade.lang.acl.ACLMessage;
 
 public class AgentPlayerExample extends Agent {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private AID gameMasterAID;
 	private SLCodec slCodec;
 

@@ -26,4 +26,7 @@
             </startArguments>
         </agent>
     </agentSetup>
+    <setupProperties>
+        <propertyMap/>
+    </setupProperties>
 </simulationSetup>

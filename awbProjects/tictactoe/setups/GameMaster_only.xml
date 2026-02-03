@@ -8,4 +8,7 @@
             <startAsName>GaMaAg</startAsName>
         </agent>
     </agentSetup>
+    <setupProperties>
+        <propertyMap/>
+    </setupProperties>
 </simulationSetup>

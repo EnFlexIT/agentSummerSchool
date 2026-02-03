@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <project>
     <projectName>TicTacToe</projectName>
-    <projectStartTab>2|0</projectStartTab>
+    <projectDescription>### This is an agent version of TicTacToe.
+
+To use or play it, just select on of the above available setups and  
+start the agent platform afterwards by pressing the green 'Play' button.
+
+Enjoy !!</projectDescription>
+    <projectStartTab>2|1</projectStartTab>
     <projectTreeVisible>true</projectTreeVisible>
     <projectTabHeaderVisible>false</projectTabHeaderVisible>
-    <version>0.1.0.20220712-1700</version>
+    <version>1.0.0.20260203-1700</version>
     <versionTag>Complete Project</versionTag>
     <updateSite>https://p2.enflex.it/awbProjectRepository/</updateSite>
     <updateAutoConfiguration>0</updateAutoConfiguration>
-    <updateDateLastChecked>1657639678428</updateDateLastChecked>
+    <updateDateLastChecked>1770135234072</updateDateLastChecked>
     <updateAuthorization>
         <authorizationType>NONE</authorizationType>
     </updateAuthorization>
@@ -49,14 +55,16 @@
         <mtpIpAddress>127.0.0.1</mtpIpAddress>
         <mtpProtocol>HTTP</mtpProtocol>
         <serviceList>
-            <service>agentgui.simulationService.LoadService</service>
-            <service>agentgui.simulationService.SimulationService</service>
+            <service>de.enflexit.awb.simulation.LoadService</service>
+            <service>de.enflexit.awb.simulation.SimulationService</service>
             <service>jade.core.event.NotificationService</service>
             <service>jade.core.mobility.AgentMobilityService</service>
         </serviceList>
     </jadeConfiguration>
     <distributionSetup>
+        <additionalRemoteContainerTimeOutInSeconds>0</additionalRemoteContainerTimeOutInSeconds>
         <autoSaveRealMetricsOnSimStop>false</autoSaveRealMetricsOnSimStop>
+        <distributeAllProjectResources>false</distributeAllProjectResources>
         <doDynamicLoadBalancing>false</doDynamicLoadBalancing>
         <doStaticLoadBalancing>false</doStaticLoadBalancing>
         <dynamicLoadBalancingClass>agentgui.simulationService.balancing.DynamicLoadBalancing</dynamicLoadBalancingClass>
@@ -154,7 +162,10 @@
         <preventUsageOfAlreadyUsedComputers>true</preventUsageOfAlreadyUsedComputers>
         <showJADErmaGUI>false</showJADErmaGUI>
     </remoteContainerConfiguration>
-    <simulationSetupCurrent>Game for Two Agents</simulationSetupCurrent>
+    <projectProperties>
+        <propertyMap/>
+    </projectProperties>
+    <simulationSetupCurrent>Game for Agent vs Human (hard)</simulationSetupCurrent>
     <simulationSetups>
         <entry>
             <key>Game For Two Humans</key>
